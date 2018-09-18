@@ -5,6 +5,7 @@ from django.contrib import admin
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from wagtail_feeds.feeds import BasicFeed, ExtendedFeed  # , BasicJsonFeed, ExtendedJsonFeed
 
 from search import views as search_views
 
@@ -24,6 +25,13 @@ urlpatterns = [
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
     #    url(r'^pages/', include(wagtail_urls)),
+
+    url(r'^feed-basic.xml$', BasicFeed(), name='basic_feed'),
+    url(r'^feed.xml$', ExtendedFeed(), name='extended_feed'),
+
+    # # JSON feed
+    # url(r'^blog/feed-basic.json$', BasicJsonFeed(), name='basic_json_feed'),
+    # url(r'^blog/feed.json$', ExtendedJsonFeed(), name='extended_json_feed'),
 ]
 
 
