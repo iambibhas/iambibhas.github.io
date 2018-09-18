@@ -19,7 +19,7 @@
             <p class="post-meta">{{ post.specific.date }}</p>
         </header>
         <div class="post-content">
-            {{ post.specific.body|richtext|truncatewords:30 }}
+            {{ post.specific.body|richtext|truncatewords:30 }} <a class="post-link" href="{% pageurl post %}">read more</a>
         </div>
     </li>
     {% endfor %}
