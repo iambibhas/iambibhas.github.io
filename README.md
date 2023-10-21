@@ -1,0 +1,1 @@
+My blog which ran on ghost for a while is back to github pages.
