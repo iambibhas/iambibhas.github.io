@@ -1,5 +1,1 @@
-*.py[co]
-local.py
-media/
-*.pgsql
-feed.json
+*.lock
