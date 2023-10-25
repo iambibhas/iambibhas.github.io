@@ -30,6 +30,11 @@ name = "Twitter"
 icon = "twitter"
 url = "https://twitter.com/bibhasdn/"
 
+[[params.social]]
+name = "LinkedIn"
+icon = "linkedin"
+url = "https://www.linkedin.com/in/bibhasdn"
+
 # Main menu Items
 
 [[menu.main]]
