@@ -1,10 +1,10 @@
 +++
-categories = ["Import 2022-11-22 15:42"]
+categories = []
 date = 2022-08-29T08:53:23Z
 description = ""
 draft = true
 slug = "celebrating-15-years-of-nuiteq-nuiteq15"
-tags = ["Import 2022-11-22 15:42"]
+tags = []
 title = "Celebrating 15 years of NUITEQ #NUITEQ15"
 
 +++

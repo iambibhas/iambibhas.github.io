@@ -1,11 +1,11 @@
 ---
-categories: ["coding", "system design", "interview", "Import 2022-11-22 15:42"]
+categories: ["coding", "system design", "interview", ]
 date: 2021-04-07T01:13:42Z
 description:  ""
 draft: false
 image: "/images/2021/04/Screenshot-2021-04-07-at-12.13.08-PM.png"
 slug: "build-a-spelling-checker"
-tags: ["coding", "system design", "interview", "Import 2022-11-22 15:42"]
+tags: ["coding", "system design", "interview", ]
 title: "Build a Spelling Checker"
 
 ---

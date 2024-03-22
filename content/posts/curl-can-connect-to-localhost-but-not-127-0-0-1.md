@@ -6,7 +6,7 @@ draft: false
 slug: "curl-can-connect-to-localhost-but-not-127-0-0-1"
 tags: ["devops", "sre", "linux"]
 title: "cURL can connect to localhost but not 127.0.0.1"
-
+image: "https://demo.stack.jimmycai.com/p/hello-world/cover_hud7e36f7e20e71be184458283bdae4646_55974_1600x0_resize_q75_box.jpg"
 ---
 
 

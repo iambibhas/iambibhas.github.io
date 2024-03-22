@@ -1,10 +1,10 @@
 +++
-categories = ["Import 2022-11-22 15:42"]
+categories = []
 date = 2021-05-06T23:57:02Z
 description = ""
 draft = true
 slug = "my-hot-new-raspberry-pi-4"
-tags = ["Import 2022-11-22 15:42"]
+tags = []
 title = "My *hot* new Raspberry Pi 4"
 
 +++

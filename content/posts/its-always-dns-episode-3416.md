@@ -1,12 +1,12 @@
 ---
-categories: ["dns", "hasgeek", "hasjob", "flask", "Import 2022-11-22 15:42"]
+categories: ["dns", "hasgeek", "hasjob", "flask", ]
 date: 2020-08-15T09:10:08Z
 description:  ""
 draft: false
 image: "https://images.unsplash.com/photo-1564760290292-23341e4df6ec?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=2000&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ"
 slug: "its-always-dns-episode-3416"
 summary: "\"It's always DNS. When it's not, it's config change\" - Swanand"
-tags: ["dns", "hasgeek", "hasjob", "flask", "Import 2022-11-22 15:42"]
+tags: ["dns", "hasgeek", "hasjob", "flask", ]
 title: "It's always DNS: Episode #3416"
 
 ---

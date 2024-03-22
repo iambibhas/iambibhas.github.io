@@ -1,10 +1,10 @@
 +++
-categories = ["Import 2022-11-22 15:42"]
+categories = []
 date = 2020-03-17T15:21:19Z
 description = ""
 draft = true
 slug = "isolated-1"
-tags = ["Import 2022-11-22 15:42"]
+tags = []
 title = "Isolated #1"
 
 +++

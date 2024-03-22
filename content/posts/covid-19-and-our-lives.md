@@ -1,12 +1,12 @@
 ---
-categories: ["covid19", "coronavirus", "life", "Import 2022-11-22 15:42"]
+categories: ["covid19", "coronavirus", "life", ]
 date: 2020-03-15T08:29:46Z
 description:  ""
 draft: false
 image: "/images/2020/03/Screen-Shot-2020-03-15-at-7.28.18-PM.png"
 slug: "covid-19-and-our-lives"
 summary: "COVID-19 is inching closer every day. And we're all sitting ducks."
-tags: ["covid19", "coronavirus", "life", "Import 2022-11-22 15:42"]
+tags: ["covid19", "coronavirus", "life", ]
 title: "COVID-19 and our lives"
 
 ---

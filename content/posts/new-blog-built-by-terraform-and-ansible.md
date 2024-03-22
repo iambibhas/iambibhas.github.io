@@ -1,11 +1,11 @@
 ---
-categories: ["Import 2022-11-22 15:42"]
+categories: []
 date: 2020-02-07T15:39:25Z
 description:  ""
 draft: false
 image: "/images/2020/02/tumblr_static_tumblr_static_3sk1dzklqb8kwgwwoc8g0g8sw_640.jpg"
 slug: "new-blog-built-by-terraform-and-ansible"
-tags: ["Import 2022-11-22 15:42"]
+tags: []
 title: "New blog, powered by Ghost, built by Terraform and Ansible"
 
 ---

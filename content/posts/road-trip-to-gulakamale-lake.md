@@ -1,11 +1,11 @@
 ---
-categories: ["Import 2022-11-22 15:42"]
+categories: []
 date: 2022-01-23T07:44:00Z
 description:  ""
 draft: false
 image: "/images/2022/02/IMG20210904132132.jpg"
 slug: "road-trip-to-gulakamale-lake"
-tags: ["Import 2022-11-22 15:42"]
+tags: []
 title: "Road trip to Gulakamale Lake"
 
 ---

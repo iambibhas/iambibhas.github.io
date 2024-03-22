@@ -1,11 +1,11 @@
 ---
-categories: ["raspberry", "pi", "Import 2022-11-22 15:42"]
+categories: ["raspberry", "pi", ]
 date: 2020-07-13T04:44:17Z
 description:  ""
 draft: false
 image: "/images/2021/01/0000_0000_00000000-69-.jpg"
 slug: "using-a-redbear-iot-phat-for-ble-with-raspberry-pi-1-b"
-tags: ["raspberry", "pi", "Import 2022-11-22 15:42"]
+tags: ["raspberry", "pi", ]
 title: "Using a RedBear IoT pHAT for BLE with Raspberry Pi 1 B+"
 
 ---

@@ -1,10 +1,10 @@
 ---
-categories: ["Import 2022-11-22 15:42"]
+categories: []
 date: 2010-09-24T13:00:00Z
 description:  ""
 draft: false
 slug: "return-multiple-values-from-ajax-script-with-ease"
-tags: ["Import 2022-11-22 15:42"]
+tags: []
 title: "Return Multiple Values from AJAX script with ease"
 
 ---

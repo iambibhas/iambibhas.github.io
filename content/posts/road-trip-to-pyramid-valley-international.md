@@ -1,11 +1,11 @@
 ---
-categories: ["Import 2022-11-22 15:42"]
+categories: []
 date: 2022-02-06T07:59:00Z
 description:  ""
 draft: false
 image: "/images/2022/02/IMG20220206162251.jpg"
 slug: "road-trip-to-pyramid-valley-international"
-tags: ["Import 2022-11-22 15:42"]
+tags: []
 title: "Road trip to Pyramid Valley International"
 
 ---

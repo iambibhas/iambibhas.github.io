@@ -1,10 +1,10 @@
 ---
-categories: ["client", "dabr", "technical", "tweak", "twitter", "Import 2022-11-22 15:42"]
+categories: ["client", "dabr", "technical", "tweak", "twitter", ]
 date: 2010-10-30T13:00:00Z
 description:  ""
 draft: false
 slug: "auto-refresh-your-dabr-client"
-tags: ["client", "dabr", "technical", "tweak", "twitter", "Import 2022-11-22 15:42"]
+tags: ["client", "dabr", "technical", "tweak", "twitter", ]
 title: "Auto Refresh your Dabr client"
 
 ---

@@ -1,10 +1,10 @@
 ---
-categories: ["cd", "distro", "dvd", "fedora", "free", "kubuntu", "latest", "linux", "non-technical", "request", "ubuntu", "Import 2022-11-22 15:42"]
+categories: ["cd", "distro", "dvd", "fedora", "free", "kubuntu", "latest", "linux", "non-technical", "request", "ubuntu", ]
 date: 2010-09-30T13:00:00Z
 description:  ""
 draft: false
 slug: "request-or-download-major-linux-distro-cds-absolutely-free"
-tags: ["cd", "distro", "dvd", "fedora", "free", "kubuntu", "latest", "linux", "non-technical", "request", "ubuntu", "Import 2022-11-22 15:42"]
+tags: ["cd", "distro", "dvd", "fedora", "free", "kubuntu", "latest", "linux", "non-technical", "request", "ubuntu", ]
 title: "Request or download major Linux distro CDs, absolutely Free."
 
 ---

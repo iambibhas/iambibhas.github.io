@@ -1,11 +1,11 @@
 ---
-categories: ["Import 2022-11-22 15:42"]
+categories: []
 date: 2021-01-04T13:54:16Z
 description:  ""
 draft: false
 image: "/images/2021/01/20210102-090500.jpg"
 slug: "starting-2021-walking-around-kolkata"
-tags: ["Import 2022-11-22 15:42"]
+tags: []
 title: "Starting 2021 - Walking around Kolkata"
 
 ---

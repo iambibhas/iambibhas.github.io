@@ -1,10 +1,10 @@
 ---
-categories: ["Import 2022-11-22 15:42"]
+categories: []
 date: 2010-08-26T13:00:00Z
 description:  ""
 draft: false
 slug: "url-shortening-at-your-finger-tip"
-tags: ["Import 2022-11-22 15:42"]
+tags: []
 title: "URL Shortening at your finger tip. :)"
 
 ---

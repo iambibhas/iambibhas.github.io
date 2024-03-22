@@ -1,11 +1,11 @@
 ---
-categories: ["covid19", "Import 2022-11-22 15:42"]
+categories: ["covid19", ]
 date: 2020-12-02T00:56:38Z
 description:  ""
 draft: false
 image: "https://images.unsplash.com/photo-1584634731339-252c581abfc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMTc3M3wwfDF8c2VhcmNofDJ8fHxlbnwwfHx8&ixlib=rb-1.2.1&q=80&w=2000"
 slug: "covid-19-end-of-year-update"
-tags: ["covid19", "Import 2022-11-22 15:42"]
+tags: ["covid19", ]
 title: "COVID-19: End of year update"
 
 ---
