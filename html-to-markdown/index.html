@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rich Text to Markdown Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #richTextInput {
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #output {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rich Text to Markdown Converter</h1>
+    <div id="richTextInput" contenteditable="true" placeholder="Enter rich text here..."></div>
+    <button onclick="convertToMarkdown()">Convert to Markdown</button>
+    <h2>Markdown Output</h2>
+    <div id="output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turndown/7.2.0/turndown.min.js"></script>
+    <script>
+        function convertToMarkdown() {
+            const richTextInput = document.getElementById('richTextInput').innerHTML;
+            const markdownOutput = htmlToMarkdown(richTextInput);
+            document.getElementById('output').innerText = markdownOutput;
+        }
+        function htmlToMarkdown(html) {
+            const turndownService = new TurndownService();
+            return turndownService.turndown(html);
+        }
+    </script>
+</body>
+</html>
+<button onclick="copyToClipboard()">Copy to Clipboard</button>
+
+<script>
+    function copyToClipboard() {
+        const output = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(output).then(() => {
+            alert('Markdown copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+</script>
