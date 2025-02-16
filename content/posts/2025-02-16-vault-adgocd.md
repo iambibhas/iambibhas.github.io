@@ -4,7 +4,6 @@ title: 'Stop Hardcoding Secrets! Use HashiCorp Vault & ArgoCD for Secure Deploym
 published: true
 tags: ["devops", "openshift", "hashicorp", "vault", "docker", "k8s"]
 ---
-
 Hardcoding **secrets** like passwords, API keys, and database credentials inside **Docker images** is a big security risk. If these images are shared or stored in a public registry, sensitive data can be exposed. A much better approach is to **store secrets securely** and inject them into applications only when needed.
 
 In a recent project, I worked on **securing secrets** in a Kubernetes-based environment using **HashiCorp Vault** and **ArgoCD Vault Plugin**. This method ensures that sensitive data is never stored inside the application code or Docker images.
