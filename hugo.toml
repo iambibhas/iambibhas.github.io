@@ -14,10 +14,10 @@ pygmentscodefencesguesssyntax = true
 	mode="toggle" # color-mode → light,dark,toggle or auto
 	useCDN=false # don't use CDNs for fonts and icons, instead serve them locally.
 	subtitle = """
-Non-tech first. Tech later. Nothing brings me more joy than visiting a new place or doing something new or breaking a fear.
+I do mostly backend dev, plus Ops. Tools no bar as long as it solves problem.
+Nothing brings me more joy than visiting a new place or doing something new or breaking a fear.
 I also like to help people find new places/things to explore. If you are in a community that values that, sign me up.
 Outside work, I'd be more interested if someone talked about their passions, hobbies, interests, dreams instead of the latest tech.
-I do mostly backend dev, plus Ops. Tools no bar as long as it solves problem.
 	"""
 	mathjax = true # enable MathJax support
 	katex = true # enable KaTeX support
