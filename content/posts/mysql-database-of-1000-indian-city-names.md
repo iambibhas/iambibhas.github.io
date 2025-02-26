@@ -1,10 +1,9 @@
 ---
-categories: ["city", "database", "indian", "list", "mysql", "table", "technical", ]
 date: 2010-10-02T13:00:00Z
 description:  ""
 draft: false
 slug: "mysql-database-of-1000-indian-city-names"
-tags: ["city", "database", "indian", "list", "mysql", "table", "technical", ]
+tags: [ "database", "mysql"]
 title: "MySQL Database of 1000 Indian City Names"
 
 ---

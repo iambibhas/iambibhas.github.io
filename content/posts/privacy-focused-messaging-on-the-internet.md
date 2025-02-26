@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2021/01/photo_2021-01-12_23-55-51.jpg"
 slug: "privacy-focused-messaging-on-the-internet"
-tags: []
+tags: ["privacy"]
 title: "Privacy on the Internet"
 
 ---

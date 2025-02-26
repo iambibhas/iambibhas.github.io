@@ -3,6 +3,7 @@ date: 2017-01-09T07:59:00Z
 
 title: "Fixing Immediate Resume of System after Suspend, on Linux Mint/Ubuntu"
 url: /blog/fixing-immediate-resume-of-system-after-suspend-on-linux-mint-ubuntu/
+tags: ["linux", "kernel"]
 ---
 I recently bought a new (used) laptop, a Lenovo Thinkpad T430, and decided to install Linux Mint with KDE on it. I used to use Cinnamon but decided to give KDE a chance because I've used KDE apps before and they're the finest.
 

@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2021/01/20210102-090500.jpg"
 slug: "starting-2021-walking-around-kolkata"
-tags: []
+tags: ["kolkata"]
 title: "Starting 2021 - Walking around Kolkata"
 
 ---

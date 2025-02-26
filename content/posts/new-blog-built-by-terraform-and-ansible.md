@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2020/02/tumblr_static_tumblr_static_3sk1dzklqb8kwgwwoc8g0g8sw_640.jpg"
 slug: "new-blog-built-by-terraform-and-ansible"
-tags: []
+tags: ["terraform", "ansible"]
 title: "New blog, powered by Ghost, built by Terraform and Ansible"
 
 ---

@@ -4,7 +4,7 @@ date: 2021-07-13T04:24:04Z
 description:  ""
 draft: false
 slug: "joining-nuiteq"
-tags: []
+tags: ["job", "career"]
 title: "Joining NUITEQ"
 
 ---

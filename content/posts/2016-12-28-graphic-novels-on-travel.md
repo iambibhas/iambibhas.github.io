@@ -5,6 +5,7 @@ published: true
 tags: []
 url: /blog/graphic-novels-on-travel/
 title: Graphic novels on travel
+tags: ["book"]
 ---
 I love graphic novels. They are a visual treat, the best way to tell stories. And I also like to travel and reading about travel stories. I've come across some graphic novels on travel that tells you about real places and real people. So thought of mentioning them here. I've read some of them, and plan to read the others soon.
 

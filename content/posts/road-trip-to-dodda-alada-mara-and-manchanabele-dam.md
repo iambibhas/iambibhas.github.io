@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2022/03/20220319_130526.jpg"
 slug: "road-trip-to-dodda-alada-mara-and-manchanabele-dam"
-tags: ["roadtrip", "bangalore"]
+tags: ["roadtrip", "travel", "bangalore"]
 title: "Road Trip to Dodda Alada Mara and Manchanabele Dam"
 
 ---

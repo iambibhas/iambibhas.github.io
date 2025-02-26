@@ -4,7 +4,7 @@ date: 2015-12-30T07:59:00Z
 title: "Free Basics by Facebook is a Nightmare on the Internet"
 description: ""
 category:
-tags: []
+tags: ["facebook", "internet", "privacy"]
 url: /blog/free-basics-by-facebook-is-a-nightmare-on-the-internet/
 ---
 Unless you've been living under a rock for last few weeks, I'm sure you've seen at least one of these ads around you -

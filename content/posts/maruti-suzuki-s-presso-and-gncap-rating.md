@@ -1,11 +1,10 @@
 ---
-categories: ["auto", "suzuki", "safety", "road", "car", "s-presso", "maruti"]
 date: 2023-05-22T22:08:45Z
 description:  ""
 draft: false
 image: "/images/2023/05/IMG20221028170654-01.jpeg"
 slug: "maruti-suzuki-s-presso-and-gncap-rating"
-tags: ["auto", "suzuki", "safety", "road", "car", "s-presso", "maruti"]
+tags: ["suzuki", "safety", "car", "s-presso", "maruti"]
 title: "Maruti Suzuki S-Presso has a 3-Star GNCAP rating!"
 
 ---

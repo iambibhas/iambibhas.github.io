@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2023/04/IMG20230406173728_01.jpg"
 slug: "mysore-road-trip-april-2023"
-tags: ["roadtrip", "s-presso", "mysore"]
+tags: ["roadtrip", "s-presso", "mysore", "travel"]
 title: "Mysore road trip April 2023"
 
 ---

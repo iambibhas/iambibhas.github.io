@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2022/02/IMG20210904132132.jpg"
 slug: "road-trip-to-gulakamale-lake"
-tags: []
+tags: ["roadtrip", "travel"]
 title: "Road trip to Gulakamale Lake"
 
 ---

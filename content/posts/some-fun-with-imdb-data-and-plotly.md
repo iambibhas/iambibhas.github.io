@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "https://images.unsplash.com/photo-1568876694728-451bbf694b83?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=2000&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ"
 slug: "some-fun-with-imdb-data-and-plotly"
-tags: []
+tags: ["imdb"]
 title: "Some fun with IMDB data and plotly"
 
 ---

@@ -5,7 +5,7 @@ description:  ""
 draft: false
 image: "/images/2022/02/IMG20220206162251.jpg"
 slug: "road-trip-to-pyramid-valley-international"
-tags: []
+tags: ["roadtrip", "travel"]
 title: "Road trip to Pyramid Valley International"
 
 ---
