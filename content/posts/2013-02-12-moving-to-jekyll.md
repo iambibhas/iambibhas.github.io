@@ -5,7 +5,6 @@ type: post
 status: publish
 tags:
 - Non-technical
-published: true
 title: Moving to Jekyll and Github
 ---
 

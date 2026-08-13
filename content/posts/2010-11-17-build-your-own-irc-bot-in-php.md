@@ -15,7 +15,6 @@ meta:
   _wp_old_slug: ""
   _syntaxhighlighter_encoded: "1"
   _edit_last: "1"
-published: true
 title: Build your own IRC bot in PHP
 url: /blog/209/build-your-own-irc-bot-in-php/
 ---

@@ -1,6 +1,6 @@
 ---
 date: 2016-06-15T07:59:00Z
-published: false
+draft: true
 title: A Short Trip to Munich
 url: /blog/short-trip-to-munich/
 ---

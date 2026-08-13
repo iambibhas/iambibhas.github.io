@@ -1,7 +1,6 @@
 ---
 date: 2024-08-19T17:20:52+05:30
 title: 'Shimoga Road Trip: August 2024'
-published: true
 tags: ["travel", "roadtrip", "shimoga"]
 ---
 

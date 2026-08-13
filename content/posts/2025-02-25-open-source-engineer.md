@@ -1,7 +1,6 @@
 ---
 date: 2025-02-25T13:20:52+05:30
 title: 'How Open Source Can Shape Your Career and Growth as an Engineer'
-published: true
 tags: ["opensource", "foss", "engineering", "career"]
 ---
 **How Open Source Can Shape Your Career and Growth as an Engineer**

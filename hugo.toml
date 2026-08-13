@@ -1,5 +1,5 @@
 baseURL = 'https://bibhasdn.com/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'Bibhas Debnath'
 theme = 'archie'
 paginate = 10
@@ -9,6 +9,11 @@ copyright = "© Bibhas D"
 pygmentsstyle = "monokai"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [params]
 	mode="toggle" # color-mode → light,dark,toggle or auto

@@ -5,7 +5,7 @@ type: post
 status: publish
 tags:
 - Non-technical
-published: false
+draft: true
 title: This is a sample post
 ---
 

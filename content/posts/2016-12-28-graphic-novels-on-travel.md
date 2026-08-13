@@ -1,8 +1,5 @@
 ---
 date: 2016-12-28T07:59:00Z
-published: true
-
-tags: []
 url: /blog/graphic-novels-on-travel/
 title: Graphic novels on travel
 tags: ["book"]

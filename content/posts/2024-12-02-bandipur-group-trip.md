@@ -1,7 +1,6 @@
 ---
 date: 2024-12-02T23:20:52+05:30
 title: 'Bandipur Forest Stay Group Trip Nov-Dec 2024'
-published: true
 tags: ["travel", "roadtrip", "bandipur", "nature", "wildlife", "safari", "photography"]
 ---
 # Bandipur Wildlife Diary: A Day in the Wild

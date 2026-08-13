@@ -9,7 +9,6 @@ tags:
 meta:
   _wpbitly: http://q.bibhas.in/Smlbdn
   _edit_last: "1"
-published: true
 title: The Zen of Python
 url: /blog/810/the-zen-of-python/
 ---

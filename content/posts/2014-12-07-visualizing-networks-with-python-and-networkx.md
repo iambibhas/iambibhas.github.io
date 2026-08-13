@@ -1,6 +1,4 @@
 ---
-date: 2014-12-07T07:59:00Z
-
 title: "Visualizing Networks with Python and Networkx"
 description: ""
 category:

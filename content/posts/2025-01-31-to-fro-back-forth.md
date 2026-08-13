@@ -1,7 +1,6 @@
 ---
 date: 2025-01-31T23:20:52+05:30
 title: 'To and fro. Back and forth.'
-published: true
 tags: ["travel", "parents", "wellbeing", "life"]
 ---
 I flew back to Kolkata today. Ayanti and I came to Kolkata earlier this month because MIL suddenly fell ill. She had to be hospitalised. And we flew here in hours notice. Then last week i have to travel back to Bangalore for some work. And now I’m back to Kolkata again.

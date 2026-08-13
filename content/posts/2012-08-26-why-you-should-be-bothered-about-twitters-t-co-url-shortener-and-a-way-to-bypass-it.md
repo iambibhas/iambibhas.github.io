@@ -11,7 +11,6 @@ meta:
   _oembed_1e4e63497da4c14c903915e153ebf59e: <blockquote class="twitter-tweet" width="500"><p>Where Have The Users Gone? <a href="http://t.co/acgTzWKR" title="http://tcrn.ch/NTr6S8">tcrn.ch/NTr6S8</a> by @<a href="https://twitter.com/nireyal">nireyal</a></p>&mdash; TechCrunch (@TechCrunch) <a href="https://twitter.com/TechCrunch/status/239765316601802752" data-datetime="2012-08-26T16:44:40+00:00">August 26, 2012</a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
   SNAP_FormatTW: "%TITLE% - %URL% #l"
   _edit_last: "1"
-published: true
 url: /blog/836/why-you-should-be-bothered-about-twitters-t-co-url-shortener-and-a-way-to-bypass-it/
 title: Why You Should Be Bothered About Twitter's t.co Url Shortener And A Way To Bypass It
 ---

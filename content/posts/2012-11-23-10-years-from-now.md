@@ -13,7 +13,6 @@ meta:
   snap_isAutoPosted: "1"
   _edit_last: "1"
   snapTW: 's:139:"a:1:{i:0;a:4:{s:13:"SNAPincludeTW";s:1:"1";s:10:"SNAPformat";s:18:"%TITLE% - %URL% #l";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";}}";'
-published: true
 title: Where Do I See Myself in 10 Years?
 url: /blog/874/10-years-from-now/
 ---
