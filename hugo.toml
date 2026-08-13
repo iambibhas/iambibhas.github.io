@@ -69,5 +69,5 @@ weight = 4
 
 [[menu.main]]
 name = "Resume"
-url = "https://cv.bibhasdn.com"
+url = "/resume"
 weight = 5
