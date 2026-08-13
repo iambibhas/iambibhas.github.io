@@ -1,0 +1,12 @@
+---
+date: 2010-12-04T07:59:00Z
+title: 'Need a Seamless Background Texture?'
+tags: ["background", "seamless", "texture"]
+---
+If you develop websites, you've definitely came across a site background texture crisis.. I did too, and found myself a pretty sool solution. So am sharing it here. :)<!--more-->
+
+Visit <a href="http://bgmaker.ventdaval.com/index.php" target="_blank">this Background maker</a>.. Here you can make seamless textures starting from 1x1 pixel to anything you want. Here is a screenshot -
+
+<img class="alignnone" title="bgMaker" src="http://imgur.com/CLOmA.png" alt="" width="483" height="376" />
+
+If you dont have time for designing yourself, Click the "Gallery" button. There are thousands of ready-made patterns for you to download and use if you lie them. :) You can also save your pattern in this site itself so that you can use it later anytime you need. Go ahead. Try it out. :)

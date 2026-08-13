@@ -1,0 +1,8 @@
+---
+date: 2012-01-18T07:59:00Z
+title: 'The Heart Attack Grill'
+tags: ["video", "youtube"]
+---
+Yum. The hamburger restaurant with a menu that boasts unhealthy foods.
+<!--more-->
+<object width="425" height="350" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="wmode" value="transparent" /><param name="src" value="http://www.youtube.com/v/hqf_SIQ3JAk&amp;feature=youtube_gdata_player" /><embed width="425" height="350" type="application/x-shockwave-flash" src="http://www.youtube.com/v/hqf_SIQ3JAk&amp;feature=youtube_gdata_player" wmode="transparent" /></object>

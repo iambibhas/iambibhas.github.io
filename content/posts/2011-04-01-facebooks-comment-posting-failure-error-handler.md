@@ -1,0 +1,12 @@
+---
+date: 2011-04-01T07:59:00Z
+title: 'Facebook''s Comment Posting Failure Error Handler'
+tags: ["comment", "error", "facebook"]
+---
+This is something new I saw today.
+
+While posting a comment in Facebook, for some unknown reason, it couldn't be posted so facebook showed an error message and also provided a "Try Again" button!
+
+<img class="alignnone" title="Facebook Comment Posting Error handler" src="http://i.imgur.com/VcQSp.png" alt="" width="439" height="78" />
+
+Maybe it has been there for sometime, but never encountered it..!

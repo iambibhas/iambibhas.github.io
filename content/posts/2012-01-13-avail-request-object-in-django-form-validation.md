@@ -1,0 +1,35 @@
+---
+date: 2012-01-13T07:59:00Z
+title: 'Avail Request Object in Django Form Validation'
+tags: ["coding", "development", "django", "pinax", "python"]
+---
+It may sometime happen that to validate a form field you need to check the value with some existing value from the database related to the User or some other entity. But sadly Django doesn't allow accessing the Request object in the clean() or clean_&lt;FieldName&gt;() methods. Here is a way around it - <!--more-->
+
+All you need to do is override the default __init__() function of forms.Form with this -
+[python]
+def __init__(self, request, *args, **kwargs):
+    self.request = request
+    super(CreateTagForm, self).__init__(*args, **kwargs)
+[/python]
+Now when you call the Form, you can call it like -
+[python]
+form = YourForm(request, request.POST)
+[/python]
+Now the whole code will look like -
+[python]
+from django import forms
+
+class YourForm(forms.Form):
+    name = forms.CharField(max_length=50, min_length=1)
+    mark = forms.IntegerField(min_value=1, max_value=100)
+
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        super(YourForm, self).__init__(*args, **kwargs)
+
+    def clean_mark(self):
+        marks_left = get_marks_left(self.request.user)
+        # Do what more you want to do
+[/python]
+
+That's it. Happy Coding. :)

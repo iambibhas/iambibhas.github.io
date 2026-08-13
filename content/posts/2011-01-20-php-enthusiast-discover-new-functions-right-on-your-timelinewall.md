@@ -1,0 +1,15 @@
+---
+date: 2011-01-20T07:59:00Z
+title: 'PHP Enthusiast? Discover new Functions Right on Your Timeline/wall'
+tags: ["facebook", "php", "twitter"]
+---
+<img class="alignright" title="PHPrefX" src="http://i.imgur.com/zUcIf.jpg" alt="" width="200" height="200" />Being a PHP developer myself, I know how hard a work might get if you don't know about functions that are appropriate to the situation. So, I thought of building a service that will let people discover new functions everyday, right on their wall(in case of Facebook) or timeline(in case of Twitter).
+
+So I built <strong>PHPrefX</strong>. A service that keeps posting the name of a function, a short info and the link to the reference of that function once every hour on Twitter and Facebook.
+<br style="clear: both;" /><!--more-->
+
+If people show interests, I will add an email subscription system too. But that's for a near future. :)
+
+For Twitter users, Please follow @<a href="http://twitter.com/phprefx" target="_blank">phprefx</a>. Facebook users can head for the <a href="http://on.fb.me/PHPrefX" target="_blank">Fan page of PHPrefX</a>.
+
+And DO let me know if you like it and if you need any changes made. :)

@@ -1,0 +1,6 @@
+---
+date: 2012-02-12T07:59:00Z
+title: 'The Most Useless Machine Ever'
+tags: ["video", "youtube"]
+---
+<object width="425" height="350">  <param name="movie" value="http://www.youtube.com/v/KxaWvJ-ziXA&feature=youtube_gdata_player"></param>  <param name="wmode" value="transparent"></param>  <embed src="http://www.youtube.com/v/KxaWvJ-ziXA&feature=youtube_gdata_player" type="application/x-shockwave-flash"   wmode="transparent" width="425" height="350"></embed></object>
