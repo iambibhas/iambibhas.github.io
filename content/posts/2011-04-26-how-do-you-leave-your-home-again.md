@@ -3,7 +3,7 @@ date: 2011-04-26T07:59:00Z
 title: 'How Do You Leave Your Home, Again?'
 tags: ["city", "job", "kolkata", "leave", "nagpur"]
 ---
-Received my <a title="And They Called My Name" href="http://bibhas.in/blog/2011/02/and-they-called-my-name/" target="_blank">appointment letter</a> last night. Will be joining Persistent Systems Ltd as a Software Engineer. Have to leave for Nagpur in September..
+Received my <a title="And They Called My Name" href="/posts/2011-02-06-and-they-called-my-name/" target="_blank">appointment letter</a> last night. Will be joining Persistent Systems Ltd as a Software Engineer. Have to leave for Nagpur in September..
 
 <!--more-->
 

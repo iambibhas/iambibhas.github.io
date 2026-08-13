@@ -1,20 +1,7 @@
 ---
 date: 2012-11-23T07:59:00Z
-
-type: post
-status: publish
-tags:
-  - life
-  - Non-technical
-meta:
-  _wpbitly: http://q.bibhas.in/UP6wn3
-  _wp_old_slug: how-should-i-live-my-life
-  snapEdIT: "1"
-  snap_isAutoPosted: "1"
-  _edit_last: "1"
-  snapTW: 's:139:"a:1:{i:0;a:4:{s:13:"SNAPincludeTW";s:1:"1";s:10:"SNAPformat";s:18:"%TITLE% - %URL% #l";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";}}";'
-title: Where Do I See Myself in 10 Years?
-url: /blog/874/10-years-from-now/
+title: 'Where Do I See Myself in 10 Years?'
+tags: ["life"]
 ---
 
 #### Incident 1 (I'm in college, 1st year):

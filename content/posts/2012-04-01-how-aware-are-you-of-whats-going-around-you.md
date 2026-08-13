@@ -1,14 +1,7 @@
 ---
 date: 2012-04-01T07:59:00Z
-
-type: post
-status: publish
-tags:
-- Non-technical
-meta:
-  _wpbitly: http://q.bibhas.in/HbmC47
-  _edit_last: "1"
-title: How aware are you of what's going around you?
+title: 'How aware are you of what''s going around you?'
+tags: []
 ---
 Tonight I came across few youtube videos that pointed out how we tend "not to notice" things that we're not expecting. I'll say no more and let you watch them and see for yourselves.
 

@@ -1,16 +1,7 @@
 ---
 date: 2012-08-22T07:59:00Z
-
-type: post
-status: publish
-tags:
-- python
-- Technical
-meta:
-  _wpbitly: http://q.bibhas.in/Smlbdn
-  _edit_last: "1"
-title: The Zen of Python
-url: /blog/810/the-zen-of-python/
+title: 'The Zen of Python'
+tags: ["python"]
 ---
 These are the guiding principles of Python, but are open to interpretation. A sense of humor is required for their proper interpretation.
 

@@ -1,22 +1,7 @@
 ---
 date: 2010-11-17T07:59:00Z
-
-type: post
-status: publish
-tags:
-- bot
-- irc
-- php
-- Technical
-meta:
-  slider_style: default.css
-  _wpbitly: http://q.bibhas.in/H1xiCL
-  slide_redirect_url: http://bibhas.in/blog/2010/11/build-your-own-irc-bot-in-php/
-  _wp_old_slug: ""
-  _syntaxhighlighter_encoded: "1"
-  _edit_last: "1"
-title: Build your own IRC bot in PHP
-url: /blog/209/build-your-own-irc-bot-in-php/
+title: 'Build your own IRC bot in PHP'
+tags: ["bot", "irc", "php"]
 ---
 I started using IRC about 2 months ago. I know its lame of me to get to that stuff so late. But from the very point I logged into a channel, the thing that caught most of my attention was a Bot that used to respond to user command. Now that seemed interesting. I dug some codes in Github, did some Googling and got the idea. Then found a sample snippet of how to create an IRC bot with PHP, at www.thegeeks.us which wasn't much functional to start with.. I started testing the code and thanks to Ben(spookz), one of the member(and most probably a co-founder too) of thegeeks.us, with some *inspiration* from him, I got this thing to work.
 

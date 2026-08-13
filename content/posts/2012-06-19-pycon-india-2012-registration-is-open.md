@@ -14,4 +14,4 @@ Venue being Bangalore is fine for me as I have a friend's home where I can stay.
 
 Hoping to have some real good time. Also hoping to meet few friends I've only spoken to via web. That should be fun. :)
 
-<em>Update</em>: I wrote <a title="PyCon India 2012 – More Details" href="http://bibhas.in/blog/785/pycon-india-2012-more-details/">another post</a> with more details about PyCon India 2012.
+<em>Update</em>: I wrote <a title="PyCon India 2012 – More Details" href="/posts/2012-06-27-pycon-india-2012-more-details/">another post</a> with more details about PyCon India 2012.
