@@ -1,14 +1,17 @@
 const RADIUS_M = 10000;
-const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
-
-const DEFAULT_AMBULANCE = [
-  { n: "108", label: "Emergency ambulance" },
-  { n: "102", label: "Patient transport" },
+const OVERPASS_ENDPOINTS = [
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter",
 ];
-
-const NATIONAL_EMERGENCY = [{ n: "112", label: "All emergencies (national)" }];
+const NOMINATIM_REVERSE =
+  "https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1";
 
 let map, markersLayer, userLatLng, hospitals = [], selectedId = null;
+let stateAmbulance = null;
+
+function refreshMapSize() {
+  map?.invalidateSize();
+}
 
 function haversineKm(lat1, lon1, lat2, lon2) {
   const R = 6371;
@@ -55,12 +58,19 @@ function renderEmergencyBanner() {
   const el = document.getElementById("emergency-banner");
   if (!el) return;
 
-  const stateLine = `<span class="state-label">Ambulance:</span>`;
+  const stateLine = stateAmbulance
+    ? `<span class="state-label">${stateAmbulance.stateLabel}:</span>`
+    : `<span class="state-label">Ambulance:</span>`;
 
-  const stateNums = DEFAULT_AMBULANCE.map(
-    (x) =>
-      `<a class="num" href="tel:${telHref(x.n)}" title="${x.label}">${x.n}</a>`,
-  ).join("");
+  const stateNums = (stateAmbulance?.numbers || [
+    { n: "108", label: "Emergency ambulance" },
+    { n: "102", label: "Patient transport" },
+  ])
+    .map(
+      (x) =>
+        `<a class="num" href="tel:${telHref(x.n)}" title="${x.label}">${x.n}</a>`,
+    )
+    .join("");
 
   const national = NATIONAL_EMERGENCY.map(
     (x) =>
@@ -100,12 +110,27 @@ function buildShell() {
     <footer class="footer">
       <p>
         Hospital data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>.
-        Ambulance helplines: NHM <a href="https://nhm.gov.in/index1.php?lang=1&level=2&lid=189&sublinkid=1217" target="_blank" rel="noopener">Dial 108/102</a> (verify locally).
+        Ambulance numbers by state (from your location once). NHM <a href="https://nhm.gov.in/index1.php?lang=1&level=2&lid=189&sublinkid=1217" target="_blank" rel="noopener">Dial 108/102</a> — verify locally.
         Hospital phone numbers come from OpenStreetMap when listed.
       </p>
     </footer>
   `;
   renderEmergencyBanner();
+}
+
+/** One reverse lookup per page load to resolve state for ambulance helplines. */
+async function reverseGeocodeStateOnce(lat, lng) {
+  const url = `${NOMINATIM_REVERSE}&lat=${lat}&lon=${lng}`;
+  const resp = await fetch(url, {
+    headers: {
+      Accept: "application/json",
+      "Accept-Language": "en",
+    },
+  });
+  if (!resp.ok) return null;
+  const data = await resp.json();
+  const addr = data.address;
+  return addr?.state || addr?.region || addr?.state_district || null;
 }
 
 function osmLocality(tags) {
@@ -162,28 +187,42 @@ function osmPhone(t) {
 }
 
 async function fetchHospitals(lat, lng) {
-  const query = `
-    [out:json][timeout:25];
-    (
-      nwr["amenity"="hospital"](around:${RADIUS_M},${lat},${lng});
-    );
-    out center tags;
-  `;
-  const resp = await fetch(OVERPASS_URL, {
-    method: "POST",
-    body: "data=" + encodeURIComponent(query),
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  });
-  if (!resp.ok) throw new Error(`Overpass API error: ${resp.status}`);
-  const data = await resp.json();
+  const query = `[out:json][timeout:25];(nwr["amenity"="hospital"](around:${RADIUS_M},${lat},${lng});nwr["healthcare"="hospital"](around:${RADIUS_M},${lat},${lng}););out center tags;`;
 
+  let lastError = null;
+  for (const endpoint of OVERPASS_ENDPOINTS) {
+    try {
+      const resp = await fetch(endpoint, {
+        method: "POST",
+        body: "data=" + encodeURIComponent(query),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+        },
+      });
+      if (!resp.ok) {
+        throw new Error(`Overpass API error: ${resp.status}`);
+      }
+      const data = await resp.json();
+      if (data.remark && (!data.elements || data.elements.length === 0)) {
+        throw new Error(data.remark);
+      }
+      return parseHospitalElements(data, lat, lng);
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError || new Error("Could not load hospitals from OpenStreetMap");
+}
+
+function parseHospitalElements(data, lat, lng) {
   return data.elements
     .map((el, i) => {
       const t = el.tags || {};
       const elLat = el.lat ?? el.center?.lat;
       const elLng = el.lon ?? el.center?.lon;
       return {
-        id: el.id || i,
+        id: String(el.id ?? i),
         name: t.name || t["name:en"] || "Unnamed Hospital",
         phone: osmPhone(t),
         lat: elLat,
@@ -268,8 +307,8 @@ function renderMarkers(fitBounds = true) {
 }
 
 function selectHospital(id, pan = true) {
-  selectedId = id;
-  const h = hospitals.find((x) => x.id === id);
+  selectedId = String(id);
+  const h = hospitals.find((x) => x.id === selectedId);
   if (!h) return;
   renderList();
   if (pan)
@@ -283,12 +322,13 @@ function wireEvents() {
   document.getElementById("hospital-list")?.addEventListener("click", (e) => {
     const btn = e.target.closest(".focus-map");
     if (btn?.dataset.id) {
-      selectHospital(+btn.dataset.id);
+      selectHospital(btn.dataset.id);
       return;
     }
     const card = e.target.closest(".hospital-card");
-    if (card?.dataset.id) selectHospital(+card.dataset.id);
+    if (card?.dataset.id) selectHospital(card.dataset.id);
   });
+  window.addEventListener("resize", refreshMapSize);
 }
 
 function showStatus(msg, isError) {
@@ -321,10 +361,19 @@ async function init() {
 
       showStatus("Finding nearby hospitals…");
       try {
-        hospitals = await fetchHospitals(lat, lng);
+        const [stateRaw, hospitalList] = await Promise.all([
+          reverseGeocodeStateOnce(lat, lng).catch(() => null),
+          fetchHospitals(lat, lng),
+        ]);
+        stateAmbulance = ambulanceForState(stateRaw);
+        renderEmergencyBanner();
+
+        hospitals = hospitalList;
         hideStatus();
         renderList();
         renderMarkers();
+        requestAnimationFrame(refreshMapSize);
+        setTimeout(refreshMapSize, 300);
       } catch (err) {
         hideStatus();
         showStatus(
