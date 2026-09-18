@@ -76,3 +76,8 @@ weight = 5
 name = "BLR Heritage Map"
 url = "/blr-heritage-map"
 weight = 6
+
+[[menu.main]]
+name = "Nearby Hospitals"
+url = "/nearby-hospitals"
+weight = 7
