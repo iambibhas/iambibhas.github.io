@@ -9,6 +9,33 @@ let map;
 let markersLayer;
 let selectedId = null;
 
+function isMobileView() {
+  return window.matchMedia("(max-width: 900px)").matches;
+}
+
+function refreshMapSize() {
+  map?.invalidateSize();
+}
+
+function openMobileSitePanel(site) {
+  const panel = document.getElementById("mobile-site-panel");
+  const content = document.getElementById("mobile-site-content");
+  if (!panel || !content || !site) return;
+  selectedId = site.id;
+  content.innerHTML = renderSiteCard(site, true, { showFocusBtn: false });
+  panel.hidden = false;
+  panel.removeAttribute("hidden");
+  updateResetMapButton();
+}
+
+function closeMobileSitePanel() {
+  const panel = document.getElementById("mobile-site-panel");
+  if (!panel) return;
+  panel.hidden = true;
+  selectedId = null;
+  updateResetMapButton();
+}
+
 function siteMatches(site, filters) {
   if (site.builtYear >= CUTOFF_YEAR) return false;
   if (filters.eras.size > 0 && !filters.eras.has(site.era)) return false;
@@ -35,7 +62,8 @@ function markerIcon(site) {
   });
 }
 
-function renderSiteCard(site, active) {
+function renderSiteCard(site, active, opts = {}) {
+  const { showFocusBtn = true } = opts;
   const sources = site.sources
     .map(
       (s) =>
@@ -57,7 +85,11 @@ function renderSiteCard(site, active) {
       <p class="visit"><strong>Visit:</strong> ${site.visitNotes}</p>
       <ul class="sources">${sources}</ul>
       ${wiki}
-      <button type="button" class="focus-map" data-focus="${site.id}">Show on map</button>
+      ${
+        showFocusBtn
+          ? `<button type="button" class="focus-map" data-focus="${site.id}">Show on map</button>`
+          : ""
+      }
     </article>
   `;
 }
@@ -93,6 +125,7 @@ function updateResetMapButton() {
 
 function resetMapView() {
   selectedId = null;
+  closeMobileSitePanel();
   renderList();
   fitMapToFilteredSites();
   updateResetMapButton();
@@ -106,10 +139,19 @@ function renderMarkers() {
   for (const site of sites) {
     bounds.push([site.lat, site.lng]);
     const marker = L.marker([site.lat, site.lng], { icon: markerIcon(site) });
-    marker.bindPopup(
-      `<strong>${site.name}</strong><br/><span class="popup-era">${ERA_LABELS[site.era]}</span><br/>c. ${site.builtYear}`,
-    );
-    marker.on("click", () => selectSite(site.id, { pan: false }));
+    if (!isMobileView()) {
+      marker.bindPopup(
+        `<strong>${site.name}</strong><br/><span class="popup-era">${ERA_LABELS[site.era]}</span><br/>c. ${site.builtYear}`,
+      );
+    }
+    marker.on("click", () => {
+      if (isMobileView()) {
+        openMobileSitePanel(site);
+        map.setView([site.lat, site.lng], Math.max(map.getZoom(), 14), { animate: true });
+        return;
+      }
+      selectSite(site.id, { pan: false });
+    });
     marker.addTo(markersLayer);
   }
 
@@ -191,6 +233,13 @@ function buildShell() {
           Show all on map
         </button>
         <div class="map-legend">${legend}</div>
+        <div id="mobile-site-panel" class="mobile-site-panel" hidden>
+          <button type="button" class="mobile-site-panel__backdrop" aria-label="Close details"></button>
+          <div class="mobile-site-panel__sheet" role="dialog" aria-modal="true" aria-label="Heritage site details">
+            <button type="button" class="mobile-site-panel__close" aria-label="Close">×</button>
+            <div id="mobile-site-content"></div>
+          </div>
+        </div>
       </main>
     </div>
     <footer class="footer">
@@ -213,6 +262,18 @@ function wireEvents() {
   });
 
   document.getElementById("reset-map")?.addEventListener("click", resetMapView);
+
+  document
+    .querySelector(".mobile-site-panel__close")
+    ?.addEventListener("click", closeMobileSitePanel);
+  document
+    .querySelector(".mobile-site-panel__backdrop")
+    ?.addEventListener("click", closeMobileSitePanel);
+
+  window.addEventListener("resize", () => {
+    refreshMapSize();
+    if (!isMobileView()) closeMobileSitePanel();
+  });
 
   document.querySelectorAll('input[name="era"]').forEach((el) => {
     el.addEventListener("change", () => {
@@ -254,6 +315,8 @@ function init() {
   wireEvents();
   renderList();
   renderMarkers();
+  requestAnimationFrame(refreshMapSize);
+  setTimeout(refreshMapSize, 250);
 }
 
 init();

@@ -419,19 +419,117 @@ a {
 }
 
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(12rem, 38vh) minmax(0, 1fr);
+  #app {
+    height: 100dvh;
   }
 
-  .sidebar {
-    border-right: none;
-    border-bottom: 1px solid var(--line);
+  .topbar,
+  .filter-bar,
+  .sidebar,
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    grid-template-columns: none;
+    grid-template-rows: none;
     min-height: 0;
   }
 
-  .filter-bar .era-filters {
-    flex: 1 1 100%;
-    justify-content: flex-start;
+  .map-panel {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .map-legend {
+    font-size: 0.65rem;
+    left: 0.5rem;
+    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    max-width: calc(100% - 1rem);
+  }
+
+  .map-reset {
+    top: max(0.5rem, env(safe-area-inset-top));
+    right: 0.5rem;
+  }
+}
+
+.mobile-site-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.mobile-site-panel:not([hidden]) {
+  pointer-events: auto;
+}
+
+.mobile-site-panel[hidden] {
+  display: none;
+}
+
+.mobile-site-panel__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(31, 26, 20, 0.45);
+  cursor: pointer;
+}
+
+.mobile-site-panel__sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-height: min(72vh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: var(--panel);
+  border-radius: 1rem 1rem 0 0;
+  padding: 0.75rem 1rem max(1.25rem, env(safe-area-inset-bottom));
+  box-shadow: 0 -8px 40px rgba(31, 26, 20, 0.15);
+}
+
+.mobile-site-panel__close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  margin: 0 0 0.25rem 0.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.mobile-site-panel__close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.mobile-site-panel .site-card {
+  border: none;
+  padding: 0.25rem 0 0;
+  box-shadow: none;
+  cursor: default;
+}
+
+@media (min-width: 901px) {
+  .mobile-site-panel {
+    display: none !important;
   }
 }
