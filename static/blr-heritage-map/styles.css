@@ -407,6 +407,13 @@ a {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
+.heritage-marker.is-selected {
+  width: 22px;
+  height: 22px;
+  border-width: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

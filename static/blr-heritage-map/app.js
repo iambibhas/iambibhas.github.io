@@ -8,6 +8,7 @@ const state = {
 let map;
 let markersLayer;
 let selectedId = null;
+const markersById = new Map();
 
 function isMobileView() {
   return window.matchMedia("(max-width: 900px)").matches;
@@ -26,6 +27,7 @@ function openMobileSitePanel(site) {
   panel.hidden = false;
   panel.removeAttribute("hidden");
   updateResetMapButton();
+  refreshMarkerSelection();
 }
 
 function closeMobileSitePanel() {
@@ -34,6 +36,7 @@ function closeMobileSitePanel() {
   panel.hidden = true;
   selectedId = null;
   updateResetMapButton();
+  refreshMarkerSelection();
 }
 
 function siteMatches(site, filters) {
@@ -52,14 +55,47 @@ function filteredSites() {
   return HERITAGE_SITES.filter((s) => siteMatches(s, state));
 }
 
-function markerIcon(site) {
+function markerIcon(site, selected = false) {
   const color = ERA_COLORS[site.era];
+  const size = selected ? 28 : 18;
+  const anchor = size / 2;
   return L.divIcon({
     className: "heritage-marker-wrap",
-    html: `<span class="heritage-marker" style="--marker:${color}" title="${site.name}"></span>`,
-    iconSize: [18, 18],
-    iconAnchor: [9, 9],
+    html: `<span class="heritage-marker${selected ? " is-selected" : ""}" style="--marker:${color}" title="${site.name}"></span>`,
+    iconSize: [size, size],
+    iconAnchor: [anchor, anchor],
   });
+}
+
+function refreshMarkerSelection() {
+  for (const [id, marker] of markersById) {
+    const site = HERITAGE_SITES.find((s) => s.id === id);
+    if (!site) continue;
+    const selected = id === selectedId;
+    marker.setIcon(markerIcon(site, selected));
+    marker.setZIndexOffset(selected ? 1000 : 0);
+  }
+}
+
+function closeAllMarkerPopups() {
+  map?.closePopup();
+}
+
+function openMarkerPopup(id) {
+  if (isMobileView()) return;
+  closeAllMarkerPopups();
+  markersById.get(id)?.openPopup();
+}
+
+function centerMapOnSite(site, onDone) {
+  const zoom = Math.max(map.getZoom(), 14);
+  const target = L.latLng(site.lat, site.lng);
+  const unchanged =
+    map.getZoom() === zoom && map.getCenter().distanceTo(target) < 2;
+  map.setView(target, zoom, { animate: !unchanged });
+  if (!onDone) return;
+  if (unchanged) onDone();
+  else map.once("moveend", onDone);
 }
 
 function renderSiteCard(site, active, opts = {}) {
@@ -129,28 +165,35 @@ function resetMapView() {
   renderList();
   fitMapToFilteredSites();
   updateResetMapButton();
+  refreshMarkerSelection();
+  closeAllMarkerPopups();
 }
 
 function renderMarkers() {
   markersLayer.clearLayers();
+  markersById.clear();
   const sites = filteredSites();
   const bounds = [];
 
   for (const site of sites) {
     bounds.push([site.lat, site.lng]);
-    const marker = L.marker([site.lat, site.lng], { icon: markerIcon(site) });
+    const marker = L.marker([site.lat, site.lng], {
+      icon: markerIcon(site, site.id === selectedId),
+    });
+    markersById.set(site.id, marker);
     if (!isMobileView()) {
       marker.bindPopup(
         `<strong>${site.name}</strong><br/><span class="popup-era">${ERA_LABELS[site.era]}</span><br/>c. ${site.builtYear}`,
+        { autoPan: false },
       );
     }
     marker.on("click", () => {
       if (isMobileView()) {
         openMobileSitePanel(site);
-        map.setView([site.lat, site.lng], Math.max(map.getZoom(), 14), { animate: true });
+        centerMapOnSite(site);
         return;
       }
-      selectSite(site.id, { pan: false });
+      selectSite(site.id, { pan: false, openPopup: false });
     });
     marker.addTo(markersLayer);
   }
@@ -160,17 +203,22 @@ function renderMarkers() {
   }
 }
 
-function selectSite(id, opts = { pan: true }) {
+function selectSite(id, opts = { pan: true, openPopup: true }) {
   selectedId = id;
   const site = HERITAGE_SITES.find((s) => s.id === id);
   if (!site) return;
 
   renderList();
-  if (opts.pan !== false) {
-    map.setView([site.lat, site.lng], Math.max(map.getZoom(), 14), { animate: true });
-  }
 
   updateResetMapButton();
+  refreshMarkerSelection();
+
+  const showPopup = () => {
+    if (opts.openPopup !== false) openMarkerPopup(id);
+  };
+
+  if (opts.pan !== false) centerMapOnSite(site, showPopup);
+  else showPopup();
 
   const card = document.querySelector(`.site-card[data-id="${id}"]`);
   card?.scrollIntoView({ behavior: "smooth", block: "nearest" });
