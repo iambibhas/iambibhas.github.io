@@ -1,0 +1,320 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f6f8;
+  --panel: #ffffff;
+  --ink: #1a1a2e;
+  --muted: #555e68;
+  --line: #dde1e6;
+  --accent: #d32f2f;
+  --accent-light: #ffebee;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  overflow: hidden;
+}
+
+h1, h2, h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+a {
+  color: var(--accent);
+}
+
+#app {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  padding: 0.85rem clamp(1rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topbar h1::before {
+  content: "🏥";
+}
+
+.emergency-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  align-items: center;
+  font-size: 0.88rem;
+}
+
+.emergency-banner .state-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.emergency-banner .banner-sep {
+  color: var(--line);
+}
+
+.emergency-banner .num-national {
+  background: #1a1a2e;
+}
+
+.emergency-banner .num {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.emergency-banner .num:hover {
+  opacity: 0.85;
+}
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.75rem 1rem 0.5rem;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+.sidebar-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.sidebar-count {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.hospital-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.65rem 0 0.5rem;
+}
+
+.hospital-card {
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hospital-card:hover,
+.hospital-card.is-active {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.hospital-card h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.98rem;
+}
+
+.hospital-card .locality {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.hospital-card .meta {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.hospital-card .phone {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+}
+
+.hospital-card .phone a {
+  font-weight: 600;
+}
+
+.phone-missing {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.focus-map {
+  margin-top: 0.5rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.focus-map:hover {
+  border-color: var(--accent);
+}
+
+.map-panel {
+  position: relative;
+  min-height: 0;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.status-overlay {
+  position: absolute;
+  z-index: 600;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(244, 246, 248, 0.92);
+  text-align: center;
+  padding: 2rem;
+}
+
+.status-overlay p {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 28rem;
+  line-height: 1.5;
+}
+
+.status-overlay .error {
+  color: var(--accent);
+}
+
+.footer {
+  padding: 0.65rem clamp(1rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.hospital-marker-wrap {
+  background: transparent;
+  border: none;
+}
+
+.hospital-marker {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.user-marker {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1976d2;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.user-marker-wrap {
+  background: transparent;
+  border: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(10rem, 40vh) minmax(0, 1fr);
+  }
+
+  .sidebar {
+    border-right: none;
+    border-top: 1px solid var(--line);
+    order: 1;
+  }
+
+  .map-panel {
+    order: 0;
+  }
+}
