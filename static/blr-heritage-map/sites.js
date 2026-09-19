@@ -36,8 +36,8 @@ const HERITAGE_SITES = [
   {
     id: "domlur-chokkanathaswamy",
     name: "Chokkanathaswamy Temple (Domlur)",
-    lat: 12.9608,
-    lng: 77.641,
+    lat: 12.9624,
+    lng: 77.6351,
     builtYear: 1100,
     era: "ancient_medieval",
     kind: "temple",
@@ -47,10 +47,10 @@ const HERITAGE_SITES = [
     sources: [
       {
         label: "Wikipedia",
-        url: "https://en.wikipedia.org/wiki/Chokkanathaswamy_Temple,_Domlur",
+        url: "https://en.wikipedia.org/wiki/Domlur_Chokkanathaswamy_temple",
       },
     ],
-    wikipedia: "https://en.wikipedia.org/wiki/Chokkanathaswamy_Temple,_Domlur",
+    wikipedia: "https://en.wikipedia.org/wiki/Domlur_Chokkanathaswamy_temple",
   },
   {
     id: "ulsoor-someshwara",
