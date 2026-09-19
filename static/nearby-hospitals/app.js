@@ -1,4 +1,4 @@
-const RADIUS_M = 10000;
+const RADIUS_M = 8000;
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
@@ -6,7 +6,15 @@ const OVERPASS_ENDPOINTS = [
 const NOMINATIM_REVERSE =
   "https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1";
 
-let map, markersLayer, userLatLng, hospitals = [], selectedId = null;
+const DEFAULT_CENTER = [12.9716, 77.5946];
+
+let map,
+  markersLayer,
+  userMarker,
+  radiusCircle,
+  userLatLng,
+  hospitals = [],
+  selectedId = null;
 let stateAmbulance = null;
 
 function refreshMapSize() {
@@ -98,22 +106,67 @@ function buildShell() {
           <h2>Hospitals</h2>
           <span id="count" class="sidebar-count">—</span>
         </div>
-        <div id="hospital-list" class="hospital-list"></div>
+        <div class="sidebar-scroll">
+          <div id="hospital-list" class="hospital-list"></div>
+          <footer class="footer">
+            <p>
+              Hospital data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>.
+              Ambulance numbers by state (from your location once). NHM <a href="https://nhm.gov.in/index1.php?lang=1&level=2&lid=189&sublinkid=1217" target="_blank" rel="noopener">Dial 108/102</a> — verify locally.
+              Hospital phone numbers come from OpenStreetMap when listed.
+            </p>
+          </footer>
+        </div>
       </aside>
       <main class="map-panel">
         <div id="map"></div>
+        <div class="map-controls">
+          <button
+            type="button"
+            id="location-search-btn"
+            class="map-control-btn"
+            aria-label="Search location"
+            title="Wrong location? Search a place"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            id="refresh-hospitals-btn"
+            class="map-control-btn map-control-btn--text"
+            title="Search nearby hospitals again"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08a5.99 5.99 0 0 1-5.65 4c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+              />
+            </svg>
+            Nearby
+          </button>
+        </div>
+        <div id="location-search-panel" class="location-search-panel" hidden>
+          <form id="location-search-form" class="location-search-form">
+            <label class="sr-only" for="location-search-input">Search location</label>
+            <input
+              id="location-search-input"
+              type="search"
+              placeholder="Address, area, or landmark…"
+              autocomplete="off"
+            />
+            <button type="submit">Go</button>
+          </form>
+          <ul id="location-search-results" class="location-search-results"></ul>
+        </div>
         <div id="status" class="status-overlay">
           <p>Requesting your location…</p>
         </div>
       </main>
     </div>
-    <footer class="footer">
-      <p>
-        Hospital data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>.
-        Ambulance numbers by state (from your location once). NHM <a href="https://nhm.gov.in/index1.php?lang=1&level=2&lid=189&sublinkid=1217" target="_blank" rel="noopener">Dial 108/102</a> — verify locally.
-        Hospital phone numbers come from OpenStreetMap when listed.
-      </p>
-    </footer>
   `;
   renderEmergencyBanner();
 }
@@ -149,7 +202,11 @@ function osmLocality(tags) {
 }
 
 function initMap(lat, lng) {
-  map = L.map("map", { scrollWheelZoom: true }).setView([lat, lng], 13);
+  map = L.map("map", { scrollWheelZoom: true, zoomControl: false }).setView(
+    [lat, lng],
+    13,
+  );
+  L.control.zoom({ position: "topright" }).addTo(map);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -163,17 +220,118 @@ function initMap(lat, lng) {
     iconSize: [16, 16],
     iconAnchor: [8, 8],
   });
-  L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
+  userMarker = L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
     .addTo(map)
-    .bindPopup("<strong>You are here</strong>");
+    .bindPopup("<strong>Search center</strong>");
 
-  L.circle([lat, lng], {
+  radiusCircle = L.circle([lat, lng], {
     radius: RADIUS_M,
     color: "#1976d2",
     fillColor: "#1976d2",
     fillOpacity: 0.06,
     weight: 1.5,
   }).addTo(map);
+}
+
+function setUserLocation(lat, lng, { pan = true } = {}) {
+  userLatLng = [lat, lng];
+  if (!map) {
+    initMap(lat, lng);
+    return;
+  }
+  userMarker.setLatLng([lat, lng]);
+  radiusCircle.setLatLng([lat, lng]);
+  if (pan) {
+    map.setView([lat, lng], Math.max(map.getZoom(), 13), { animate: true });
+  }
+}
+
+async function loadHospitalsAt(lat, lng, { fitBounds = true } = {}) {
+  showStatus("Finding nearby hospitals…");
+  try {
+    const [stateRaw, hospitalList] = await Promise.all([
+      reverseGeocodeStateOnce(lat, lng).catch(() => null),
+      fetchHospitals(lat, lng),
+    ]);
+    stateAmbulance = ambulanceForState(stateRaw);
+    renderEmergencyBanner();
+    hospitals = hospitalList;
+    selectedId = null;
+    hideStatus();
+    renderList();
+    renderMarkers(fitBounds);
+    requestAnimationFrame(refreshMapSize);
+  } catch (err) {
+    showStatus(
+      "Failed to fetch hospital data. Try again. " + err.message,
+      true,
+    );
+  }
+}
+
+async function nominatimSearch(query) {
+  const q = query.trim();
+  if (!q) return [];
+  const params = new URLSearchParams({
+    format: "json",
+    q,
+    limit: "6",
+    countrycodes: "in",
+  });
+  if (userLatLng) {
+    const [lat, lng] = userLatLng;
+    params.set(
+      "viewbox",
+      `${lng - 0.45},${lat - 0.45},${lng + 0.45},${lat + 0.45}`,
+    );
+  }
+  const resp = await fetch(
+    `https://nominatim.openstreetmap.org/search?${params}`,
+    { headers: { Accept: "application/json", "Accept-Language": "en" } },
+  );
+  if (!resp.ok) throw new Error("Location search failed");
+  return resp.json();
+}
+
+function closeLocationSearchPanel() {
+  const panel = document.getElementById("location-search-panel");
+  if (panel) panel.hidden = true;
+}
+
+function openLocationSearchPanel() {
+  const panel = document.getElementById("location-search-panel");
+  const input = document.getElementById("location-search-input");
+  if (!panel || !input) return;
+  panel.hidden = false;
+  input.focus();
+}
+
+function escapeHtml(s) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/"/g, "&quot;");
+}
+
+function renderLocationSearchResults(results) {
+  const list = document.getElementById("location-search-results");
+  if (!list) return;
+  if (!results.length) {
+    list.innerHTML = '<li class="location-search-empty">No places found</li>';
+    return;
+  }
+  list.innerHTML = results
+    .map(
+      (r) =>
+        `<li><button type="button" data-lat="${r.lat}" data-lng="${r.lon}">${escapeHtml(r.display_name)}</button></li>`,
+    )
+    .join("");
+}
+
+async function applySearchedLocation(lat, lng) {
+  closeLocationSearchPanel();
+  setUserLocation(lat, lng);
+  await loadHospitalsAt(lat, lng);
 }
 
 function osmPhone(t) {
@@ -284,8 +442,8 @@ function renderList() {
   const countEl = document.getElementById("count");
   countEl.textContent = `${hospitals.length} found`;
   if (hospitals.length === 0) {
-    listEl.innerHTML =
-      '<p style="color:var(--muted)">No hospitals found within 10 km.</p>';
+    const km = RADIUS_M / 1000;
+    listEl.innerHTML = `<p style="color:var(--muted)">No hospitals found within ${km} km.</p>`;
     return;
   }
   listEl.innerHTML = hospitals.map(renderCard).join("");
@@ -328,6 +486,52 @@ function wireEvents() {
     const card = e.target.closest(".hospital-card");
     if (card?.dataset.id) selectHospital(card.dataset.id);
   });
+
+  document
+    .getElementById("location-search-btn")
+    ?.addEventListener("click", () => {
+      const panel = document.getElementById("location-search-panel");
+      if (panel?.hidden) openLocationSearchPanel();
+      else closeLocationSearchPanel();
+    });
+
+  document
+    .getElementById("location-search-form")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("location-search-input");
+      if (!input?.value.trim()) return;
+      const list = document.getElementById("location-search-results");
+      if (list) list.innerHTML = '<li class="location-search-empty">Searching…</li>';
+      try {
+        renderLocationSearchResults(await nominatimSearch(input.value));
+      } catch {
+        if (list) {
+          list.innerHTML =
+            '<li class="location-search-empty">Search failed. Try again.</li>';
+        }
+      }
+    });
+
+  document
+    .getElementById("location-search-results")
+    ?.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-lat][data-lng]");
+      if (!btn) return;
+      applySearchedLocation(+btn.dataset.lat, +btn.dataset.lng);
+    });
+
+  document
+    .getElementById("refresh-hospitals-btn")
+    ?.addEventListener("click", () => {
+      if (!userLatLng) return;
+      loadHospitalsAt(userLatLng[0], userLatLng[1]);
+    });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLocationSearchPanel();
+  });
+
   window.addEventListener("resize", refreshMapSize);
 }
 
@@ -352,43 +556,26 @@ async function init() {
     return;
   }
 
+  const [defaultLat, defaultLng] = DEFAULT_CENTER;
+
   showStatus("Requesting your location…");
   navigator.geolocation.getCurrentPosition(
     async (pos) => {
       const { latitude: lat, longitude: lng } = pos.coords;
-      userLatLng = [lat, lng];
-      initMap(lat, lng);
-
-      showStatus("Finding nearby hospitals…");
-      try {
-        const [stateRaw, hospitalList] = await Promise.all([
-          reverseGeocodeStateOnce(lat, lng).catch(() => null),
-          fetchHospitals(lat, lng),
-        ]);
-        stateAmbulance = ambulanceForState(stateRaw);
-        renderEmergencyBanner();
-
-        hospitals = hospitalList;
-        hideStatus();
-        renderList();
-        renderMarkers();
-        requestAnimationFrame(refreshMapSize);
-        setTimeout(refreshMapSize, 300);
-      } catch (err) {
-        hideStatus();
-        showStatus(
-          "Failed to fetch hospital data. Try refreshing. " + err.message,
-          true,
-        );
-      }
+      setUserLocation(lat, lng, { pan: false });
+      userMarker.setPopupContent("<strong>You are here</strong>");
+      await loadHospitalsAt(lat, lng);
+      setTimeout(refreshMapSize, 300);
     },
     (err) => {
       const msgs = {
-        1: "Location permission denied. Please allow location access and refresh.",
-        2: "Could not determine your location. Check your device settings.",
-        3: "Location request timed out. Try again.",
+        1: "Location permission denied. Use the search icon on the map to pick a place.",
+        2: "Could not determine your location. Use the search icon on the map.",
+        3: "Location request timed out. Use the search icon on the map.",
       };
+      setUserLocation(defaultLat, defaultLng, { pan: false });
       showStatus(msgs[err.code] || "Unknown location error.", true);
+      setTimeout(refreshMapSize, 300);
     },
     { enableHighAccuracy: false, timeout: 15000 },
   );

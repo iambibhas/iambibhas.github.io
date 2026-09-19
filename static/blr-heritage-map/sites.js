@@ -424,8 +424,8 @@ const HERITAGE_SITES = [
   {
     id: "ghati-subramanya",
     name: "Ghati Subramanya Temple",
-    lat: 13.213,
-    lng: 77.455,
+    lat: 13.4085,
+    lng: 77.5281,
     builtYear: 600,
     era: "ancient_medieval",
     kind: "temple",

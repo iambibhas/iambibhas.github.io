@@ -98,6 +98,11 @@ function centerMapOnSite(site, onDone) {
   else map.once("moveend", onDone);
 }
 
+function googleMapsUrl(site) {
+  const q = `${site.lat},${site.lng}`;
+  return `https://www.google.com/maps?q=${encodeURIComponent(q)}`;
+}
+
 function renderSiteCard(site, active, opts = {}) {
   const { showFocusBtn = true } = opts;
   const sources = site.sources
@@ -121,6 +126,7 @@ function renderSiteCard(site, active, opts = {}) {
       <p class="visit"><strong>Visit:</strong> ${site.visitNotes}</p>
       <ul class="sources">${sources}</ul>
       ${wiki}
+      <p class="maps-link"><a href="${googleMapsUrl(site)}" target="_blank" rel="noopener noreferrer">Google Maps</a></p>
       ${
         showFocusBtn
           ? `<button type="button" class="focus-map" data-focus="${site.id}">Show on map</button>`
