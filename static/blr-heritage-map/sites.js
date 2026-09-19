@@ -38,7 +38,7 @@ const HERITAGE_SITES = [
     name: "Chokkanathaswamy Temple (Domlur)",
     lat: 12.9624,
     lng: 77.6351,
-    builtYear: 1100,
+    builtYear: 1200,
     era: "ancient_medieval",
     kind: "temple",
     summary:
