@@ -73,8 +73,8 @@ url = "/resume"
 weight = 5
 
 [[menu.main]]
-name = "BLR Heritage Map"
-url = "/blr-heritage-map"
+name = "Heritage Map"
+url = "/heritage-map"
 weight = 6
 
 [[menu.main]]

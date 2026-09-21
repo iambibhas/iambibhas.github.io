@@ -53,6 +53,19 @@ a {
   background: linear-gradient(180deg, #fffdf8 0%, var(--bg) 100%);
 }
 
+.footer .built-by {
+  margin: 0.4rem 0 0;
+}
+
+.built-by a {
+  color: inherit;
+  font-weight: 500;
+}
+
+.built-by a:hover {
+  color: var(--accent);
+}
+
 .eyebrow {
   margin: 0 0 0.35rem;
   text-transform: uppercase;
@@ -61,9 +74,35 @@ a {
   color: var(--muted);
 }
 
+.brand-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.35rem;
+}
+
 .topbar h1 {
-  margin: 0 0 0.35rem;
+  margin: 0;
   font-size: clamp(1.35rem, 2.5vw, 2rem);
+}
+
+.city-select select {
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.city-select select:hover,
+.city-select select:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .lede {
@@ -330,6 +369,10 @@ a {
   inset: 0;
 }
 
+.map-city-select {
+  display: none;
+}
+
 .map-reset {
   position: absolute;
   z-index: 500;
@@ -458,6 +501,21 @@ a {
     left: 0.5rem;
     bottom: max(0.5rem, env(safe-area-inset-bottom));
     max-width: calc(100% - 1rem);
+  }
+
+  .map-city-select {
+    display: block;
+    position: absolute;
+    z-index: 500;
+    top: max(0.5rem, env(safe-area-inset-top));
+    left: 0.5rem;
+    max-width: calc(100% - 5.5rem);
+  }
+
+  .map-city-select select {
+    width: 100%;
+    max-width: 11rem;
+    box-shadow: var(--shadow);
   }
 
   .map-reset {

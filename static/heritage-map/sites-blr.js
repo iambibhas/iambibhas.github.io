@@ -1,10 +1,9 @@
-/** Curated sites: publicly visitable, mappable, built before 1950. */
-const HERITAGE_SITES = [
+const SITES_BLR = [
   {
     id: "begur-nageshwara",
     name: "Begur Nageshwara (Nageshvara) Temple",
-    lat: 12.8779,
-    lng: 77.6321,
+    lat: 12.8767,
+    lng: 77.6267,
     builtYear: 890,
     era: "ancient_medieval",
     kind: "temple",
@@ -55,8 +54,8 @@ const HERITAGE_SITES = [
   {
     id: "ulsoor-someshwara",
     name: "Halasuru Someshwara Temple",
-    lat: 12.9789,
-    lng: 77.621,
+    lat: 12.9754,
+    lng: 77.6242,
     builtYear: 1150,
     era: "ancient_medieval",
     kind: "temple",
@@ -193,8 +192,8 @@ const HERITAGE_SITES = [
   {
     id: "nandi-hills-fort",
     name: "Nandi Hills (Tipu’s hill fort)",
-    lat: 13.37,
-    lng: 77.6833,
+    lat: 13.3863,
+    lng: 77.7009,
     builtYear: 1700,
     era: "tipu_late_medieval",
     kind: "fort",
@@ -209,8 +208,8 @@ const HERITAGE_SITES = [
   {
     id: "savandurga",
     name: "Savandurga (fort hill)",
-    lat: 12.919,
-    lng: 77.23,
+    lat: 12.9195,
+    lng: 77.2921,
     builtYear: 1600,
     era: "vijayanagara_kempegowda",
     kind: "fort",
@@ -223,8 +222,8 @@ const HERITAGE_SITES = [
   {
     id: "shivagange",
     name: "Shivagange (hill temple & fort)",
-    lat: 13.023,
-    lng: 77.225,
+    lat: 13.1697,
+    lng: 77.2227,
     builtYear: 1600,
     era: "vijayanagara_kempegowda",
     kind: "temple",
@@ -272,7 +271,7 @@ const HERITAGE_SITES = [
     name: "Attara Kacheri (High Court)",
     lat: 12.9776,
     lng: 77.5928,
-    builtYear: 1867,
+    builtYear: 1868,
     era: "british",
     kind: "heritage_building",
     summary:
@@ -485,8 +484,8 @@ const HERITAGE_SITES = [
   {
     id: "lalbagh-gardens",
     name: "Lalbagh Botanical Garden",
-    lat: 12.9507,
-    lng: 77.5848,
+    lat: 12.95,
+    lng: 77.59,
     builtYear: 1760,
     era: "tipu_late_medieval",
     kind: "monument",
@@ -566,8 +565,8 @@ const HERITAGE_SITES = [
   {
     id: "makalidurga",
     name: "Makalidurga (fort hill)",
-    lat: 13.451,
-    lng: 77.443,
+    lat: 13.4326,
+    lng: 77.501,
     builtYear: 1600,
     era: "vijayanagara_kempegowda",
     kind: "fort",
@@ -773,10 +772,7 @@ const HERITAGE_SITES = [
     summary:
       "Shiva temple on Sarjapur Road with about 1,200 years of worship tradition in the Agara agrahara.",
     visitNotes: "Neighbourhood temple near Agara lake; open during puja hours.",
-    sources: [
-      { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Someshwara_Swamy_Temple" },
-    ],
-    wikipedia: "https://en.wikipedia.org/wiki/Someshwara_Swamy_Temple",
+    sources: [{ label: "Karnataka Tourism", url: "https://karnatakatourism.org/" }],
   },
   {
     id: "gunjur-someshwara",
@@ -830,8 +826,8 @@ const HERITAGE_SITES = [
   {
     id: "ranganathaswamy-chickpet",
     name: "Ranganathaswamy Temple (Chickpet)",
-    lat: 12.9682,
-    lng: 77.5748,
+    lat: 12.9703,
+    lng: 77.5793,
     builtYear: 1550,
     era: "vijayanagara_kempegowda",
     kind: "temple",
@@ -929,9 +925,9 @@ const HERITAGE_SITES = [
   {
     id: "st-johns-church",
     name: "St. John's Church (Cleveland Town)",
-    lat: 12.9917,
-    lng: 77.6006,
-    builtYear: 1858,
+    lat: 12.9918,
+    lng: 77.613,
+    builtYear: 1857,
     era: "british",
     kind: "church",
     summary:
@@ -1010,7 +1006,7 @@ const HERITAGE_SITES = [
     name: "Victoria Hospital (heritage block)",
     lat: 12.9634,
     lng: 77.5738,
-    builtYear: 1900,
+    builtYear: 1901,
     era: "british",
     kind: "heritage_building",
     summary:
@@ -1058,27 +1054,3 @@ const HERITAGE_SITES = [
     ],
   },
 ];
-
-const ERA_LABELS = {
-  ancient_medieval: "Ancient & medieval (pre-16th c.)",
-  vijayanagara_kempegowda: "Vijayanagara & Kempe Gowda",
-  tipu_late_medieval: "Tipu & late Mysore",
-  british: "British era (to 1947)",
-};
-
-const ERA_COLORS = {
-  ancient_medieval: "#8b4513",
-  vijayanagara_kempegowda: "#b8860b",
-  tipu_late_medieval: "#2d6a4f",
-  british: "#4a5568",
-};
-
-const KIND_LABELS = {
-  temple: "Temple",
-  fort: "Fort / hill fort",
-  palace: "Palace",
-  mosque: "Mosque",
-  church: "Church",
-  monument: "Monument",
-  heritage_building: "Heritage building",
-};
