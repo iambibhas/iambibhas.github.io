@@ -395,9 +395,6 @@ a {
   color: var(--accent);
 }
 
-.map-reset[hidden] {
-  display: none;
-}
 
 .map-legend {
   position: absolute;
@@ -442,19 +439,19 @@ a {
 
 .heritage-marker {
   display: block;
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   background: var(--marker);
-  border: 2px solid #fff;
+  border: 2.5px solid #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .heritage-marker.is-selected {
-  width: 22px;
-  height: 22px;
-  border-width: 3px;
+  width: 30px;
+  height: 30px;
+  border-width: 3.5px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
 }
 

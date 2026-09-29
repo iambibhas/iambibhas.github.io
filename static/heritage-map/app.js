@@ -82,7 +82,7 @@ function filteredSites() {
 
 function markerIcon(site, selected = false) {
   const color = eraColors()[site.era];
-  const size = selected ? 28 : 18;
+  const size = selected ? 36 : 24;
   const anchor = size / 2;
   return L.divIcon({
     className: "heritage-marker-wrap",
@@ -187,8 +187,7 @@ function fitMapToFilteredSites() {
 }
 
 function updateResetMapButton() {
-  const btn = document.getElementById("reset-map");
-  if (btn) btn.hidden = selectedId === null;
+  // no-op: button is always visible
 }
 
 function resetMapView() {
@@ -355,7 +354,7 @@ function buildShell() {
           <span class="sr-only">City</span>
           <select id="city-select-mobile" aria-label="City">${cityOptionsMarkup()}</select>
         </label>
-        <button type="button" id="reset-map" class="map-reset" hidden>
+        <button type="button" id="reset-map" class="map-reset">
           Show all on map
         </button>
         <div class="map-legend">${legendMarkup()}</div>
