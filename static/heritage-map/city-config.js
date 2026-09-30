@@ -8,6 +8,30 @@ const KIND_LABELS = {
   heritage_building: "Heritage building",
 };
 
+/** Shared across cities so filters stay valid with all markers visible. */
+const ERA_LABELS = {
+  ancient_medieval: "Ancient & medieval (pre-16th c.)",
+  early_modern: "Early modern (16th–18th c.)",
+  high_colonial: "High colonial (19th c.)",
+  late_colonial: "Late colonial (to 1947)",
+};
+
+const ERA_COLORS = {
+  ancient_medieval: "#b91c1c",
+  early_modern: "#d97706",
+  high_colonial: "#1d4ed8",
+  late_colonial: "#0f766e",
+};
+
+const OVERVIEW = {
+  id: "all",
+  label: "All cities",
+  eyebrow: "visitable heritage",
+  lede: "Walkable monuments across Indian cities — zoom in, or pick a city to fly there.",
+  mapCenter: [17.8, 83.0],
+  mapZoom: 5,
+};
+
 const CITIES = {
   blr: {
     label: "Bengaluru",
@@ -16,18 +40,6 @@ const CITIES = {
     lede: "Walkable monuments, temples, and colonial landmarks.",
     mapCenter: [12.97, 77.59],
     mapZoom: 11,
-    eraLabels: {
-      ancient_medieval: "Ancient & medieval (pre-16th c.)",
-      vijayanagara_kempegowda: "Vijayanagara & Kempe Gowda",
-      tipu_late_medieval: "Tipu & late Mysore",
-      british: "British era (to 1947)",
-    },
-    eraColors: {
-      ancient_medieval: "#8b4513",
-      vijayanagara_kempegowda: "#b8860b",
-      tipu_late_medieval: "#2d6a4f",
-      british: "#4a5568",
-    },
   },
   kol: {
     label: "Kolkata",
@@ -37,26 +49,15 @@ const CITIES = {
       "Temples, Raj-era civic buildings, and Hooghly-side landmarks you can still walk into.",
     mapCenter: [22.57, 88.36],
     mapZoom: 11,
-    eraLabels: {
-      ancient_early: "Ancient & early (pre-1800)",
-      nawabi_colonial: "Nawabi & early colonial",
-      victorian: "Victorian Calcutta",
-      late_colonial: "Late colonial (to 1947)",
-    },
-    eraColors: {
-      ancient_early: "#6b4423",
-      nawabi_colonial: "#9a3412",
-      victorian: "#1d4e89",
-      late_colonial: "#4a5568",
-    },
   },
 };
 
-const DEFAULT_CITY = "blr";
+const DEFAULT_CITY = "all";
 
 function resolveCityId(raw) {
   if (!raw) return DEFAULT_CITY;
   const q = String(raw).trim().toLowerCase();
+  if (q === "all" || q === "overview") return "all";
   if (CITIES[q]) return q;
   for (const [id, city] of Object.entries(CITIES)) {
     if (city.aliases.includes(q)) return id;
@@ -66,6 +67,11 @@ function resolveCityId(raw) {
 
 function cityFromLocation() {
   return resolveCityId(new URLSearchParams(location.search).get("city"));
+}
+
+function viewForCity(cityId) {
+  if (cityId === "all") return OVERVIEW;
+  return CITIES[cityId] || OVERVIEW;
 }
 
 /** "" when served from static/heritage-map via python; "/heritage-map" on the live site. */

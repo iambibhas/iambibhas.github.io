@@ -5,7 +5,7 @@ const SITES_KOL = [
     lat: 22.9191,
     lng: 88.3962,
     builtYear: 1599,
-    era: "ancient_early",
+    era: "early_modern",
     kind: "church",
     summary:
       "Portuguese-era church on the Hooghly; one of the oldest Christian shrines in Bengal, rebuilt after the 1632 sack of Hooghly.",
@@ -19,7 +19,7 @@ const SITES_KOL = [
     lat: 22.6194,
     lng: 88.3703,
     builtYear: 1610,
-    era: "ancient_early",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Cossipore shrine with a wooden Durga idol tradition; among the oldest documented Durga temples within modern Kolkata.",
@@ -37,7 +37,7 @@ const SITES_KOL = [
     lat: 22.4848,
     lng: 88.3137,
     builtYear: 1650,
-    era: "ancient_early",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Cluster of twelve ath-chala Shiva shrines in southwest Kolkata, attributed to the 17th-century Barisha zamindar line.",
@@ -55,7 +55,7 @@ const SITES_KOL = [
     lat: 21.9925,
     lng: 88.4875,
     builtYear: 1000,
-    era: "ancient_early",
+    era: "ancient_medieval",
     kind: "temple",
     summary:
       "ASI-protected rekha deul in the Sundarbans fringe; Nagara-style brick tower dated to the 10th–11th century.",
@@ -69,7 +69,7 @@ const SITES_KOL = [
     lat: 22.6978,
     lng: 88.6883,
     builtYear: 400,
-    era: "ancient_early",
+    era: "ancient_medieval",
     kind: "monument",
     summary:
       "Excavated port-town remains of ancient Bengal (circa 400 BCE–12th century CE) north-east of the city.",
@@ -85,7 +85,7 @@ const SITES_KOL = [
     lat: 22.5796,
     lng: 88.3514,
     builtYear: 1724,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "church",
     summary:
       "Oldest church in Kolkata, built for the Armenian merchant community that traded on the Hooghly.",
@@ -104,7 +104,7 @@ const SITES_KOL = [
     lat: 22.5464,
     lng: 88.3603,
     builtYear: 1767,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "monument",
     summary:
       "Colonial necropolis with Indo-Saracenic and Gothic tombs of East India Company officials, scholars, and rebels.",
@@ -120,7 +120,7 @@ const SITES_KOL = [
     lat: 22.5332,
     lng: 88.3333,
     builtYear: 1760,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "heritage_building",
     summary:
       "Former Mir Jafar residence, later home of governors-general; now the National Library campus in Alipore.",
@@ -136,7 +136,7 @@ const SITES_KOL = [
     lat: 22.5968,
     lng: 88.3672,
     builtYear: 1757,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "palace",
     summary:
       "Palace of the Shobhabazar royal family; centre of Durga Puja patronage and 18th-century north Kolkata society.",
@@ -150,7 +150,7 @@ const SITES_KOL = [
     lat: 22.5737,
     lng: 88.3496,
     builtYear: 1777,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "heritage_building",
     summary:
       "Red-brick secretariat of British Bengal; long the symbolic seat of colonial administration on BBD Bagh.",
@@ -164,7 +164,7 @@ const SITES_KOL = [
     lat: 22.5699,
     lng: 88.3459,
     builtYear: 1787,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "church",
     summary:
       "Neoclassical parish church in the Maidan; houses Zoffany’s Last Supper copy and the Black Hole memorial.",
@@ -178,7 +178,7 @@ const SITES_KOL = [
     lat: 22.5850,
     lng: 88.3592,
     builtYear: 1784,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "heritage_building",
     summary:
       "Birthplace museum of Rabindranath Tagore and the Tagore family mansion in north Kolkata.",
@@ -194,7 +194,7 @@ const SITES_KOL = [
     lat: 22.5673,
     lng: 88.3474,
     builtYear: 1803,
-    era: "nawabi_colonial",
+    era: "high_colonial",
     kind: "palace",
     summary:
       "Lord Wellesley’s Palladian residence; still the official home of the Governor of West Bengal.",
@@ -208,7 +208,7 @@ const SITES_KOL = [
     lat: 22.5680,
     lng: 88.3450,
     builtYear: 1813,
-    era: "nawabi_colonial",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Graeco-Roman public hall built for Calcutta’s European residents; now houses a city history exhibit.",
@@ -222,7 +222,7 @@ const SITES_KOL = [
     lat: 22.5581,
     lng: 88.3508,
     builtYear: 1814,
-    era: "nawabi_colonial",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Oldest and largest multipurpose museum in India, with archaeology, art, and natural history collections.",
@@ -236,7 +236,7 @@ const SITES_KOL = [
     lat: 22.5606,
     lng: 88.2869,
     builtYear: 1787,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "monument",
     summary:
       "Colonial botanical garden on the Hooghly; famous for the Great Banyan, one of the widest trees in the world.",
@@ -256,7 +256,7 @@ const SITES_KOL = [
     lat: 22.5824,
     lng: 88.3601,
     builtYear: 1835,
-    era: "nawabi_colonial",
+    era: "high_colonial",
     kind: "palace",
     summary:
       "Neoclassical mansion of Raja Rajendra Mullick, packed with European sculpture and painting collections.",
@@ -270,7 +270,7 @@ const SITES_KOL = [
     lat: 22.5653,
     lng: 88.3518,
     builtYear: 1832,
-    era: "nawabi_colonial",
+    era: "high_colonial",
     kind: "mosque",
     summary:
       "Mughal-revival mosque on Dharmatala Street funded by Prince Ghulam Mohammad, son of Tipu Sultan.",
@@ -284,7 +284,7 @@ const SITES_KOL = [
     lat: 22.5203,
     lng: 88.3421,
     builtYear: 1490,
-    era: "ancient_early",
+    era: "ancient_medieval",
     kind: "temple",
     summary:
       "Major Shakti peetha attested in 15th–17th-century Bengali texts; the present brick temple was completed in 1809.",
@@ -299,7 +299,7 @@ const SITES_KOL = [
     lat: 22.5715,
     lng: 88.3447,
     builtYear: 1844,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Greek-revival colonnade on the Strand, built to honour Governor-General Lord Metcalfe.",
@@ -313,7 +313,7 @@ const SITES_KOL = [
     lat: 22.5568,
     lng: 88.3316,
     builtYear: 1841,
-    era: "victorian",
+    era: "high_colonial",
     kind: "monument",
     summary:
       "Palladian riverfront monument to scholar-administrator James Prinsep, with views of the Vidyasagar Setu.",
@@ -327,7 +327,7 @@ const SITES_KOL = [
     lat: 22.5442,
     lng: 88.3467,
     builtYear: 1847,
-    era: "victorian",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Gothic Revival cathedral beside the Maidan; first Anglican cathedral in the overseas British Empire.",
@@ -341,7 +341,7 @@ const SITES_KOL = [
     lat: 22.5684,
     lng: 88.3495,
     builtYear: 1841,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Victorian-era grande dame of Dalhousie Square, once nicknamed ‘the Jewel of the East’ for travellers.",
@@ -355,7 +355,7 @@ const SITES_KOL = [
     lat: 22.5629,
     lng: 88.3492,
     builtYear: 1828,
-    era: "victorian",
+    era: "high_colonial",
     kind: "monument",
     summary:
       "Hybrid Indo-Saracenic column originally commemorating Sir David Ochterlony; renamed to honour martyrs.",
@@ -369,7 +369,7 @@ const SITES_KOL = [
     lat: 22.6550,
     lng: 88.3578,
     builtYear: 1855,
-    era: "victorian",
+    era: "high_colonial",
     kind: "temple",
     summary:
       "Nine-spired Kali temple built by Rani Rashmoni; closely associated with Sri Ramakrishna.",
@@ -383,7 +383,7 @@ const SITES_KOL = [
     lat: 22.5829,
     lng: 88.3428,
     builtYear: 1854,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "One of the busiest and oldest major railway terminals in India, anchoring the Howrah side of the Hooghly.",
@@ -397,7 +397,7 @@ const SITES_KOL = [
     lat: 22.5731,
     lng: 88.3456,
     builtYear: 1868,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Italianate dome and rotunda on the site of the old Fort William tank; still Kolkata’s chief post office.",
@@ -413,7 +413,7 @@ const SITES_KOL = [
     lat: 22.5706,
     lng: 88.3503,
     builtYear: 1868,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Italianate courtyard building that housed the currency department; restored as a National Gallery venue.",
@@ -427,7 +427,7 @@ const SITES_KOL = [
     lat: 22.9083,
     lng: 88.4000,
     builtYear: 1861,
-    era: "victorian",
+    era: "high_colonial",
     kind: "mosque",
     summary:
       "Shia congregation hall on the Hooghly with a striking clock tower and riverfront façade at Hooghly town.",
@@ -441,7 +441,7 @@ const SITES_KOL = [
     lat: 22.5708,
     lng: 88.3481,
     builtYear: 1867,
-    era: "victorian",
+    era: "high_colonial",
     kind: "temple",
     summary:
       "Ornate marble Jain temple complex in Girish Park with mirror-inlay halls and garden courts.",
@@ -460,7 +460,7 @@ const SITES_KOL = [
     lat: 22.5811,
     lng: 88.3581,
     builtYear: 1884,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Red-brick synagogue in Burrabazar built for the Baghdadi Jewish community of colonial Calcutta.",
@@ -474,7 +474,7 @@ const SITES_KOL = [
     lat: 22.6325,
     lng: 88.3564,
     builtYear: 1898,
-    era: "late_colonial",
+    era: "high_colonial",
     kind: "temple",
     summary:
       "Headquarters of the Ramakrishna Mission; fusion architecture blending temple, church, and mosque motifs.",
@@ -488,7 +488,7 @@ const SITES_KOL = [
     lat: 22.5941,
     lng: 88.3710,
     builtYear: 1883,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Historic Bengali stage on Beadon Street associated with the golden age of commercial theatre.",
@@ -590,7 +590,7 @@ const SITES_KOL = [
     lat: 22.5545,
     lng: 88.3380,
     builtYear: 1781,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Octagonal stone fort of the East India Company on the Maidan; replaced the old ‘Black Hole’ fort.",
@@ -604,7 +604,7 @@ const SITES_KOL = [
     lat: 22.6000,
     lng: 88.3614,
     builtYear: 1757,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "monument",
     summary:
       "Lane workshops where idol-makers sculpt Durga and Kali images for festivals across Bengal and abroad.",
@@ -618,7 +618,7 @@ const SITES_KOL = [
     lat: 22.8546,
     lng: 88.3692,
     builtYear: 1673,
-    era: "ancient_early",
+    era: "early_modern",
     kind: "heritage_building",
     summary:
       "French factory founded 1673; the Strand’s Indo-European mansions and clock tower date mainly from the 18th–19th centuries.",
@@ -632,7 +632,7 @@ const SITES_KOL = [
     lat: 22.7500,
     lng: 88.3400,
     builtYear: 1755,
-    era: "nawabi_colonial",
+    era: "early_modern",
     kind: "heritage_building",
     summary:
       "Hooghly-side town under Danish rule until 1845; St. Olav’s Church and college buildings survive.",
@@ -646,7 +646,7 @@ const SITES_KOL = [
     lat: 22.5889,
     lng: 88.3714,
     builtYear: 1890,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Neo-classical north Kolkata mansion with doll sculptures on the façade, tied to zamindar-era river trade.",
@@ -660,7 +660,7 @@ const SITES_KOL = [
     lat: 22.5646,
     lng: 88.3423,
     builtYear: 1864,
-    era: "victorian",
+    era: "high_colonial",
     kind: "monument",
     summary:
       "Historic cricket ground beside the Maidan, among the oldest and most capacious stadiums in the world.",
@@ -674,7 +674,7 @@ const SITES_KOL = [
     lat: 22.5680,
     lng: 88.3711,
     builtYear: 1869,
-    era: "victorian",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Major terminal serving suburban and long-distance trains; colonial-era core amid later expansions.",

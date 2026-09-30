@@ -3,7 +3,7 @@ const CUTOFF_YEAR = 1950;
 const state = {
   city: cityFromLocation(),
   query: "",
-  eras: new Set(),
+  eras: new Set(Object.keys(ERA_LABELS)),
 };
 
 let map;
@@ -11,24 +11,14 @@ let markersLayer;
 let selectedId = null;
 const markersById = new Map();
 
-function activeCity() {
-  return CITIES[state.city];
+function allHeritageSites() {
+  return Object.entries(HERITAGE_BY_CITY).flatMap(([city, sites]) =>
+    sites.map((s) => ({ ...s, city })),
+  );
 }
 
-function heritageSites() {
-  return HERITAGE_BY_CITY[state.city] || [];
-}
-
-function eraLabels() {
-  return activeCity().eraLabels;
-}
-
-function eraColors() {
-  return activeCity().eraColors;
-}
-
-function resetErasForCity() {
-  state.eras = new Set(Object.keys(eraLabels()));
+function siteById(id) {
+  return allHeritageSites().find((s) => s.id === id);
 }
 
 function syncCityInUrl() {
@@ -51,7 +41,6 @@ function openMobileSitePanel(site) {
   content.innerHTML = renderSiteCard(site, true, { showFocusBtn: false });
   panel.hidden = false;
   panel.removeAttribute("hidden");
-  updateResetMapButton();
   refreshMarkerSelection();
 }
 
@@ -60,7 +49,6 @@ function closeMobileSitePanel() {
   if (!panel) return;
   panel.hidden = true;
   selectedId = null;
-  updateResetMapButton();
   refreshMarkerSelection();
 }
 
@@ -69,19 +57,21 @@ function siteMatches(site, filters) {
   if (filters.eras.size > 0 && !filters.eras.has(site.era)) return false;
   const q = filters.query.trim().toLowerCase();
   if (!q) return true;
+  const cityLabel = CITIES[site.city]?.label || "";
   return (
     site.name.toLowerCase().includes(q) ||
     site.summary.toLowerCase().includes(q) ||
-    KIND_LABELS[site.kind].toLowerCase().includes(q)
+    KIND_LABELS[site.kind].toLowerCase().includes(q) ||
+    cityLabel.toLowerCase().includes(q)
   );
 }
 
 function filteredSites() {
-  return heritageSites().filter((s) => siteMatches(s, state));
+  return allHeritageSites().filter((s) => siteMatches(s, state));
 }
 
 function markerIcon(site, selected = false) {
-  const color = eraColors()[site.era];
+  const color = ERA_COLORS[site.era];
   const size = selected ? 36 : 24;
   const anchor = size / 2;
   return L.divIcon({
@@ -94,7 +84,7 @@ function markerIcon(site, selected = false) {
 
 function refreshMarkerSelection() {
   for (const [id, marker] of markersById) {
-    const site = heritageSites().find((s) => s.id === id);
+    const site = siteById(id);
     if (!site) continue;
     const selected = id === selectedId;
     marker.setIcon(markerIcon(site, selected));
@@ -123,6 +113,15 @@ function centerMapOnSite(site, onDone) {
   else map.once("moveend", onDone);
 }
 
+function flyToCityView(cityId) {
+  const view = viewForCity(cityId);
+  if (cityId === "all") {
+    fitMapToFilteredSites({ maxZoom: OVERVIEW.mapZoom + 1 });
+    return;
+  }
+  map.setView(view.mapCenter, view.mapZoom, { animate: true });
+}
+
 function googleMapsUrl(site) {
   const q = `${site.lat},${site.lng}`;
   return `https://www.google.com/maps?q=${encodeURIComponent(q)}`;
@@ -130,7 +129,6 @@ function googleMapsUrl(site) {
 
 function renderSiteCard(site, active, opts = {}) {
   const { showFocusBtn = true } = opts;
-  const labels = eraLabels();
   const sources = site.sources
     .map(
       (s) =>
@@ -140,14 +138,15 @@ function renderSiteCard(site, active, opts = {}) {
   const wiki = site.wikipedia
     ? `<p class="wiki"><a href="${site.wikipedia}" target="_blank" rel="noopener noreferrer">Wikipedia</a></p>`
     : "";
+  const cityLabel = CITIES[site.city]?.label || site.city;
 
   return `
     <article class="site-card ${active ? "is-active" : ""}" data-id="${site.id}">
       <header>
         <h3>${site.name}</h3>
-        <span class="era-badge">${labels[site.era]}</span>
+        <span class="era-badge">${ERA_LABELS[site.era]}</span>
       </header>
-      <p class="meta">${KIND_LABELS[site.kind]} · c. ${site.builtYear}</p>
+      <p class="meta">${cityLabel} · ${KIND_LABELS[site.kind]} · c. ${site.builtYear}</p>
       <p>${site.summary}</p>
       <p class="visit"><strong>Visit:</strong> ${site.visitNotes}</p>
       <ul class="sources">${sources}</ul>
@@ -167,7 +166,10 @@ function renderList() {
   const countEl = document.getElementById("site-count");
   if (!listEl || !countEl) return;
 
-  const sites = filteredSites().sort((a, b) => a.builtYear - b.builtYear);
+  const sites = filteredSites().sort((a, b) => {
+    if (a.city !== b.city) return a.city.localeCompare(b.city);
+    return a.builtYear - b.builtYear;
+  });
   countEl.textContent = `${sites.length} place${sites.length === 1 ? "" : "s"}`;
 
   if (sites.length === 0) {
@@ -179,23 +181,24 @@ function renderList() {
   listEl.innerHTML = sites.map((s) => renderSiteCard(s, s.id === selectedId)).join("");
 }
 
-function fitMapToFilteredSites() {
+function fitMapToFilteredSites(opts = {}) {
   const sites = filteredSites();
   if (sites.length === 0) return;
   const bounds = sites.map((s) => [s.lat, s.lng]);
-  map.fitBounds(L.latLngBounds(bounds), { padding: [40, 40], maxZoom: 12 });
-}
-
-function updateResetMapButton() {
-  // no-op: button is always visible
+  map.fitBounds(L.latLngBounds(bounds), {
+    padding: [40, 40],
+    maxZoom: opts.maxZoom ?? 12,
+  });
 }
 
 function resetMapView() {
   selectedId = null;
   closeMobileSitePanel();
+  state.city = "all";
+  updateCityChrome();
+  syncCityInUrl();
   renderList();
-  fitMapToFilteredSites();
-  updateResetMapButton();
+  fitMapToFilteredSites({ maxZoom: OVERVIEW.mapZoom + 1 });
   refreshMarkerSelection();
   closeAllMarkerPopups();
 }
@@ -204,7 +207,6 @@ function renderMarkers() {
   markersLayer.clearLayers();
   markersById.clear();
   const sites = filteredSites();
-  const labels = eraLabels();
 
   for (const site of sites) {
     const marker = L.marker([site.lat, site.lng], {
@@ -212,8 +214,9 @@ function renderMarkers() {
     });
     markersById.set(site.id, marker);
     if (!isMobileView()) {
+      const cityLabel = CITIES[site.city]?.label || site.city;
       marker.bindPopup(
-        `<strong>${site.name}</strong><br/><span class="popup-era">${labels[site.era]}</span><br/>c. ${site.builtYear}`,
+        `<strong>${site.name}</strong><br/><span class="popup-era">${cityLabel} · ${ERA_LABELS[site.era]}</span><br/>c. ${site.builtYear}`,
         { autoPan: false },
       );
     }
@@ -227,19 +230,14 @@ function renderMarkers() {
     });
     marker.addTo(markersLayer);
   }
-
-  if (sites.length > 0 && !selectedId) {
-    fitMapToFilteredSites();
-  }
 }
 
 function selectSite(id, opts = { pan: true, openPopup: true }) {
   selectedId = id;
-  const site = heritageSites().find((s) => s.id === id);
+  const site = siteById(id);
   if (!site) return;
 
   renderList();
-  updateResetMapButton();
   refreshMarkerSelection();
 
   const showPopup = () => {
@@ -254,67 +252,68 @@ function selectSite(id, opts = { pan: true, openPopup: true }) {
 }
 
 function eraFilterMarkup() {
-  const labels = eraLabels();
-  const colors = eraColors();
-  return Object.keys(labels)
+  return Object.keys(ERA_LABELS)
     .map(
       (era) => `
       <label class="chip">
         <input type="checkbox" name="era" value="${era}" ${
           state.eras.has(era) ? "checked" : ""
         } />
-        <span style="--chip:${colors[era]}">${labels[era]}</span>
+        <span style="--chip:${ERA_COLORS[era]}">${ERA_LABELS[era]}</span>
       </label>`,
     )
     .join("");
 }
 
 function legendMarkup() {
-  const labels = eraLabels();
-  const colors = eraColors();
-  return Object.keys(labels)
+  return Object.keys(ERA_LABELS)
     .map(
       (era) =>
-        `<span><i style="background:${colors[era]}"></i>${labels[era]}</span>`,
+        `<span><i style="background:${ERA_COLORS[era]}"></i>${ERA_LABELS[era]}</span>`,
     )
     .join("");
 }
 
 function cityOptionsMarkup() {
-  return Object.entries(CITIES)
-    .map(
+  const opts = [
+    `<option value="all"${state.city === "all" ? " selected" : ""}>${OVERVIEW.label}</option>`,
+    ...Object.entries(CITIES).map(
       ([id, city]) =>
         `<option value="${id}"${id === state.city ? " selected" : ""}>${city.label}</option>`,
-    )
-    .join("");
+    ),
+  ];
+  return opts.join("");
 }
 
 function updateCityChrome() {
-  const city = activeCity();
-  document.title = `${city.label} Heritage Map`;
+  const view = viewForCity(state.city);
+  document.title =
+    state.city === "all"
+      ? "Heritage Map"
+      : `${view.label} Heritage Map`;
   const eyebrow = document.getElementById("city-eyebrow");
   const lede = document.getElementById("city-lede");
   const select = document.getElementById("city-select");
-  if (eyebrow) eyebrow.textContent = `${city.label} · ${city.eyebrow}`;
-  if (lede) lede.textContent = city.lede;
   const mobileSelect = document.getElementById("city-select-mobile");
+  if (eyebrow) {
+    eyebrow.textContent =
+      state.city === "all"
+        ? `India · ${view.eyebrow}`
+        : `${view.label} · ${view.eyebrow}`;
+  }
+  if (lede) lede.textContent = view.lede;
   if (select) select.value = state.city;
   if (mobileSelect) mobileSelect.value = state.city;
-
-  const eraEl = document.querySelector(".era-filters");
-  if (eraEl) {
-    eraEl.innerHTML = `<span class="filter-label">Era</span>${eraFilterMarkup()}`;
-    wireEraFilters();
-  }
-
-  const legendEl = document.querySelector(".map-legend");
-  if (legendEl) legendEl.innerHTML = legendMarkup();
 }
 
 function buildShell() {
   const app = document.getElementById("app");
   if (!app) return;
-  const city = activeCity();
+  const view = viewForCity(state.city);
+  const eyebrowText =
+    state.city === "all"
+      ? `India · ${view.eyebrow}`
+      : `${view.label} · ${view.eyebrow}`;
 
   app.innerHTML = `
     <header class="topbar">
@@ -326,8 +325,8 @@ function buildShell() {
             <select id="city-select" aria-label="City">${cityOptionsMarkup()}</select>
           </label>
         </div>
-        <p class="eyebrow" id="city-eyebrow">${city.label} · ${city.eyebrow}</p>
-        <p class="lede" id="city-lede">${city.lede}</p>
+        <p class="eyebrow" id="city-eyebrow">${eyebrowText}</p>
+        <p class="lede" id="city-lede">${view.lede}</p>
       </div>
     </header>
     <nav class="filter-bar" aria-label="Map filters">
@@ -385,7 +384,6 @@ function wireEraFilters() {
         [...document.querySelectorAll('input[name="era"]:checked')].map((c) => c.value),
       );
       selectedId = null;
-      updateResetMapButton();
       renderList();
       renderMarkers();
     });
@@ -393,25 +391,19 @@ function wireEraFilters() {
 }
 
 function switchCity(nextCity) {
-  if (!CITIES[nextCity] || nextCity === state.city) return;
-  state.city = nextCity;
-  resetErasForCity();
-  state.query = "";
+  const resolved = resolveCityId(nextCity);
+  if (!CITIES[resolved] && resolved !== "all") return;
+  state.city = resolved;
   selectedId = null;
   closeMobileSitePanel();
   closeAllMarkerPopups();
 
-  const search = document.getElementById("search");
-  if (search) search.value = "";
-
   updateCityChrome();
   syncCityInUrl();
-  updateResetMapButton();
   renderList();
-  renderMarkers();
-
-  const c = activeCity();
-  map.setView(c.mapCenter, c.mapZoom, { animate: true });
+  // Markers stay across cities; city switch only moves the camera
+  flyToCityView(state.city);
+  refreshMarkerSelection();
 }
 
 function wireEvents() {
@@ -422,7 +414,6 @@ function wireEvents() {
   document.getElementById("search")?.addEventListener("input", (e) => {
     state.query = e.target.value;
     selectedId = null;
-    updateResetMapButton();
     renderList();
     renderMarkers();
   });
@@ -460,8 +451,8 @@ function wireEvents() {
 }
 
 function initMap() {
-  const c = activeCity();
-  map = L.map("map", { scrollWheelZoom: true }).setView(c.mapCenter, c.mapZoom);
+  const view = viewForCity(state.city);
+  map = L.map("map", { scrollWheelZoom: true }).setView(view.mapCenter, view.mapZoom);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -473,13 +464,15 @@ function initMap() {
 
 function init() {
   normalizeStartupUrl();
-  resetErasForCity();
   buildShell();
   initMap();
   wireEvents();
   syncCityInUrl();
   renderList();
   renderMarkers();
+  if (state.city === "all") {
+    fitMapToFilteredSites({ maxZoom: OVERVIEW.mapZoom + 1 });
+  }
   requestAnimationFrame(refreshMapSize);
   setTimeout(refreshMapSize, 250);
 }

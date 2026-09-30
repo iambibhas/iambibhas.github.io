@@ -107,7 +107,7 @@ const SITES_BLR = [
     lat: 12.9419,
     lng: 77.5674,
     builtYear: 1537,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Kempe Gowda I’s monolithic Nandi and Dravidian temple in Basavanagudi, tied to the origin story of Bengaluru’s name.",
@@ -121,7 +121,7 @@ const SITES_BLR = [
     lat: 12.9628,
     lng: 77.5774,
     builtYear: 1537,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Originally mud fort of Kempe Gowda I; rebuilt in stone by Hyder Ali and Tipu. British siege of 1791 left only fragments, including Delhi Gate.",
@@ -135,7 +135,7 @@ const SITES_BLR = [
     lat: 12.9595,
     lng: 77.577,
     builtYear: 1689,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Vijayanagara-style temple beside the fort, built by the Wodeyars of Mysore for the garrison community.",
@@ -151,7 +151,7 @@ const SITES_BLR = [
     lat: 12.9592,
     lng: 77.5734,
     builtYear: 1791,
-    era: "tipu_late_medieval",
+    era: "early_modern",
     kind: "palace",
     summary:
       "Teak palace in the Bangalore Pete with Indo-Islamic arches and frescoes; served as Tipu’s durbar hall until his death in 1799.",
@@ -165,7 +165,7 @@ const SITES_BLR = [
     lat: 12.9708,
     lng: 77.6075,
     builtYear: 1790,
-    era: "tipu_late_medieval",
+    era: "early_modern",
     kind: "mosque",
     summary:
       "Grand mosque raised under Tipu Sultan with ornate minarets in granite; still the principal jama masjid of the old city.",
@@ -181,7 +181,7 @@ const SITES_BLR = [
     lat: 13.2461,
     lng: 77.7067,
     builtYear: 1501,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Medieval fort near Tipu’s birthplace; mud origins with later stone walls under the Mysore sultans.",
@@ -195,7 +195,7 @@ const SITES_BLR = [
     lat: 13.3863,
     lng: 77.7009,
     builtYear: 1700,
-    era: "tipu_late_medieval",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Hill fortress used by Tipu Sultan as a summer retreat; British took it in 1791. Walls, gates, and Tipu’s Drop remain.",
@@ -211,7 +211,7 @@ const SITES_BLR = [
     lat: 12.9195,
     lng: 77.2921,
     builtYear: 1600,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Monolithic hill fort of the Magadi rulers, later contested by Mysore and the British; ruins of walls and gateways on the summit trail.",
@@ -225,7 +225,7 @@ const SITES_BLR = [
     lat: 13.1697,
     lng: 77.2227,
     builtYear: 1600,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Sacred granite hill with Olakala Teertha, Shiva shrines, and medieval fortifications linked to local chieftains.",
@@ -239,7 +239,7 @@ const SITES_BLR = [
     lat: 12.9844,
     lng: 77.6011,
     builtYear: 1882,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Gothic revival basilica in Shivajinagar; oldest church in Bengaluru, rebuilt in stone during British rule.",
@@ -258,7 +258,7 @@ const SITES_BLR = [
     lat: 12.9983,
     lng: 77.592,
     builtYear: 1878,
-    era: "british",
+    era: "high_colonial",
     kind: "palace",
     summary:
       "Tudor-revival palace of the Wodeyars, constructed during British paramountcy; interiors and grounds open for tours.",
@@ -272,7 +272,7 @@ const SITES_BLR = [
     lat: 12.9776,
     lng: 77.5928,
     builtYear: 1868,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Neoclassical red public offices facing Cubbon Park; served as the secretariat under British rule before the High Court moved in.",
@@ -286,7 +286,7 @@ const SITES_BLR = [
     lat: 12.9769,
     lng: 77.5966,
     builtYear: 1876,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "One of India’s oldest museums, housed in colonial-era buildings within Cubbon Park; holds Hoysala and Vijayanagara sculpture.",
@@ -390,7 +390,7 @@ const SITES_BLR = [
     lat: 12.955,
     lng: 77.694,
     builtYear: 1508,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Someshwara shrine with a dated 16th-century inscription, serving the old Marathahalli agrahara.",
@@ -457,7 +457,7 @@ const SITES_BLR = [
     lat: 12.9418,
     lng: 77.5642,
     builtYear: 1537,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Kempe Gowda’s monolithic Ganapathi beside the Bull Temple, cut from a single boulder.",
@@ -472,7 +472,7 @@ const SITES_BLR = [
     lat: 12.9948,
     lng: 77.5682,
     builtYear: 1537,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Kempe Gowda-era Mahakali shrine near Kempambudhi tank; tied to the Gavipuram watch-tower landmark.",
@@ -487,7 +487,7 @@ const SITES_BLR = [
     lat: 12.95,
     lng: 77.59,
     builtYear: 1760,
-    era: "tipu_late_medieval",
+    era: "early_modern",
     kind: "monument",
     summary:
       "Hyder Ali’s 18th-century mughal-style garden, expanded by Tipu; famous gate, lake, and colonial-era glasshouse.",
@@ -503,7 +503,7 @@ const SITES_BLR = [
     lat: 12.9497,
     lng: 77.584,
     builtYear: 1889,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Cast-iron and glass conservatory modelled on London’s Crystal Palace, built during British rule inside Lalbagh.",
@@ -518,7 +518,7 @@ const SITES_BLR = [
     lat: 13.1003,
     lng: 77.5963,
     builtYear: 1510,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Home of the Yelahanka Nadu chiefs who founded Bengaluru; surviving fort walls and Kempe Gowda memorial in old Yelahanka.",
@@ -534,7 +534,7 @@ const SITES_BLR = [
     lat: 12.741,
     lng: 77.593,
     builtYear: 1600,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Hill temple of Vishnu as Champakadhama above the Bannerghatta forest; medieval pilgrimage stop south of the city.",
@@ -552,7 +552,7 @@ const SITES_BLR = [
     lat: 13.052,
     lng: 77.384,
     builtYear: 1600,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Granite hill fort west of Bengaluru with Kempe Gowda–era walls and a small hilltop shrine.",
@@ -568,7 +568,7 @@ const SITES_BLR = [
     lat: 13.4326,
     lng: 77.501,
     builtYear: 1600,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "fort",
     summary:
       "Hill fort on the Guntakal line with ruined bastions and a lakeside trek popular with heritage hikers.",
@@ -584,7 +584,7 @@ const SITES_BLR = [
     lat: 12.9714,
     lng: 77.6097,
     builtYear: 1883,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Neo-classical public hall on Residency Road; houses the Kempegowda Museum on the first floor.",
@@ -600,7 +600,7 @@ const SITES_BLR = [
     lat: 12.9693,
     lng: 77.619,
     builtYear: 1852,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "English Renaissance cantonment church at Trinity Circle, built for the British garrison in the 1850s.",
@@ -616,7 +616,7 @@ const SITES_BLR = [
     lat: 12.9742,
     lng: 77.6065,
     builtYear: 1808,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Oldest Anglican cathedral in Bengaluru; current stone building follows the 1808 garrison church foundation.",
@@ -632,7 +632,7 @@ const SITES_BLR = [
     lng: 77.612,
     builtYear: 1865,
     kind: "church",
-    era: "british",
+    era: "high_colonial",
     summary:
       "Wesleyan church on Dickenson Road with prominent Corinthian columns; among the earliest Methodist buildings in Mysore State.",
     visitNotes: "Active church; services on Sunday; view facade from street anytime.",
@@ -649,7 +649,7 @@ const SITES_BLR = [
     lat: 12.9749,
     lng: 77.5658,
     builtYear: 1858,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Gothic revival campus of one of India’s first modern universities, facing the city railway station.",
@@ -665,7 +665,7 @@ const SITES_BLR = [
     lat: 12.9767,
     lng: 77.5663,
     builtYear: 1864,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Indo-Gothic terminal of the Madras Railway era; still the main rail gateway to the pete and cantonment.",
@@ -683,7 +683,7 @@ const SITES_BLR = [
     lat: 12.9685,
     lng: 77.6075,
     builtYear: 1888,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Victorian members’ club and library on St. Mark’s Road, among the oldest social institutions of the cantonment.",
@@ -717,7 +717,7 @@ const SITES_BLR = [
     lat: 12.9624,
     lng: 77.5782,
     builtYear: 1680,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Fort Shiva temple within the Bangalore Fort enclosure, worshipped by the pete garrison for centuries.",
@@ -829,7 +829,7 @@ const SITES_BLR = [
     lat: 12.9703,
     lng: 77.5793,
     builtYear: 1550,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "16th-century Vaikhanasa Vishnu temple in Chikkapete with granite pillars blending Vijayanagara and Hoysala motifs.",
@@ -845,7 +845,7 @@ const SITES_BLR = [
     lat: 12.9625,
     lng: 77.5825,
     builtYear: 1680,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Kempe Gowda-era Hanuman shrine at the old Yelahanka Gate of the pete, on Avenue Road.",
@@ -861,7 +861,7 @@ const SITES_BLR = [
     lat: 12.9426,
     lng: 77.5688,
     builtYear: 1537,
-    era: "vijayanagara_kempegowda",
+    era: "early_modern",
     kind: "temple",
     summary:
       "Large Hanuman idol installed by Kempe Gowda outside the southern fort gate, part of the Basavanagudi temple cluster.",
@@ -894,7 +894,7 @@ const SITES_BLR = [
     lat: 12.9792,
     lng: 77.6042,
     builtYear: 1866,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Scottish Presbyterian ‘Red Kirk’ on Cubbon Road; Gothic design by Sankey, echoing Central College across the street.",
@@ -910,7 +910,7 @@ const SITES_BLR = [
     lat: 12.9658,
     lng: 77.6075,
     builtYear: 1870,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Robert Chisholm’s Gothic revival ‘garden church’ on Hosur Road, built for retired soldiers and their families.",
@@ -928,7 +928,7 @@ const SITES_BLR = [
     lat: 12.9918,
     lng: 77.613,
     builtYear: 1857,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Red-brick Anglican church with a tall steeple; fourth oldest Protestant church in the cantonment.",
@@ -944,7 +944,7 @@ const SITES_BLR = [
     lat: 12.9912,
     lng: 77.6098,
     builtYear: 1888,
-    era: "british",
+    era: "high_colonial",
     kind: "church",
     summary:
       "Methodist chapel on Promenade Road (formerly St. John’s Hill Church), paired historically with East Parade Wesleyan church.",
@@ -957,7 +957,7 @@ const SITES_BLR = [
     lat: 12.9762,
     lng: 77.593,
     builtYear: 1908,
-    era: "british",
+    era: "late_colonial",
     kind: "heritage_building",
     summary:
       "Public memorial to Dewan Seshadri Iyer in Cubbon Park; Richard Sankey design, home to Karnataka’s reference library since 1915.",
@@ -975,7 +975,7 @@ const SITES_BLR = [
     lat: 12.9823,
     lng: 77.5914,
     builtYear: 1842,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Former British Residency on High Grounds; Mark Cubbon’s bungalow became the Mysore Resident’s seat and later the governor’s house.",
@@ -991,7 +991,7 @@ const SITES_BLR = [
     lat: 12.9636,
     lng: 77.5858,
     builtYear: 1935,
-    era: "british",
+    era: "late_colonial",
     kind: "heritage_building",
     summary:
       "Neoclassical BBMP town hall on J C Road by Sir Mirza Ismail; public auditorium since the Wodeyar era.",
@@ -1007,7 +1007,7 @@ const SITES_BLR = [
     lat: 12.9634,
     lng: 77.5738,
     builtYear: 1901,
-    era: "british",
+    era: "late_colonial",
     kind: "heritage_building",
     summary:
       "Victorian Gothic civic hospital opened by Lord Curzon; granite includes stone reused from dismantled fort walls.",
@@ -1026,7 +1026,7 @@ const SITES_BLR = [
     lat: 12.9893,
     lng: 77.5865,
     builtYear: 1850,
-    era: "british",
+    era: "high_colonial",
     kind: "heritage_building",
     summary:
       "Colonial bungalow on Palace Road where Mark Cubbon once lived; now a Karnataka government guest house in a wooded compound.",
@@ -1044,7 +1044,7 @@ const SITES_BLR = [
     lat: 12.9768,
     lng: 77.598,
     builtYear: 1870,
-    era: "british",
+    era: "high_colonial",
     kind: "monument",
     summary:
       "Victorian bandstand in Cubbon Park from the Sankey-era layout; focal point of colonial public promenades.",
