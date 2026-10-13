@@ -61,7 +61,7 @@ function makePopup(venue) {
     ? "2026 location from the listed source."
     : venue.status2026 === "unverified"
       ? "This marker uses 2023 KML coordinates; the 2026 location is unverified."
-      : "This marker is the original 2023 KML coordinate; use the linked 2026 venue map for the current destination.";
+      : "This marker is the original 2023 KML coordinate; use Navigate for the current destination.";
   content.append(warning);
 
   if (venue.venue2026 || venue.address2026) {
@@ -71,45 +71,33 @@ function makePopup(venue) {
     content.append(address);
   }
 
-  const links = document.createElement("div");
-  links.className = "popup-links";
-  const mapUrl = venue.mapUrl2026;
-  if (mapUrl) {
-    const mapLink = document.createElement("a");
-    mapLink.href = mapUrl;
-    mapLink.target = "_blank";
-    mapLink.rel = "noopener noreferrer";
-    mapLink.textContent = "2026 venue map";
-    links.append(mapLink);
-  } else if (!venue.hasCurrentCoordinates) {
-    const directions = document.createElement("a");
-    directions.href = `https://www.openstreetmap.org/?mlat=${venue.lat}&mlon=${venue.lon}#map=17/${venue.lat}/${venue.lon}`;
-    directions.target = "_blank";
-    directions.rel = "noopener noreferrer";
-    directions.textContent = "View 2023 KML pin";
-    links.append(directions);
-  }
-
-  if (venue.organizerUrl2026 || venue.sourceUrl) {
-    const source = document.createElement("a");
-    source.href = venue.organizerUrl2026 || venue.sourceUrl;
-    source.target = "_blank";
-    source.rel = "noopener noreferrer";
-    source.textContent = venue.organizerUrl2026 ? "2026 organizer source" : "Organizer link from KML";
-    links.append(source);
-  }
-
-  if (venue.locationSource2026) {
-    const source = document.createElement("a");
-    source.href = venue.locationSource2026;
-    source.target = "_blank";
-    source.rel = "noopener noreferrer";
-    source.textContent = "Location evidence";
-    links.append(source);
-  }
-
-  content.append(links);
+  appendVenueLinks(content, venue);
   return content;
+}
+
+function navigateUrl(venue) {
+  if (!Number.isFinite(venue.lat) || !Number.isFinite(venue.lon)) return "";
+  return `https://www.google.com/maps/search/?api=1&query=${venue.lat},${venue.lon}`;
+}
+
+function appendVenueLinks(container, venue) {
+  const links = document.createElement("div");
+  links.className = "venue-links";
+  appendVenueLink(links, navigateUrl(venue), "Navigate");
+  appendVenueLink(links, venue.organizerUrl2026 || venue.sourceUrl, "Organizer");
+  appendVenueLink(links, venue.locationSource2026, "Event Post");
+  if (links.childElementCount) container.append(links);
+}
+
+function appendVenueLink(container, href, label) {
+  if (!href) return;
+  const link = document.createElement("a");
+  link.className = "venue-link";
+  link.href = href;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = label;
+  container.append(link);
 }
 
 function formatCurrentVenue(venue) {
@@ -139,10 +127,13 @@ function renderVenues() {
 
   for (const venue of matches) {
     const item = document.createElement("li");
+    const card = document.createElement("article");
+    card.className = "venue-card";
+    card.setAttribute("aria-current", String(venue.id === activeVenueId));
+
     const button = document.createElement("button");
-    button.className = "venue-card";
+    button.className = "venue-card-main";
     button.type = "button";
-    button.setAttribute("aria-current", String(venue.id === activeVenueId));
 
     const name = document.createElement("span");
     name.className = "venue-name";
@@ -163,16 +154,10 @@ function renderVenues() {
       address.textContent = formatCurrentVenue(venue);
       button.append(address);
     }
-    if (venue.mapUrl2026 && !venue.marker) {
-      const mapLabel = document.createElement("span");
-      mapLabel.className = "venue-map-hint";
-      mapLabel.textContent = venue.status2026 === "unverified"
-        ? "Search this venue on the map ↗"
-        : "Open the 2026 venue map ↗";
-      button.append(mapLabel);
-    }
     button.addEventListener("click", () => focusVenue(venue));
-    item.append(button);
+    card.append(button);
+    appendVenueLinks(card, venue);
+    item.append(card);
     venueList.append(item);
   }
 

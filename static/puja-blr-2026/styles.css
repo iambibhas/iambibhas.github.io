@@ -50,22 +50,6 @@ h1 {
   color: #f2e2dd;
 }
 
-.location-note {
-  display: grid;
-  gap: 0.25rem;
-  max-width: 28rem;
-  padding: 0.8rem 1rem;
-  border: 1px solid #d99b8d;
-  border-radius: 0.6rem;
-  background: #602031;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.location-note strong {
-  color: #ffd6a8;
-}
-
 .app-shell {
   display: grid;
   grid-template-columns: minmax(17rem, 24rem) minmax(0, 1fr);
@@ -98,8 +82,8 @@ h1 {
 }
 
 #venue-search:focus-visible,
-.venue-card:focus-visible,
-a:focus-visible {
+.venue-card-main:focus-visible,
+.venue-link:focus-visible {
   outline: 3px solid #d78348;
   outline-offset: 2px;
 }
@@ -119,12 +103,21 @@ a:focus-visible {
 }
 
 .venue-card {
-  width: 100%;
   padding: 0.75rem;
   border: 1px solid #eee5dc;
   border-radius: 0.5rem;
   background: #fff;
   color: inherit;
+}
+
+.venue-card-main {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
   text-align: left;
   cursor: pointer;
 }
@@ -156,12 +149,30 @@ a:focus-visible {
   line-height: 1.4;
 }
 
-.venue-map-hint {
-  display: block;
-  margin-top: 0.4rem;
+.venue-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.venue-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.7rem;
+  border: 1px solid #8c263a;
+  border-radius: 999px;
+  background: #fff;
   color: #8c263a;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.venue-link:hover {
+  background: #8c263a;
+  color: #fffaf5;
 }
 
 .map-panel {
@@ -190,13 +201,6 @@ a:focus-visible {
   margin: 0.45rem 0;
   font-size: 0.85rem;
   line-height: 1.4;
-}
-
-.popup-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
 }
 
 footer {
