@@ -7,7 +7,6 @@ const venueLayer = L.featureGroup().addTo(map);
 const venueList = document.querySelector("#venue-list");
 const searchInput = document.querySelector("#venue-search");
 const resultCount = document.querySelector("#result-count");
-const status = document.querySelector("#status");
 const venueRecords = [];
 let activeVenueId = null;
 
@@ -243,9 +242,6 @@ function parseLocationsCsv(csv) {
   if (venueLayer.getLayers().length > 0) {
     map.fitBounds(venueLayer.getBounds(), { padding: [24, 24] });
   }
-  const withCurrentLocations = venueRecords.filter((venue) => venue.status2026 !== "unverified").length;
-  const withCurrentCoordinates = venueRecords.filter((venue) => venue.hasCurrentCoordinates).length;
-  status.textContent = `${venueRecords.length} pujas loaded; ${withCurrentLocations} have 2026 venue details and ${withCurrentCoordinates} have 2026 map pins. Historic pins are clearly marked.`;
 }
 
 async function loadLocations() {
@@ -320,7 +316,6 @@ searchInput.addEventListener("input", renderVenues);
 map.setView([12.9716, 77.5946], 11);
 loadLocations().catch((error) => {
   console.error(error);
-  status.textContent = error.message;
 });
 loadMetroLines().catch((error) => {
   console.error(error);
