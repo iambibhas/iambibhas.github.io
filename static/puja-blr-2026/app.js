@@ -1,6 +1,8 @@
 "use strict";
 
 const map = L.map("map", { scrollWheelZoom: true });
+map.createPane("metro");
+map.getPane("metro").style.zIndex = "350";
 const venueLayer = L.featureGroup().addTo(map);
 const venueList = document.querySelector("#venue-list");
 const searchInput = document.querySelector("#venue-search");
@@ -257,9 +259,69 @@ async function loadLocations() {
   parseLocationsCsv(await response.text());
 }
 
+function metroStationPopup(name, lineNames) {
+  const content = document.createElement("div");
+  const title = document.createElement("strong");
+  title.textContent = name;
+  const lines = document.createElement("div");
+  lines.textContent = lineNames.length === 1
+    ? `${lineNames[0]} Line`
+    : `${lineNames.join(" & ")} lines`;
+  content.append(title, lines);
+  return content;
+}
+
+function drawMetroLines(geojson) {
+  const lines = {
+    type: "FeatureCollection",
+    features: geojson.features.filter((feature) => feature.geometry.type === "LineString")
+  };
+  const lineOptions = { pane: "metro", interactive: false };
+  L.geoJSON(lines, {
+    ...lineOptions,
+    style: { color: "#fffaf5", weight: 7, opacity: 0.92, lineCap: "round", lineJoin: "round" }
+  }).addTo(map);
+  L.geoJSON(lines, {
+    ...lineOptions,
+    style: (feature) => ({
+      color: feature.properties.color,
+      weight: 4,
+      opacity: 0.95,
+      lineCap: "round",
+      lineJoin: "round"
+    })
+  }).addTo(map);
+
+  for (const feature of geojson.features) {
+    if (feature.geometry.type !== "Point") continue;
+    const [lon, lat] = feature.geometry.coordinates;
+    const lineNames = feature.properties.lines;
+    const interchange = lineNames.length > 1;
+    L.circleMarker([lat, lon], {
+      radius: interchange ? 6 : 4,
+      color: "#fffaf5",
+      weight: 2,
+      fillColor: interchange ? "#2e2524" : feature.properties.color,
+      fillOpacity: 1
+    }).bindPopup(metroStationPopup(feature.properties.name, lineNames)).addTo(map);
+  }
+  venueLayer.bringToFront();
+}
+
+async function loadMetroLines() {
+  const response = await fetch("metro-lines.geojson");
+  if (!response.ok) {
+    throw new Error(`Could not load metro lines (HTTP ${response.status}).`);
+  }
+  drawMetroLines(await response.json());
+}
+
 searchInput.addEventListener("input", renderVenues);
 map.setView([12.9716, 77.5946], 11);
 loadLocations().catch((error) => {
   console.error(error);
   status.textContent = error.message;
+});
+loadMetroLines().catch((error) => {
+  console.error(error);
 });
