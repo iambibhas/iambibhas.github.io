@@ -206,9 +206,9 @@ function parseLocationsCsv(csv) {
     if (hasCoordinates) {
       venue.marker = L.circleMarker([venue.lat, venue.lon], {
         radius: 7,
-        color: hasCurrentCoordinates ? "#76283a" : "#66716b",
+        color: hasCurrentCoordinates ? "#9a3412" : "#8a7d70",
         weight: 2,
-        fillColor: hasCurrentCoordinates ? "#bd5966" : "#a9b2ad",
+        fillColor: hasCurrentCoordinates ? "#d97706" : "#c4b8a8",
         fillOpacity: hasCurrentCoordinates ? 0.9 : 0.55
       }).bindPopup(makePopup(venue)).addTo(venueLayer);
       venue.marker.on("click", () => {
