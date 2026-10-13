@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#9c2f43">
+  <title>Bengaluru Durga Puja Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-copy">
+      <p class="eyebrow">Bengaluru · Durga Puja</p>
+      <h1>Find a puja</h1>
+      <p class="intro">Explore Bengaluru's Durga Puja venues, with 2026 sources where available.</p>
+    </div>
+    <div class="location-note" role="note">
+      <strong>Location check needed</strong>
+      <span>2023 pins are historical. 2026 venues are shown only when a source is available; check organizer details before travelling.</span>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="venue-panel" aria-label="Puja locations">
+      <label class="search-label" for="venue-search">Search locations</label>
+      <input id="venue-search" type="search" placeholder="Search by name…" autocomplete="off">
+      <p id="result-count" class="result-count" aria-live="polite"></p>
+      <ul id="venue-list" class="venue-list"></ul>
+    </aside>
+    <section class="map-panel" aria-label="Map of Durga Puja locations">
+      <div id="map" role="application" aria-label="Interactive map showing Durga Puja locations in Bengaluru"></div>
+      <div class="map-key" aria-label="Map pin legend">
+        <span><i class="key-dot key-historical"></i>2023 KML coordinates</span>
+        <span><i class="key-dot key-current"></i>2026 coordinates</span>
+      </div>
+      <p id="status" class="map-status" role="status">Loading locations…</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Working data: <a href="puja-locations.csv">puja-locations.csv</a>. Original: <a href="Durga%20Puja.kml">Durga Puja.kml</a> (2023).</span>
+    <span>Map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a></span>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
