@@ -1,88 +1,67 @@
 baseURL = 'https://bibhasdn.com/'
 locale = 'en-us'
 title = 'Bibhas Debnath'
-theme = 'archie'
-paginate = 10
-pluralizelisttitles = false   # removes the automatically appended "s" on sidebar entries
+theme = 'github-style'
 copyright = "© Bibhas D"
-# Code Highlight
+
 pygmentsstyle = "monokai"
 pygmentscodefences = true
+pygmentsUseClasses = true
 pygmentscodefencesguesssyntax = true
+
+[pagination]
+  pagerSize = 10
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
 
+[outputs]
+  home = ["html", "rss", "json"]
+
+[outputFormats.json]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = false
+
 [params]
-	mode="toggle" # color-mode → light,dark,toggle or auto
-	useCDN=false # don't use CDNs for fonts and icons, instead serve them locally.
-	subtitle = """
-I do mostly backend dev, plus Ops. Tools no bar as long as it solves problem.
-Nothing brings me more joy than visiting a new place or doing something new or breaking a fear.
-I also like to help people find new places/things to explore. If you are in a community that values that, sign me up.
-Outside work, I'd be more interested if someone talked about their passions, hobbies, interests, dreams instead of the latest tech.
-	"""
-	mathjax = true # enable MathJax support
-	katex = true # enable KaTeX support
-	customcss = ["css/custom.css"]
+  author = "Bibhas Debnath"
+  description = "0.10x engineer. And I'm bringing AI down to my level."
+  github = "iambibhas"
+  twitter = "bibhasdn"
+  linkedin = "bibhasdn"
+  url = "https://bibhasdn.com"
+  location = "Bangalore"
+  keywords = "blog"
+  rss = true
+  lastmod = false
+  enableSearch = true
+  enableGitalk = false
+  favicon = "/images/profile.jpg"
+  avatar = "/images/profile.jpg"
+  headerIcon = "/images/github-mark-white.png"
 
-# Social Tags
+  [[params.links]]
+    title = "About"
+    href = "/about/"
 
-[[params.social]]
-name = "GitHub"
-icon = "github"
-url = "https://github.com/iambibhas"
+  [[params.links]]
+    title = "Resume"
+    href = "/resume/"
 
-[[params.social]]
-name = "Twitter"
-icon = "twitter"
-url = "https://twitter.com/bibhasdn/"
+  [[params.links]]
+    title = "Tags"
+    href = "/tags/"
 
-[[params.social]]
-name = "LinkedIn"
-icon = "linkedin"
-url = "https://www.linkedin.com/in/bibhasdn"
+  [[params.links]]
+    title = "Heritage Map"
+    href = "/heritage-map/"
 
-# Main menu Items
+  [[params.links]]
+    title = "Nearby Hospitals"
+    href = "/nearby-hospitals/"
 
-[[menu.main]]
-name = "Home"
-url = "/"
-weight = 1
-
-[[menu.main]]
-name = "All posts"
-url = "/posts"
-weight = 2
-
-[[menu.main]]
-name = "About"
-url = "/about"
-weight = 3
-
-[[menu.main]]
-name = "Tags"
-url = "/tags"
-weight = 4
-
-[[menu.main]]
-name = "Resume"
-url = "/resume"
-weight = 5
-
-[[menu.main]]
-name = "Heritage Map"
-url = "/heritage-map"
-weight = 6
-
-[[menu.main]]
-name = "Nearby Hospitals"
-url = "/nearby-hospitals"
-weight = 7
-
-[[menu.main]]
-name = "Bangalore Durga Puja 2026 Map"
-url = "/puja-blr-2026"
-weight = 8
+  [[params.links]]
+    title = "Bangalore Durga Puja 2026 Map"
+    href = "/puja-blr-2026/"
