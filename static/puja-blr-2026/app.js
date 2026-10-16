@@ -114,8 +114,8 @@ function focusVenue(venue) {
   if (venue.marker) {
     map.flyTo([venue.lat, venue.lon], Math.max(map.getZoom(), 14));
     venue.marker.openPopup();
-  } else if (venue.mapUrl2026) {
-    window.open(venue.mapUrl2026, "_blank", "noopener,noreferrer");
+  } else if (venue.hasCurrentCoordinates) {
+    map.flyTo([venue.lat, venue.lon], Math.max(map.getZoom(), 14));
   }
   renderVenues();
 }
