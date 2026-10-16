@@ -30,6 +30,7 @@ Major Projects \-
 * Build a AI **MR review Bot** for Gitlab to reduce toil of engineers  
 * **Setup a CRM workflow** using Slack Lists to handle customer requests more efficiently and reduce toil on support engineers  
 * Shifted the CI pipelines to self-hosted **gitlab runners** on Openshift from org managed runners. It currently handles 2000+ CI jobs per hour during peak hours.
+* Implemented Conftest+OPA based rule engine for MRs
 
 ### **Natural User Interface Technologies (NUITEQ), Remote** (JULY 2021 \- APRIL 2024\)
 
