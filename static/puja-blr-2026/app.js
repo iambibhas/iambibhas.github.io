@@ -10,6 +10,48 @@ const resultCount = document.querySelector("#result-count");
 const venueRecords = [];
 let activeVenueId = null;
 
+const mapUrl = window.location.href;
+const shareText = `Explore Bengaluru's Durga Puja 2026 venues: ${mapUrl}`;
+const whatsappShare = document.querySelector("#whatsapp-share");
+const instagramShare = document.querySelector("#instagram-share");
+const shareStatus = document.querySelector("#share-status");
+whatsappShare.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
+async function copyMapLink() {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(mapUrl);
+    } else {
+      const input = document.createElement("textarea");
+      input.value = mapUrl;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.append(input);
+      input.select();
+      const copied = document.execCommand("copy");
+      input.remove();
+      if (!copied) throw new Error("Clipboard unavailable");
+    }
+    shareStatus.textContent = "Map link copied. Paste it into an Instagram post or message.";
+  } catch (error) {
+    shareStatus.textContent = `Copy this link to share: ${mapUrl}`;
+  }
+}
+
+instagramShare.addEventListener("click", async () => {
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: document.title, text: "Explore Bengaluru's Durga Puja 2026 venues", url: mapUrl });
+      shareStatus.textContent = "Choose Instagram in your device's share menu.";
+      return;
+    } catch (error) {
+      if (error.name === "AbortError") return;
+    }
+  }
+  await copyMapLink();
+});
+
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
