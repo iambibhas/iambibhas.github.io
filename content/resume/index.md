@@ -1,6 +1,7 @@
 ---
 title: Resume
 type: resume
+date: 2026-10-15
 ---
 ## **Bibhas Chandra Debnath**
 
