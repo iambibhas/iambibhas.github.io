@@ -127,7 +127,7 @@ function appendVenueLinks(container, venue) {
   links.className = "venue-links";
   appendVenueLink(links, navigateUrl(venue), "Navigate");
   appendVenueLink(links, venue.organizerUrl2026 || venue.sourceUrl, "Organizer");
-  appendVenueLink(links, venue.locationSource2026, "Event Post");
+  appendVenueLink(links, venue.locationSource2026, "Source");
   if (links.childElementCount) container.append(links);
 }
 
