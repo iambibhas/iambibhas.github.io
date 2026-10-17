@@ -122,10 +122,16 @@ function navigateUrl(venue) {
   return `https://www.google.com/maps/search/?api=1&query=${venue.lat},${venue.lon}`;
 }
 
+function googleMapsAppUrl(venue) {
+  if (!Number.isFinite(venue.lat) || !Number.isFinite(venue.lon)) return "";
+  return `comgooglemaps://?q=${venue.lat},${venue.lon}`;
+}
+
 function appendVenueLinks(container, venue) {
   const links = document.createElement("div");
   links.className = "venue-links";
   appendVenueLink(links, navigateUrl(venue), "Navigate");
+  appendVenueLink(links, googleMapsAppUrl(venue), "Google Maps app");
   appendVenueLink(links, venue.organizerUrl2026 || venue.sourceUrl, "Organizer");
   appendVenueLink(links, venue.locationSource2026, "Source");
   if (links.childElementCount) container.append(links);
