@@ -65,3 +65,7 @@ pygmentscodefencesguesssyntax = true
   [[params.links]]
     title = "Bangalore Durga Puja 2026 Map"
     href = "/puja-blr-2026/"
+
+  [[params.links]]
+    title = "Earth Timeline"
+    href = "/earth-timeline/"

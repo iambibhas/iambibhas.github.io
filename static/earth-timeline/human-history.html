@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Human History Timeline</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f1e8;
+      --panel: #fffdf8;
+      --ink: #1f1a14;
+      --muted: #5c5348;
+      --line: #e2d8c8;
+      --accent: #9a3412;
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    * { box-sizing: border-box; }
+    body { min-width: 320px; margin: 0; background: var(--bg); }
+    main { width: min(900px, calc(100% - 32px)); margin: 48px auto; }
+    h1, h2 { font-family: Fraunces, Georgia, serif; font-weight: 700; line-height: 1.15; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 5vw, 2.6rem); }
+    p { margin: 0 0 24px; color: var(--muted); }
+    .intro { margin-bottom: 0.3rem; }
+    .subtitle { margin: 0 0 16px; font-size: 0.9rem; }
+    .subtitle a, .share-text-button, .related a { color: var(--accent); }
+    .share-text-button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font: inherit;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .share-text-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .share-status { margin: 0 0 16px; font-size: 0.8rem; }
+    .share-status:empty { display: none; }
+    .chart {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      border: 1px solid var(--line);
+      border-radius: 0.85rem;
+      background: var(--panel);
+      box-shadow: 0 12px 40px rgba(31, 26, 20, 0.08);
+    }
+    #timeline { display: block; width: 100%; height: auto; }
+    .origin-label {
+      fill: var(--ink);
+      font-size: 14px;
+      font-weight: 650;
+      paint-order: stroke;
+      stroke: var(--panel);
+      stroke-linejoin: round;
+      stroke-width: 5px;
+    }
+    .marker-age {
+      fill: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+      paint-order: stroke;
+      stroke: var(--panel);
+      stroke-linejoin: round;
+      stroke-width: 4px;
+    }
+    .timeline-marker circle { fill: var(--panel); }
+    .related { margin: 16px 0 0; font-size: 0.95rem; }
+    @media (max-width: 600px) {
+      main { margin: 32px auto; }
+      #timeline { min-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Human History</h1>
+    <p class="intro">A winding timeline from the emergence of Homo sapiens to the present</p>
+    <p class="subtitle">Created by <a href="https://bibhasdn.com">Bibhas</a><span aria-hidden="true"> · </span><a id="whatsapp-share" href="#" target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><span aria-hidden="true"> · </span><button id="instagram-share" class="share-text-button" type="button">Share on Instagram</button></p>
+    <p id="share-status" class="share-status" aria-live="polite"></p>
+    <div class="chart">
+      <svg id="timeline" role="img" aria-label="Human history timeline using a true linear time scale"></svg>
+    </div>
+    <p class="related">Positions use a true linear scale: equal distances represent equal amounts of time, so recent milestones cluster near the present. <a href="index.html">← Back to the Earth Timeline</a></p>
+  </main>
+
+  <script>
+    const pageUrl = window.location.href;
+    const shareText = `Explore the Human History Timeline: ${pageUrl}`;
+    const whatsappShare = document.querySelector("#whatsapp-share");
+    const instagramShare = document.querySelector("#instagram-share");
+    const shareStatus = document.querySelector("#share-status");
+    whatsappShare.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
+    async function copyPageLink() {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(pageUrl);
+        } else {
+          const input = document.createElement("textarea");
+          input.value = pageUrl;
+          input.setAttribute("readonly", "");
+          input.style.position = "fixed";
+          input.style.opacity = "0";
+          document.body.append(input);
+          input.select();
+          const copied = document.execCommand("copy");
+          input.remove();
+          if (!copied) throw new Error("Clipboard unavailable");
+        }
+        shareStatus.textContent = "Timeline link copied. Paste it into an Instagram post or message.";
+      } catch (error) {
+        shareStatus.textContent = `Copy this link to share: ${pageUrl}`;
+      }
+    }
+
+    instagramShare.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: document.title, text: "Explore the Human History Timeline", url: pageUrl });
+          shareStatus.textContent = "Choose Instagram in your device's share menu.";
+          return;
+        } catch (error) {
+          if (error.name === "AbortError") return;
+        }
+      }
+      await copyPageLink();
+    });
+
+    const lines = d3.range(11);
+    const markers = [
+      { label: "Homo sapiens emerge", age: 300000, ageLabel: "about 300,000 years ago", color: "#e57373", placement: "below" },
+      { label: "Last Glacial Period begins", age: 115000, ageLabel: "about 115,000 years ago", color: "#64b5f6", placement: "above" },
+      { label: "Humans leave Africa", age: 70000, ageLabel: "about 70,000 years ago", color: "#64b5f6", placement: "above" },
+      { label: "Agriculture begins", age: 12000, ageLabel: "about 12,000 years ago", color: "#64b5f6", placement: "below" },
+      { label: "Last Glacial Period ends", age: 11700, ageLabel: "about 11,700 years ago", color: "#ef9a9a", placement: "above" },
+      { label: "First cities and writing", age: 5000, ageLabel: "about 5,000 years ago", color: "#ffd54f", placement: "above" },
+      { label: "Today", age: 0, ageLabel: "present", color: "#fbc02d", placement: "below", align: "end" }
+    ];
+
+    const svg = d3.select("#timeline");
+    const width = 760;
+    let rowHeight = 68;
+    const margin = { top: 72, right: 96, bottom: 54, left: 48 };
+    const oldestAge = markers[0].age;
+    const timelineLength = lines.length;
+
+    function markerPosition(marker) {
+      return (oldestAge - marker.age) / oldestAge * timelineLength;
+    }
+
+    function colorAt(position) {
+      const activeMarker = markers.filter((marker) => markerPosition(marker) <= position).at(-1);
+      return activeMarker?.color || markers[0].color;
+    }
+
+    function pointAt(position) {
+      const index = Math.min(Math.floor(position), lines.length - 1);
+      const progress = position === lines.length ? 1 : position - index;
+      const x1 = index % 2 === 0 ? margin.left : width - margin.right;
+      const x2 = index % 2 === 0 ? width - margin.right : margin.left;
+      return {
+        x: x1 + (x2 - x1) * progress,
+        y: margin.top + index * rowHeight + rowHeight / 2
+      };
+    }
+
+    function renderChart() {
+      const isMobile = window.matchMedia("(max-width: 600px)").matches;
+      const displayScale = svg.node().clientWidth / width;
+      if (isMobile) {
+        const targetHeight = Math.max(420, window.innerHeight - 170);
+        rowHeight = Math.max(68, (targetHeight / displayScale - margin.top - margin.bottom) / lines.length);
+      } else {
+        rowHeight = 68;
+      }
+
+      const height = margin.top + rowHeight * lines.length + margin.bottom;
+      svg.attr("viewBox", `0 0 ${width} ${height}`);
+
+      const segments = svg.selectAll(".timeline-line")
+        .data(lines)
+        .join("g")
+        .attr("class", "timeline-line");
+
+      segments.selectAll("line")
+        .data((line, index) => {
+          const boundaries = [index, ...markers.map(markerPosition).filter((position) => position > index && position < index + 1), index + 1].sort((a, b) => a - b);
+          return d3.pairs(boundaries).map(([start, end]) => ({ index, start, end, color: colorAt((start + end) / 2) }));
+        })
+        .join("line")
+        .attr("x1", ({ start }) => pointAt(start).x)
+        .attr("y1", ({ index }) => pointAt(index).y)
+        .attr("x2", ({ end }) => pointAt(end).x)
+        .attr("y2", ({ index }) => pointAt(index).y)
+        .attr("stroke", ({ color }) => color)
+        .attr("stroke-width", 14)
+        .attr("stroke-linecap", "butt");
+
+      const connectors = d3.range(lines.length - 1).map((upperIndex) => ({
+        x: upperIndex % 2 === 0 ? width - margin.right : margin.left,
+        upperIndex,
+        lowerIndex: upperIndex + 1,
+        color: colorAt(upperIndex + 1)
+      }));
+
+      svg.selectAll(".line-connector")
+        .data(connectors)
+        .join("line")
+        .attr("class", "line-connector")
+        .attr("x1", ({ x }) => x)
+        .attr("x2", ({ x }) => x)
+        .attr("y1", ({ upperIndex }) => pointAt(upperIndex).y)
+        .attr("y2", ({ lowerIndex }) => pointAt(lowerIndex).y)
+        .attr("stroke", ({ color }) => color)
+        .attr("stroke-width", 14)
+        .attr("stroke-linecap", "round");
+
+      const markerPoints = markers.map((marker) => ({ ...marker, ...pointAt(markerPosition(marker)) }));
+      const markerGroups = svg.selectAll(".timeline-marker")
+        .data(markerPoints)
+        .join("g")
+        .attr("class", "timeline-marker");
+
+      markerGroups.selectAll("circle")
+        .data((marker) => [marker])
+        .join("circle")
+        .attr("cx", (marker) => marker.x)
+        .attr("cy", (marker) => marker.y)
+        .attr("r", 9)
+        .attr("fill", "#fffdf8")
+        .attr("stroke", (marker) => marker.color)
+        .attr("stroke-width", 5);
+
+      const labelFontSize = isMobile ? 12 / displayScale : 14;
+      const ageFontSize = isMobile ? 10 / displayScale : 11;
+
+      markerGroups.selectAll(".marker-tail")
+        .data((marker) => [marker])
+        .join("line")
+        .attr("class", "marker-tail")
+        .attr("x1", (marker) => marker.x)
+        .attr("x2", (marker) => marker.x)
+        .attr("y1", (marker) => marker.y + (marker.placement === "below" ? 9 : -9))
+        .attr("y2", (marker) => marker.y + (marker.placement === "below" ? 19 : -19))
+        .attr("stroke", (marker) => marker.color)
+        .attr("stroke-width", 2);
+
+      markerGroups.selectAll("text")
+        .data((marker) => [marker])
+        .join("text")
+        .attr("class", "origin-label")
+        .attr("x", (marker) => marker.x)
+        .attr("y", (marker) => marker.y + (marker.placement === "below" ? 29 : -18))
+        .attr("text-anchor", (marker) => marker.align || (marker.placement === "below" ? "start" : "middle"))
+        .style("font-size", `${labelFontSize}px`)
+        .text((marker) => marker.label);
+
+      markerGroups.selectAll(".marker-age")
+        .data((marker) => [marker])
+        .join("text")
+        .attr("class", "marker-age")
+        .attr("x", (marker) => marker.x)
+        .attr("y", (marker) => marker.y + (marker.placement === "below" ? 46 : -36))
+        .attr("text-anchor", (marker) => marker.align || (marker.placement === "below" ? "start" : "middle"))
+        .style("font-size", `${ageFontSize}px`)
+        .text((marker) => marker.ageLabel);
+    }
+
+    renderChart();
+    window.addEventListener("resize", renderChart);
+  </script>
+</body>
+</html>
