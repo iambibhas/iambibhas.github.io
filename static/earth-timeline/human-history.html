@@ -71,7 +71,24 @@
       stroke-width: 4px;
     }
     .timeline-marker circle { fill: var(--panel); }
+    .milestones {
+      margin-top: 28px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 0.85rem;
+      background: var(--panel);
+      box-shadow: 0 12px 40px rgba(31, 26, 20, 0.06);
+    }
+    .milestones h2 { margin: 0 0 18px; font-size: 1.45rem; }
+    .milestone-list { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+    .milestone-list li { display: grid; grid-template-columns: minmax(9rem, 0.28fr) 1fr; gap: 16px; line-height: 1.5; }
+    .milestone-date { color: var(--accent); font-weight: 600; }
+    .milestone-detail { color: var(--muted); }
     .related { margin: 16px 0 0; font-size: 0.95rem; }
+    @media (max-width: 600px) {
+      .milestones { padding: 18px; }
+      .milestone-list li { grid-template-columns: 1fr; gap: 2px; }
+    }
     @media (max-width: 600px) {
       main { margin: 32px auto; }
       #timeline { min-width: 760px; }
@@ -87,6 +104,30 @@
     <div class="chart">
       <svg id="timeline" role="img" aria-label="Human history timeline using a true linear time scale"></svg>
     </div>
+    <section class="milestones" aria-labelledby="milestones-title">
+      <h2 id="milestones-title">From Homo sapiens to the present</h2>
+      <p class="milestones-intro">A selective global overview: dates are approximate, and developments unfolded differently across societies.</p>
+      <ol class="milestone-list">
+        <li><span class="milestone-date">About 300,000 years ago</span><span><strong>Homo sapiens emerge.</strong> Our species evolves in Africa; stone tools and fire already have much older histories among earlier human species.</span></li>
+        <li><span class="milestone-date">Beginning about 115,000 years ago</span><span><strong>The Last Glacial Period.</strong> Ice sheets expanded and sea levels fell. At its coldest point, about 26,000–19,000 years ago, global sea level was roughly 120 metres lower than today.</span></li>
+        <li><span class="milestone-date">About 100,000–50,000 years ago</span><span><strong>Symbolic culture becomes more visible.</strong> Pigments, beads, and other artifacts show people expressing identity and building social connections. The evidence is uneven and does not mark a single sudden “cognitive revolution.”</span></li>
+        <li><span class="milestone-date">About 70,000–50,000 years ago</span><span><strong>Major expansions beyond Africa.</strong> Groups spread into new regions and interbred with Neanderthals and Denisovans; human settlement of the world continued over many millennia.</span></li>
+        <li><span class="milestone-date">About 50,000–20,000 years ago</span><span><strong>Tools and cultural traditions diversify.</strong> People develop specialized bone and stone tools, including needles and fishing equipment, and create art in many regions.</span></li>
+        <li><span class="milestone-date">About 15,000–12,000 years ago</span><span><strong>Some communities become more settled.</strong> In places with abundant wild food, groups such as the Natufians build substantial settlements before farming becomes widespread.</span></li>
+        <li><span class="milestone-date">From about 12,000 years ago</span><span><strong>Farming and domestication begin.</strong> These changes arise at different times in multiple regions. Food production and storage support growing villages, but many communities continue to forage.</span></li>
+        <li><span class="milestone-date">About 11,700 years ago</span><span><strong>The Last Glacial Period ends.</strong> After warming had begun around 20,000 years ago, the ice sheets continued to retreat. This marks the start of the Holocene, the current interglacial period, when sea levels continued to rise.</span></li>
+        <li><span class="milestone-date">Around 5000 BCE</span><span><strong>Farming communities and exchange expand.</strong> Across several regions, settled villages grow and craft production and long-distance exchange develop in distinct ways; copper working is established in some societies.</span></li>
+        <li><span class="milestone-date">About 3500–3000 BCE</span><span><strong>Urban life and writing emerge.</strong> In Mesopotamia, settlements such as Uruk grow into cities with specialized work and central institutions; early writing develops around 3400–3200 BCE. Earlier large settlements such as Jericho are sometimes called towns or proto-cities, depending on the definition.</span></li>
+        <li><span class="milestone-date">About 3000–1200 BCE</span><span><strong>Bronze Age states and trade networks flourish.</strong> Complex states and regional exchange systems develop in places including Mesopotamia, Egypt, the Indus Valley, and China, on different timelines.</span></li>
+        <li><span class="milestone-date">About 1200–500 BCE</span><span><strong>Ironworking and new political traditions spread.</strong> Iron tools become widespread across parts of Africa and Eurasia, while kingdoms and empires rise and fall across many regions.</span></li>
+        <li><span class="milestone-date">About 500 BCE–500 CE</span><span><strong>Large empires and enduring traditions shape connected worlds.</strong> The Achaemenid, Mauryan, Han, and Roman empires are among the major powers of this era; Buddhism, Christianity, and other religious and philosophical traditions spread across regions.</span></li>
+        <li><span class="milestone-date">About 500–1500 CE</span><span><strong>Trade, scholarship, and state-building link distant societies.</strong> Major networks connect Africa, Asia, Europe, and the Americas; Islamic societies become important centers of learning, commerce, and political power.</span></li>
+        <li><span class="milestone-date">About 1400s–1700s</span><span><strong>Oceanic expansion reshapes the world.</strong> European colonialism and conquest connect the continents through migration, trade, and the Columbian Exchange, while also driving dispossession, epidemic disease, and the forced enslavement of millions.</span></li>
+        <li><span class="milestone-date">About 1700s–1800s</span><span><strong>Industrialization transforms work and daily life.</strong> Fossil-fuel-powered machines, factories, and railways accelerate urbanization and production. Political revolutions and abolition movements challenge established systems, even as colonial empires expand.</span></li>
+        <li><span class="milestone-date">The 1900s</span><span><strong>War, decolonization, and rapid technological change reshape societies.</strong> Two world wars, the nuclear age, and independence movements alter global politics; electricity, sanitation, vaccines, antibiotics, aviation, and computing transform life.</span></li>
+        <li><span class="milestone-date">2000s–present</span><span><strong>Digital networks connect billions.</strong> Mobile internet, social media, and advances in computing and biotechnology accelerate change. At the same time, climate change and biodiversity loss pose growing global challenges.</span></li>
+      </ol>
+    </section>
     <p class="related">Positions use a true linear scale: equal distances represent equal amounts of time, so recent milestones cluster near the present. <a href="index.html">← Back to the Earth Timeline</a></p>
   </main>
 
@@ -138,10 +179,11 @@
       { label: "Homo sapiens emerge", age: 300000, ageLabel: "about 300,000 years ago", color: "#e57373", placement: "below" },
       { label: "Last Glacial Period begins", age: 115000, ageLabel: "about 115,000 years ago", color: "#64b5f6", placement: "above" },
       { label: "Humans leave Africa", age: 70000, ageLabel: "about 70,000 years ago", color: "#64b5f6", placement: "above" },
-      { label: "Agriculture begins", age: 12000, ageLabel: "about 12,000 years ago", color: "#64b5f6", placement: "below" },
-      { label: "Last Glacial Period ends", age: 11700, ageLabel: "about 11,700 years ago", color: "#ef9a9a", placement: "above" },
-      { label: "First cities and writing", age: 5000, ageLabel: "about 5,000 years ago", color: "#ffd54f", placement: "above" },
-      { label: "Today", age: 0, ageLabel: "present", color: "#fbc02d", placement: "below", align: "end" }
+      { label: "Agriculture begins", age: 12000, ageLabel: "about 12,000 years ago", color: "#64b5f6", placement: "below", align: "end" },
+      { label: "Last Glacial Period ends", age: 11700, ageLabel: "about 11,700 years ago", color: "#ef9a9a", placement: "above", align: "start" },
+      { label: "First cities and writing", age: 5000, ageLabel: "about 5,000 years ago", color: "#ffd54f", placement: "below", align: "end" },
+      { label: "Industrial Revolution", age: 250, ageLabel: "about 250 years ago", color: "#ff8a80", placement: "below", align: "middle" },
+      { label: "Today", age: 0, ageLabel: "present", color: "#fbc02d", placement: "above", align: "end" }
     ];
 
     const svg = d3.select("#timeline");
