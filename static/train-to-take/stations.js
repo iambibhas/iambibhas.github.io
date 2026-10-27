@@ -30,6 +30,7 @@ const STATIONS = {
   SUR: ["Solapur", 17.675, 75.897], GR: ["Kalaburagi", 17.333, 76.826],
   SAT: ["Satara", 17.686, 74.006], MRJ: ["Miraj", 16.825, 74.646], BGM: ["Belagavi", 15.857, 74.506],
   DWR: ["Dharwad", 15.451, 75.014], SSS: ["Hubballi", 15.353, 75.138],
+  TK: ["Tumakuru", 13.342, 77.109], DVG: ["Davangere", 14.469, 75.922], HVR: ["Haveri", 14.793, 75.403],
   CHI: ["Chiplun", 17.531, 73.517], RN: ["Ratnagiri", 16.993, 73.3], KKW: ["Kankavli", 16.268, 73.709],
   THVM: ["Thivim", 15.61, 73.84], MAO: ["Madgaon", 15.27, 73.958], KAWR: ["Karwar", 14.81, 74.13],
   UD: ["Udupi", 13.345, 74.745], MAQ: ["Mangaluru Central", 12.87, 74.845],
@@ -58,5 +59,15 @@ const STATIONS = {
   BLS: ["Balasore", 21.494, 86.933], CTC: ["Cuttack", 20.466, 85.883], BBS: ["Bhubaneswar", 20.25, 85.844], PURI: ["Puri", 19.798, 85.826],
   BAM: ["Brahmapur", 19.32, 84.79],
   KLK: ["Kalka", 30.842, 76.937], BRG: ["Barog", 30.887, 77.012], SOLN: ["Solan", 30.908, 77.097], SML: ["Shimla", 31.101, 77.169],
-  SGUJ: ["Siliguri Jn", 26.711, 88.43], KU: ["Kurseong", 26.88, 88.277], GHUM: ["Ghum", 27.0, 88.25], DJ: ["Darjeeling", 27.043, 88.264]
+  SGUJ: ["Siliguri Jn", 26.711, 88.43], KU: ["Kurseong", 26.88, 88.277], GHUM: ["Ghum", 27.0, 88.25], DJ: ["Darjeeling", 27.043, 88.264],
+  AADR: ["Amb Andaura", 31.673, 76.144], AJNI: ["Ajni (Nagpur)", 21.124, 79.056], AYC: ["Ayodhya Cantt", 26.797, 82.204],
+  BKN: ["Bikaner", 28.017, 73.311], BNC: ["Bengaluru Cantt", 12.991, 77.598], BNRS: ["Banaras", 25.268, 82.991],
+  DGHR: ["Deoghar", 24.492, 86.700], DLI: ["Delhi", 28.661, 77.228], DNR: ["Danapur", 25.626, 85.042],
+  FZR: ["Firozpur Cantt", 30.925, 74.613], GTNR: ["Gomti Nagar", 26.870, 81.006], JBN: ["Jogbani", 26.399, 87.265],
+  JMP: ["Jamalpur", 25.312, 86.488], KLBG: ["Kalaburagi", 17.335, 76.835], KOP: ["Kolhapur", 16.705, 74.241],
+  KURJ: ["Khajuraho", 24.85, 79.92], LJN: ["Lucknow Junction", 26.84, 80.922], NED: ["Hazur Sahib Nanded", 19.16, 77.32],
+  NS: ["Narasapur", 16.433, 81.698], OKHA: ["Okha", 22.467, 69.07], PPTA: ["Patliputra", 25.59, 85.09],
+  REWA: ["Rewa", 24.537, 81.30], ROU: ["Rourkela", 22.227, 84.853], SBC: ["KSR Bengaluru", 12.978, 77.568],
+  SBIB: ["Sabarmati BG", 23.071, 72.584], SBT: ["Sabarmati Jn", 23.075, 72.59], SMVB: ["SMVT Bengaluru", 12.988, 77.57],
+  UBL: ["SSS Hubballi", 15.364, 75.123], VRL: ["Veraval", 20.904, 70.367]
 };

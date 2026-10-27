@@ -1,9 +1,9 @@
 // Builds static/train-to-take/geometry.js: real rail track geometry for every
 // consecutive stop pair used by TRAINS, snapped from OpenStreetMap data.
 //
-// Usage:  node tools/train-to-take/build-geometry.mjs
+// Usage:  node tools/train-to-take/build-geometry.mjs [--refresh]
 // Raw Overpass tiles are cached in tools/train-to-take/.cache so reruns are fast.
-// Delete that folder to refresh from OSM.
+// By default only missing geometries are fetched; --refresh reroutes all active segments.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -27,9 +27,9 @@ const SIMPLIFY_DEG = 0.0004; // ~40 m Douglas-Peucker tolerance
 const MAX_DETOUR = 3;        // path longer than this x straight distance => keep straight line
 
 // ---------- load data files ----------
-const src = ["stations.js", "trains-vande-bharat.js", "trains-vistadome.js"]
+const src = ["stations.js", "trains-vande-bharat.js", "trains-vistadome.js", "geometry.js"]
   .map(f => fs.readFileSync(path.join(dataDir, f), "utf8")).join("\n");
-const { STATIONS, TRAINS } = vm.runInNewContext(src + "\n;({ STATIONS, TRAINS })");
+const { STATIONS, TRAINS, ROUTE_GEOMETRY } = vm.runInNewContext(src + "\n;({ STATIONS, TRAINS, ROUTE_GEOMETRY })");
 
 const pairs = new Map(); // "A|B" (sorted) -> [A, B]
 TRAINS.forEach(t => {
@@ -38,7 +38,9 @@ TRAINS.forEach(t => {
     pairs.set(a + "|" + b, [a, b]);
   }
 });
-console.log(`${pairs.size} unique segments`);
+const refresh = process.argv.includes("--refresh");
+const missingPairs = [...pairs].filter(([key]) => refresh || !ROUTE_GEOMETRY[key]);
+console.log(`${pairs.size} unique segments; fetching ${missingPairs.length} ${refresh ? "for refresh" : "missing OSM geometries"}`);
 
 // ---------- helpers ----------
 const R = 6371;
@@ -52,7 +54,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 // ---------- decide which tiles are needed ----------
 const tiles = new Set();
 const tileKey = (la, lo) => `${Math.floor(la / TILE)}_${Math.floor(lo / TILE)}`;
-for (const [a, b] of pairs.values()) {
+for (const [, [a, b]] of missingPairs) {
   const [, la1, lo1] = STATIONS[a], [, la2, lo2] = STATIONS[b];
   const steps = Math.max(2, Math.ceil(km(la1, lo1, la2, lo2) / 25));
   for (let i = 0; i <= steps; i++) {
@@ -221,9 +223,9 @@ function simplify(pts, tol) {
 }
 
 // ---------- route every segment ----------
-const result = {};
+const result = { ...ROUTE_GEOMETRY };
 const fallback = [];
-for (const [key, [a, b]] of pairs) {
+for (const [key, [a, b]] of missingPairs) {
   const straight = km(STATIONS[a][1], STATIONS[a][2], STATIONS[b][1], STATIONS[b][2]);
   const r = route(a, b, straight * MAX_DETOUR + 5);
   if (!r) { fallback.push(`${key} (no path within ${(straight * MAX_DETOUR + 5).toFixed(0)} km)`); continue; }
@@ -231,7 +233,8 @@ for (const [key, [a, b]] of pairs) {
   const full = [[STATIONS[a][1], STATIONS[a][2]], ...r.pts, [STATIONS[b][1], STATIONS[b][2]]];
   result[key] = simplify(full, SIMPLIFY_DEG).map(p => [+p[0].toFixed(4), +p[1].toFixed(4)]);
 }
-console.log(`routed ${Object.keys(result).length}/${pairs.size} segments`);
+const covered = [...pairs.keys()].filter(key => result[key]).length;
+console.log(`OSM geometry available for ${covered}/${pairs.size} active segments`);
 if (fallback.length) console.log("kept as straight lines:\n  " + fallback.join("\n  "));
 
 const lines = Object.keys(result).sort().map(k => `  ${JSON.stringify(k)}: ${JSON.stringify(result[k])}`);

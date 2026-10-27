@@ -56,6 +56,9 @@ ul.stops li::before { content: ""; position: absolute; left: -22px; top: 11px; w
 .train-no { display: inline-block; min-width: 4.2rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .train-numbers { margin: 0 0 8px; color: var(--ink); }
 .train-numbers small { color: var(--muted); }
+.journey { margin: 0 0 8px; }
+.journey small, .stop-time { color: var(--muted); }
+.stop-time { display: block; font-variant-numeric: tabular-nums; }
 h2 { font-size: 1.15rem; margin: 4px 0 8px; }
 h3 { font-size: 0.78rem; font-family: "Source Sans 3", system-ui, sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 14px 0 0; }
 .tag { font-family: "Source Sans 3", system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; color: #fff; margin-left: 4px; vertical-align: middle; }

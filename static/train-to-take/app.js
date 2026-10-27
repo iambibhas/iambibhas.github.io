@@ -81,9 +81,40 @@ function trainPath(t) {
   return pts;
 }
 
+// Approximate timings (timings.js, from Wikipedia): journey time, distance, frequency,
+// and per-stop times where a timetable exists in the direction this route is drawn.
+const TIM = typeof TIMINGS !== "undefined" ? TIMINGS : {};
+const STATION_ALIAS = { SBC: "KSR", UBL: "SSS" };
+const stationKey = code => STATION_ALIAS[code] || code;
+function timingFor(t) {
+  const nums = (t.number || "").split("/").map(s => s.trim()).filter(Boolean);
+  const infos = nums.map(n => TIM[n]).filter(Boolean);
+  if (!infos.length) return null;
+  const routeOrigin = stationKey(t.stops[0]);
+  const base = infos.find(i => stationKey(i.origin) === routeOrigin) || infos[0];
+  const withStops = base.stops.length && stationKey(base.stops[0].c) === routeOrigin ? base : null;
+  const times = {};
+  if (withStops) withStops.stops.forEach(s => {
+    times[s.c] = s;
+    const routeCode = t.stops.find(code => stationKey(code) === stationKey(s.c));
+    if (routeCode) times[routeCode] = s;
+  });
+  return {
+    journey: base.journey, km: base.km, freq: base.freq, times, hasTimes: !!withStops,
+    departure: base.departure, arrival: base.arrival, halts: base.halts,
+    speed: base.speed, classes: base.classes
+  };
+}
+function stopTime(tm, code) {
+  const s = tm && tm.times[code];
+  if (!s) return "";
+  const parts = [s.a && `arr ${s.a}`, s.d && `dep ${s.d}`].filter(Boolean).join(" · ");
+  return parts ? ` <small class="stop-time">${parts}</small>` : "";
+}
+
 TRAINS.forEach(t => {
   const line = L.polyline(trainPath(t), { color: COLORS[t.type], weight: 3, opacity: 0.75 })
-    .bindTooltip(esc(t.number ? `${t.number} · ${t.name}` : t.name), { sticky: true })
+    .bindTooltip(esc([t.number, t.name, (timingFor(t) || {}).journey].filter(Boolean).join(" · ")), { sticky: true })
     .on("click", () => showTrain(t.id))
     .addTo(groups[t.type]);
   lineLayers[t.id] = line;
@@ -109,8 +140,9 @@ function showHome() {
   content.innerHTML = `<p class="hint">Click a <b>station</b> on the map to see the Vande Bharat trains connecting there,
     then click a train name to see its route and stations.<br><br>
     Showing ${vb} Vande Bharat and ${vd} Vistadome trains.</p>
-    <p class="note">Indicative data: station positions are approximate, routes follow track geometry from
-    OpenStreetMap (straight lines where unavailable), and stop lists may not match the latest timetable.</p>`;
+    <p class="note">Indicative data from vb.txt: terminal schedules and halt counts are shown where available;
+    temporary festival specials are excluded. Intermediate stop lists are curated and may not match the latest
+    timetable; routes use OpenStreetMap geometry where available and straight lines otherwise.</p>`;
 }
 
 function showStation(code) {
@@ -128,33 +160,42 @@ function showStation(code) {
 
 function showTrain(id) {
   const t = TRAINS[id];
+  const tm = timingFor(t);
   selectedTrain = id;
   restyle();
   map.fitBounds(lineLayers[id].getBounds(), { padding: [60, 60] });
   content.innerHTML = `<button class="link back" data-home>← All trains</button>
     <h2>${esc(t.name)} <span class="tag ${t.type}">${LABEL[t.type]}</span></h2>
     ${t.number ? `<p class="train-numbers">Train no. <b>${esc(t.number)}</b> <small>(use on IRCTC)</small></p>` : ""}
-    <p class="hint">${t.stops.length} stations: ${esc(STATIONS[t.stops[0]][0])} → ${esc(STATIONS[t.stops[t.stops.length - 1]][0])}</p>
+    ${tm && (tm.journey || tm.departure || tm.arrival || tm.km || tm.freq) ? `<p class="journey">${[
+      tm.departure && `Dep ${esc(tm.departure)}`, tm.arrival && `Arr ${esc(tm.arrival)}`,
+      tm.journey && `<b>${esc(tm.journey)}</b>`, tm.km && `${tm.km} km`,
+      tm.halts !== undefined && `${tm.halts} halts`, tm.speed && `${tm.speed} km/h`,
+      tm.classes && esc(tm.classes), tm.freq && esc(tm.freq)
+    ].filter(Boolean).join(" · ")} <small>(approx.)</small></p>` : ""}
+    <p class="hint">${t.stops.length} named stations: ${esc(STATIONS[t.stops[0]][0])} → ${esc(STATIONS[t.stops[t.stops.length - 1]][0])}</p>
     <ul class="stops" style="--c:${COLORS[t.type]}">
-      ${t.stops.map(c => `<li><button class="link" data-station="${c}">${esc(STATIONS[c][0])}</button> <small>${c}</small></li>`).join("")}
-    </ul>`;
+      ${t.stops.map(c => `<li><button class="link" data-station="${c}">${esc(STATIONS[c][0])}</button> <small>${c}</small>${stopTime(tm, c)}</li>`).join("")}
+    </ul>
+    ${tm && tm.hasTimes ? `<p class="note">Times are indicative; check IRCTC or NTES for the current timetable.</p>` : ""}`;
 }
 
-// highlight selected train, dim the rest
+// Highlight the selected train without hiding anything else: every route and station
+// stays visible, and the selected route gets a white halo + thicker coloured line on top.
+let highlight = null;
 function restyle() {
-  TRAINS.forEach(t => {
-    const sel = selectedTrain === null || selectedTrain === t.id;
-    lineLayers[t.id].setStyle({
-      opacity: sel ? (selectedTrain === null ? 0.75 : 1) : 0.12,
-      weight: selectedTrain === t.id ? 6 : 3
-    });
-    if (selectedTrain === t.id) lineLayers[t.id].bringToFront();
-  });
-  Object.keys(stationMarkers).forEach(code => {
-    const on = selectedTrain === null || TRAINS[selectedTrain].stops.includes(code);
-    stationMarkers[code].setStyle({ opacity: on ? 1 : 0.2, fillOpacity: on ? 1 : 0.2 });
-    if (on) stationMarkers[code].bringToFront();
-  });
+  if (highlight) { highlight.forEach(l => map.removeLayer(l)); highlight = null; }
+  if (selectedTrain !== null) {
+    const t = TRAINS[selectedTrain], pts = lineLayers[selectedTrain].getLatLngs();
+    highlight = [
+      L.polyline(pts, { color: "#fff", weight: 10, opacity: 0.95, interactive: false }),
+      L.polyline(pts, { color: COLORS[t.type], weight: 6, opacity: 1, interactive: false })
+    ];
+    highlight.forEach(l => l.addTo(map));
+  }
+  // keep station dots above the lines, and the selected train's stops above the rest
+  Object.keys(stationMarkers).forEach(code => stationMarkers[code].bringToFront());
+  if (selectedTrain !== null) TRAINS[selectedTrain].stops.forEach(c => stationMarkers[c].bringToFront());
 }
 
 // layer toggles
@@ -184,7 +225,7 @@ content.addEventListener("click", e => {
   if (!b) return;
   if (b.dataset.train !== undefined) showTrain(+b.dataset.train);
   else if (b.dataset.station) showStation(b.dataset.station);
-  else if ("home" in b.dataset) { document.getElementById("search").value = ""; showHome(); map.setView([22.5, 79], 5); }
+  else if ("home" in b.dataset) { document.getElementById("search").value = ""; showHome(); }
 });
 
 showHome();

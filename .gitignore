@@ -1,3 +1,4 @@
 *.lock
 public
 tools/train-to-take/.cache
+tools/train-to-take/.cache-wiki
