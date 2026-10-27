@@ -81,8 +81,7 @@ function trainPath(t) {
   return pts;
 }
 
-// Approximate timings (timings.js, from Wikipedia): journey time, distance, frequency,
-// and per-stop times where a timetable exists in the direction this route is drawn.
+// Approximate total journey durations from timings.js.
 const TIM = typeof TIMINGS !== "undefined" ? TIMINGS : {};
 const STATION_ALIAS = { SBC: "KSR", UBL: "SSS" };
 const stationKey = code => STATION_ALIAS[code] || code;
@@ -92,24 +91,7 @@ function timingFor(t) {
   if (!infos.length) return null;
   const routeOrigin = stationKey(t.stops[0]);
   const base = infos.find(i => stationKey(i.origin) === routeOrigin) || infos[0];
-  const withStops = base.stops.length && stationKey(base.stops[0].c) === routeOrigin ? base : null;
-  const times = {};
-  if (withStops) withStops.stops.forEach(s => {
-    times[s.c] = s;
-    const routeCode = t.stops.find(code => stationKey(code) === stationKey(s.c));
-    if (routeCode) times[routeCode] = s;
-  });
-  return {
-    journey: base.journey, km: base.km, freq: base.freq, times, hasTimes: !!withStops,
-    departure: base.departure, arrival: base.arrival, halts: base.halts,
-    speed: base.speed, classes: base.classes
-  };
-}
-function stopTime(tm, code) {
-  const s = tm && tm.times[code];
-  if (!s) return "";
-  const parts = [s.a && `arr ${s.a}`, s.d && `dep ${s.d}`].filter(Boolean).join(" · ");
-  return parts ? ` <small class="stop-time">${parts}</small>` : "";
+  return base.journey ? { journey: base.journey } : null;
 }
 
 TRAINS.forEach(t => {
@@ -140,9 +122,9 @@ function showHome() {
   content.innerHTML = `<p class="hint">Click a <b>station</b> on the map to see the Vande Bharat trains connecting there,
     then click a train name to see its route and stations.<br><br>
     Showing ${vb} Vande Bharat and ${vd} Vistadome trains.</p>
-    <p class="note">Indicative data from vb.txt: terminal schedules and halt counts are shown where available;
-    temporary festival specials are excluded. Intermediate stop lists are curated and may not match the latest
-    timetable; routes use OpenStreetMap geometry where available and straight lines otherwise.</p>`;
+    <p class="note">Approximate total journey durations are shown where available. Temporary festival specials are excluded.
+    Intermediate stop lists are curated and may not match the latest timetable; routes use OpenStreetMap geometry
+    where available and straight lines otherwise.</p>`;
 }
 
 function showStation(code) {
@@ -167,17 +149,11 @@ function showTrain(id) {
   content.innerHTML = `<button class="link back" data-home>← All trains</button>
     <h2>${esc(t.name)} <span class="tag ${t.type}">${LABEL[t.type]}</span></h2>
     ${t.number ? `<p class="train-numbers">Train no. <b>${esc(t.number)}</b> <small>(use on IRCTC)</small></p>` : ""}
-    ${tm && (tm.journey || tm.departure || tm.arrival || tm.km || tm.freq) ? `<p class="journey">${[
-      tm.departure && `Dep ${esc(tm.departure)}`, tm.arrival && `Arr ${esc(tm.arrival)}`,
-      tm.journey && `<b>${esc(tm.journey)}</b>`, tm.km && `${tm.km} km`,
-      tm.halts !== undefined && `${tm.halts} halts`, tm.speed && `${tm.speed} km/h`,
-      tm.classes && esc(tm.classes), tm.freq && esc(tm.freq)
-    ].filter(Boolean).join(" · ")} <small>(approx.)</small></p>` : ""}
+    ${tm && tm.journey ? `<p class="journey">Total travel time: <b>${esc(tm.journey)}</b> <small>(approx.)</small></p>` : ""}
     <p class="hint">${t.stops.length} named stations: ${esc(STATIONS[t.stops[0]][0])} → ${esc(STATIONS[t.stops[t.stops.length - 1]][0])}</p>
     <ul class="stops" style="--c:${COLORS[t.type]}">
-      ${t.stops.map(c => `<li><button class="link" data-station="${c}">${esc(STATIONS[c][0])}</button> <small>${c}</small>${stopTime(tm, c)}</li>`).join("")}
-    </ul>
-    ${tm && tm.hasTimes ? `<p class="note">Times are indicative; check IRCTC or NTES for the current timetable.</p>` : ""}`;
+      ${t.stops.map(c => `<li><button class="link" data-station="${c}">${esc(STATIONS[c][0])}</button> <small>${c}</small></li>`).join("")}
+    </ul>`;
 }
 
 // Highlight the selected train without hiding anything else: every route and station

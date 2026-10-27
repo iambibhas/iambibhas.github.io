@@ -31,5 +31,5 @@ const show = prefix => {
   vm.runInContext(`showTrain(${index})`, ctx);
   console.log(`--- ${prefix}\n` + els.content.innerHTML.replace(/\s+/g, " ").trim().slice(0, 1100) + "\n");
 };
-["22225", "22439", "12123"].forEach(show);
+["22225", "22439", "12123", "20678", "20830", "20642", "20977", "20645", "22229", "12051"].forEach(show);
 console.log("OK: app.js ran without errors");

@@ -209,6 +209,14 @@ const TRAINS = [
     "type": "VB",
     "stops": [
       "AII",
+      "KSG",
+      "JP",
+      "GADJ",
+      "AWR",
+      "RE",
+      "GGN",
+      "DEC",
+      "UMB",
       "CDG"
     ]
   },
@@ -245,8 +253,11 @@ const TRAINS = [
     "stops": [
       "CSMT",
       "DR",
+      "TNA",
       "PNVL",
+      "KHED",
       "RN",
+      "KKW",
       "THVM",
       "MAO"
     ]
@@ -379,6 +390,13 @@ const TRAINS = [
     "type": "VB",
     "stops": [
       "NS",
+      "BVRT",
+      "GDV",
+      "BZA",
+      "TEL",
+      "OGL",
+      "NLR",
+      "RU",
       "MAS"
     ]
   },
@@ -446,6 +464,11 @@ const TRAINS = [
     "type": "VB",
     "stops": [
       "CBE",
+      "TUP",
+      "ED",
+      "SA",
+      "DPJ",
+      "HSRA",
       "BNC"
     ]
   },
@@ -625,6 +648,15 @@ const TRAINS = [
     "type": "VB",
     "stops": [
       "VSKP",
+      "VZM",
+      "PVP",
+      "RGDA",
+      "KSNG",
+      "TIG",
+      "KBJ",
+      "KRAR",
+      "MSMD",
+      "R",
       "DURG"
     ]
   },

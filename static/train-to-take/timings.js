@@ -3,7 +3,7 @@
 // Terminal schedules and service details are indicative; check the current timetable.
 const TIMINGS = {
   "12051": {
-    "journey": "",
+    "journey": "9h 20m",
     "km": null,
     "freq": "Daily service",
     "stops": []
@@ -588,7 +588,7 @@ const TIMINGS = {
   },
   "20678": {
     "journey": "8h 55m",
-    "km": 652,
+    "km": 655,
     "freq": "Daily",
     "origin": "NS",
     "destination": "MAS",
@@ -597,7 +597,17 @@ const TIMINGS = {
     "halts": 7,
     "speed": 73,
     "classes": "CC Ex",
-    "stops": []
+    "stops": [
+      { "c": "NS", "a": "", "d": "14:50", "k": 0 },
+      { "c": "BVRT", "a": "15:19", "d": "15:20", "k": 31 },
+      { "c": "GDV", "a": "16:04", "d": "16:05", "k": 95 },
+      { "c": "BZA", "a": "16:50", "d": "16:55", "k": 139 },
+      { "c": "TEL", "a": "17:19", "d": "17:20", "k": 170 },
+      { "c": "OGL", "a": "18:29", "d": "18:30", "k": 277 },
+      { "c": "NLR", "a": "19:39", "d": "19:40", "k": 393 },
+      { "c": "RU", "a": "21:50", "d": "21:55", "k": 515 },
+      { "c": "MAS", "a": "23:45", "d": "", "k": 655 }
+    ]
   },
   "20701": {
     "journey": "8h 25m",

@@ -106,7 +106,7 @@ for (const record of servicePairs.values()) {
 }
 
 Object.assign(timings, {
-  "12051": { journey: "", km: null, freq: "Daily service", stops: [] },
+  "12051": { journey: "9h 20m", km: null, freq: "Daily service", stops: [] },
   "12052": { journey: "", km: null, freq: "Daily service", stops: [] },
   "12123": { journey: "3h 10m", km: 192, freq: "Daily", stops: [] },
   "12124": { journey: "3h 10m", km: 192, freq: "Daily", stops: [] },

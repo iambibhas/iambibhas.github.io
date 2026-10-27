@@ -26,6 +26,28 @@ const SNAP_PENALTY = 4;      // off-track distance counts extra so we prefer the
 const SIMPLIFY_DEG = 0.0004; // ~40 m Douglas-Peucker tolerance
 const MAX_DETOUR = 3;        // path longer than this x straight distance => keep straight line
 
+// OSM routing waypoints only; these do not imply scheduled train halts.
+const ROUTE_WAYPOINTS = {
+  "NK|SNSI": [[20.274634105364285, 74.45451383761021]],
+  "MAQ|UD": [[12.9902433, 74.8053518], [13.068962, 74.8052836]],
+  "CHI|PNVL": [
+    [17.6210548, 73.3997311],
+    [17.7125696, 73.4106638],
+    [17.9148403, 73.3836239],
+    [18.1137454, 73.3305792],
+    [18.1626135, 73.3030008],
+    [18.247448, 73.275442],
+    [18.44658, 73.1238722]
+  ],
+  "KHED|PNVL": [
+    [17.9148403, 73.3836239],
+    [18.1137454, 73.3305792],
+    [18.1626135, 73.3030008],
+    [18.247448, 73.275442],
+    [18.44658, 73.1238722]
+  ]
+};
+
 // ---------- load data files ----------
 const src = ["stations.js", "trains-vande-bharat.js", "trains-vistadome.js", "geometry.js"]
   .map(f => fs.readFileSync(path.join(dataDir, f), "utf8")).join("\n");
@@ -54,12 +76,15 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 // ---------- decide which tiles are needed ----------
 const tiles = new Set();
 const tileKey = (la, lo) => `${Math.floor(la / TILE)}_${Math.floor(lo / TILE)}`;
-for (const [, [a, b]] of missingPairs) {
-  const [, la1, lo1] = STATIONS[a], [, la2, lo2] = STATIONS[b];
-  const steps = Math.max(2, Math.ceil(km(la1, lo1, la2, lo2) / 25));
-  for (let i = 0; i <= steps; i++) {
-    const la = la1 + (la2 - la1) * i / steps, lo = lo1 + (lo2 - lo1) * i / steps;
-    for (const dla of [-0.5, 0, 0.5]) for (const dlo of [-0.5, 0, 0.5]) tiles.add(tileKey(la + dla, lo + dlo));
+for (const [key, [a, b]] of missingPairs) {
+  const coords = [[STATIONS[a][1], STATIONS[a][2]], ...(ROUTE_WAYPOINTS[key] || []), [STATIONS[b][1], STATIONS[b][2]]];
+  for (let j = 0; j < coords.length - 1; j++) {
+    const [la1, lo1] = coords[j], [la2, lo2] = coords[j + 1];
+    const steps = Math.max(2, Math.ceil(km(la1, lo1, la2, lo2) / 25));
+    for (let i = 0; i <= steps; i++) {
+      const la = la1 + (la2 - la1) * i / steps, lo = lo1 + (lo2 - lo1) * i / steps;
+      for (const dla of [-0.5, 0, 0.5]) for (const dlo of [-0.5, 0, 0.5]) tiles.add(tileKey(la + dla, lo + dlo));
+    }
   }
 }
 console.log(`${tiles.size} tiles to load`);
@@ -154,10 +179,9 @@ class Heap {
 
 // ---------- station snapping ----------
 const snapCache = {};
-function nearNodes(code, radius) {
-  const ck = code + "@" + radius;
+function nearNodesAt([la, lo], radius) {
+  const ck = la + "," + lo + "@" + radius;
   if (snapCache[ck]) return snapCache[ck];
-  const [, la, lo] = STATIONS[code];
   const out = new Map();
   const deg = radius / 100;
   for (let i = 0; i < lat.length; i++) {
@@ -170,9 +194,9 @@ function nearNodes(code, radius) {
 
 // Try the tightest snap radius first so the line follows the track actually at the
 // station; widen only if that gives no path (or an absurd detour).
-function route(a, b, maxKm) {
+function routeBetween(from, to, maxKm) {
   for (const radius of SNAP_RADII_KM) {
-    const r = routeWith(nearNodes(a, radius), nearNodes(b, radius));
+    const r = routeWith(nearNodesAt(from, radius), nearNodesAt(to, radius));
     if (r && r.km <= maxKm) return r;
   }
   return null;
@@ -226,11 +250,22 @@ function simplify(pts, tol) {
 const result = { ...ROUTE_GEOMETRY };
 const fallback = [];
 for (const [key, [a, b]] of missingPairs) {
-  const straight = km(STATIONS[a][1], STATIONS[a][2], STATIONS[b][1], STATIONS[b][2]);
-  const r = route(a, b, straight * MAX_DETOUR + 5);
-  if (!r) { fallback.push(`${key} (no path within ${(straight * MAX_DETOUR + 5).toFixed(0)} km)`); continue; }
-  // Start/end exactly on the station markers so the line meets the dots.
-  const full = [[STATIONS[a][1], STATIONS[a][2]], ...r.pts, [STATIONS[b][1], STATIONS[b][2]]];
+  const coords = [[STATIONS[a][1], STATIONS[a][2]], ...(ROUTE_WAYPOINTS[key] || []), [STATIONS[b][1], STATIONS[b][2]]];
+  const full = [];
+  let failed = false;
+  for (let i = 0; i < coords.length - 1; i++) {
+    const [from, to] = [coords[i], coords[i + 1]];
+    const straight = km(from[0], from[1], to[0], to[1]);
+    const r = routeBetween(from, to, straight * MAX_DETOUR + 5);
+    if (!r) {
+      fallback.push(`${key} (no path within ${(straight * MAX_DETOUR + 5).toFixed(0)} km)`);
+      failed = true;
+      break;
+    }
+    const part = [from, ...r.pts, to];
+    full.push(...(full.length ? part.slice(1) : part));
+  }
+  if (failed) continue;
   result[key] = simplify(full, SIMPLIFY_DEG).map(p => [+p[0].toFixed(4), +p[1].toFixed(4)]);
 }
 const covered = [...pairs.keys()].filter(key => result[key]).length;
