@@ -17,4 +17,5 @@ I'm also a nature loving person. Hit me up if you want to spend some Sunday morn
 - [Heritage Map](/heritage-map/)
 - [Nearby Hospitals](/nearby-hospitals/)
 - [Bangalore Durga Puja 2026 Map](/puja-blr-2026/)
+- [Vande Bharat & Vistadome Map](/train-to-take/)
 - [Earth Timeline](/earth-timeline/)

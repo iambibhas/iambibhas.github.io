@@ -67,5 +67,9 @@ pygmentscodefencesguesssyntax = true
     href = "/puja-blr-2026/"
 
   [[params.links]]
+    title = "Vande Bharat & Vistadome Map"
+    href = "/train-to-take/"
+
+  [[params.links]]
     title = "Earth Timeline"
     href = "/earth-timeline/"
