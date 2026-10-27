@@ -21,7 +21,8 @@ const ENDPOINTS = [
 ];
 const REQUEST_TIMEOUT_MS = 120000;
 const TILE = 1;              // degrees
-const SNAP_KM = 12;           // how far from the station coordinate a track node may be
+const SNAP_RADII_KM = [0.75, 1.5, 3, 6, 12]; // station -> track snap radii, tightest first
+const SNAP_PENALTY = 4;      // off-track distance counts extra so we prefer the nearest track
 const SIMPLIFY_DEG = 0.0004; // ~40 m Douglas-Peucker tolerance
 const MAX_DETOUR = 3;        // path longer than this x straight distance => keep straight line
 
@@ -151,20 +152,31 @@ class Heap {
 
 // ---------- station snapping ----------
 const snapCache = {};
-function nearNodes(code) {
-  if (snapCache[code]) return snapCache[code];
+function nearNodes(code, radius) {
+  const ck = code + "@" + radius;
+  if (snapCache[ck]) return snapCache[ck];
   const [, la, lo] = STATIONS[code];
   const out = new Map();
+  const deg = radius / 100;
   for (let i = 0; i < lat.length; i++) {
-    if (Math.abs(lat[i] - la) > 0.06 || Math.abs(lon[i] - lo) > 0.06) continue;
+    if (Math.abs(lat[i] - la) > deg || Math.abs(lon[i] - lo) > deg) continue;
     const d = km(la, lo, lat[i], lon[i]);
-    if (d <= SNAP_KM) out.set(i, d);
+    if (d <= radius) out.set(i, d * SNAP_PENALTY);
   }
-  return (snapCache[code] = out);
+  return (snapCache[ck] = out);
 }
 
-function route(a, b) {
-  const from = nearNodes(a), to = nearNodes(b);
+// Try the tightest snap radius first so the line follows the track actually at the
+// station; widen only if that gives no path (or an absurd detour).
+function route(a, b, maxKm) {
+  for (const radius of SNAP_RADII_KM) {
+    const r = routeWith(nearNodes(a, radius), nearNodes(b, radius));
+    if (r && r.km <= maxKm) return r;
+  }
+  return null;
+}
+
+function routeWith(from, to) {
   if (!from.size || !to.size) return null;
   const dist = new Map(), prev = new Map(), heap = new Heap();
   for (const [i, d] of from) { dist.set(i, d); heap.push(d, i); }
@@ -213,12 +225,11 @@ const result = {};
 const fallback = [];
 for (const [key, [a, b]] of pairs) {
   const straight = km(STATIONS[a][1], STATIONS[a][2], STATIONS[b][1], STATIONS[b][2]);
-  const r = route(a, b);
-  if (!r) { fallback.push(`${key} (no path)`); continue; }
-  if (r.km > straight * MAX_DETOUR + 5) {
-    fallback.push(`${key} (detour ${r.km.toFixed(0)} km vs ${straight.toFixed(0)} km straight)`); continue;
-  }
-  result[key] = simplify(r.pts, SIMPLIFY_DEG).map(p => [+p[0].toFixed(4), +p[1].toFixed(4)]);
+  const r = route(a, b, straight * MAX_DETOUR + 5);
+  if (!r) { fallback.push(`${key} (no path within ${(straight * MAX_DETOUR + 5).toFixed(0)} km)`); continue; }
+  // Start/end exactly on the station markers so the line meets the dots.
+  const full = [[STATIONS[a][1], STATIONS[a][2]], ...r.pts, [STATIONS[b][1], STATIONS[b][2]]];
+  result[key] = simplify(full, SIMPLIFY_DEG).map(p => [+p[0].toFixed(4), +p[1].toFixed(4)]);
 }
 console.log(`routed ${Object.keys(result).length}/${pairs.size} segments`);
 if (fallback.length) console.log("kept as straight lines:\n  " + fallback.join("\n  "));

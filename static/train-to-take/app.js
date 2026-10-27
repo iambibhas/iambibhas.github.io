@@ -83,7 +83,7 @@ function trainPath(t) {
 
 TRAINS.forEach(t => {
   const line = L.polyline(trainPath(t), { color: COLORS[t.type], weight: 3, opacity: 0.75 })
-    .bindTooltip(t.name, { sticky: true })
+    .bindTooltip(esc(t.number ? `${t.number} · ${t.name}` : t.name), { sticky: true })
     .on("click", () => showTrain(t.id))
     .addTo(groups[t.type]);
   lineLayers[t.id] = line;
@@ -98,7 +98,8 @@ Object.keys(trainsAt).forEach(code => {
 });
 
 function trainLink(t) {
-  return `<button class="link" data-train="${t.id}">${esc(t.name)}</button>`;
+  const num = t.number ? `<small class="train-no">${esc(t.number)}</small> ` : "";
+  return `${num}<button class="link" data-train="${t.id}">${esc(t.name)}</button>`;
 }
 
 function showHome() {
@@ -132,6 +133,7 @@ function showTrain(id) {
   map.fitBounds(lineLayers[id].getBounds(), { padding: [60, 60] });
   content.innerHTML = `<button class="link back" data-home>← All trains</button>
     <h2>${esc(t.name)} <span class="tag ${t.type}">${LABEL[t.type]}</span></h2>
+    ${t.number ? `<p class="train-numbers">Train no. <b>${esc(t.number)}</b> <small>(use on IRCTC)</small></p>` : ""}
     <p class="hint">${t.stops.length} stations: ${esc(STATIONS[t.stops[0]][0])} → ${esc(STATIONS[t.stops[t.stops.length - 1]][0])}</p>
     <ul class="stops" style="--c:${COLORS[t.type]}">
       ${t.stops.map(c => `<li><button class="link" data-station="${c}">${esc(STATIONS[c][0])}</button> <small>${c}</small></li>`).join("")}
@@ -170,7 +172,7 @@ function restyle() {
 document.getElementById("search").addEventListener("input", e => {
   const q = e.target.value.trim().toLowerCase();
   if (!q) return showHome();
-  const trains = TRAINS.filter(t => t.name.toLowerCase().includes(q));
+  const trains = TRAINS.filter(t => t.name.toLowerCase().includes(q) || (t.number || "").includes(q));
   const stations = Object.keys(trainsAt).filter(c => STATIONS[c][0].toLowerCase().includes(q) || c.toLowerCase() === q);
   content.innerHTML = `<h3>Trains</h3><ul class="list">${trains.map(t => `<li>${trainLink(t)}</li>`).join("") || "<li class='hint'>No match</li>"}</ul>
     <h3>Stations</h3><ul class="list">${stations.map(c => `<li><button class="link" data-station="${c}">${esc(STATIONS[c][0])}</button> <small>${c}</small></li>`).join("") || "<li class='hint'>No match</li>"}</ul>`;

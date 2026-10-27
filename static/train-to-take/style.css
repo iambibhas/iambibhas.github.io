@@ -53,6 +53,9 @@ ul.stops { list-style: none; padding: 0 0 0 14px; margin: 8px 0; border-left: 3p
 ul.stops li { position: relative; padding: 5px 0 5px 10px; }
 ul.stops li::before { content: ""; position: absolute; left: -22px; top: 11px; width: 9px; height: 9px; background: #fff; border: 2px solid var(--c, #1565c0); border-radius: 50%; }
 .back { margin-bottom: 8px; }
+.train-no { display: inline-block; min-width: 4.2rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.train-numbers { margin: 0 0 8px; color: var(--ink); }
+.train-numbers small { color: var(--muted); }
 h2 { font-size: 1.15rem; margin: 4px 0 8px; }
 h3 { font-size: 0.78rem; font-family: "Source Sans 3", system-ui, sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 14px 0 0; }
 .tag { font-family: "Source Sans 3", system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; color: #fff; margin-left: 4px; vertical-align: middle; }
