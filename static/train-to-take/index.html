@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f1e8">
+  <title>Vande Bharat &amp; Vistadome Map of India</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-copy">
+      <h1>Vande Bharat &amp; Vistadome - India</h1>
+      <p class="intro">Explore India's Vande Bharat and Vistadome train routes, stop by stop.</p>
+      <p class="subtitle">Created by <a href="https://bibhasdn.com">Bibhas</a><span class="share-separator" aria-hidden="true"> · </span><a id="whatsapp-share" href="#" target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><span class="share-separator" aria-hidden="true"> · </span><a id="twitter-share" href="#" target="_blank" rel="noopener noreferrer">Share on Twitter</a><span class="share-separator" aria-hidden="true"> · </span><button id="instagram-share" class="share-text-button" type="button">Share on Instagram</button></p>
+      <p id="share-status" class="share-status" aria-live="polite"></p>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside id="panel" aria-label="Trains and stations">
+      <div class="filters">
+        <label><input type="checkbox" id="toggle-VB" checked> <span class="dot vb"></span> Vande Bharat</label>
+        <label><input type="checkbox" id="toggle-VD" checked> <span class="dot vd"></span> Vistadome</label>
+        <label class="search-label" for="search">Search trains and stations</label>
+        <input type="search" id="search" placeholder="Search train or station…" autocomplete="off">
+      </div>
+      <div id="content"></div>
+    </aside>
+    <section class="map-panel" aria-label="Map of train routes">
+      <div id="map" role="application" aria-label="Interactive map showing Vande Bharat and Vistadome routes in India"></div>
+    </section>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="stations.js"></script>
+  <script src="trains-vande-bharat.js"></script>
+  <script src="trains-vistadome.js"></script>
+  <script src="geometry.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
