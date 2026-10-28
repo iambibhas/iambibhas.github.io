@@ -40,7 +40,7 @@ const STATIONS = {
   ADI: ["Ahmedabad", 23.027, 72.601], GNC: ["Gandhinagar Capital", 23.242, 72.647], BRC: ["Vadodara", 22.31, 73.181],
   ST: ["Surat", 21.205, 72.841], SUNR: ["Surendranagar", 22.719, 71.654], RJT: ["Rajkot", 22.308, 70.779], JAM: ["Jamnagar", 22.466, 70.064],
   KSR: ["Bengaluru (KSR)", 12.978, 77.568], YPR: ["Yesvantpur", 13.023, 77.553], MYS: ["Mysuru", 12.317, 76.646],
-  HAS: ["Hassan", 13.003, 76.104], SKLR: ["Sakleshpur", 12.94, 75.78], SBHR: ["Subrahmanya Road", 12.65, 75.57],
+  HAS: ["Hassan", 13.003, 76.104], SKLR: ["Sakleshpur", 12.94, 75.78], SBHR: ["Subrahmanya Road", 12.731557100677426, 75.55780435213525],
   MAS: ["Chennai Central", 13.082, 80.275], MS: ["Chennai Egmore", 13.078, 80.261], KPD: ["Katpadi", 12.973, 79.137],
   SA: ["Salem", 11.667, 78.146], ED: ["Erode", 11.343, 77.728], CBE: ["Coimbatore", 11.001, 76.966], PGT: ["Palakkad", 10.783, 76.656],
   TUP: ["Tiruppur", 11.1082216, 77.3398693], DPJ: ["Dharmapuri", 12.1258613, 78.154221], HSRA: ["Hosur", 12.7183361, 77.8229481],
