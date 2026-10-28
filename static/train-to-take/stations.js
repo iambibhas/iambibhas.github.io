@@ -36,7 +36,7 @@ const STATIONS = {
   CHI: ["Chiplun", 17.531, 73.517], KHED: ["Khed", 17.7125696, 73.4106638], RN: ["Ratnagiri", 16.993, 73.3], KKW: ["Kankavli", 16.268, 73.709],
   KUDL: ["Kudal", 16.0167593, 73.6779418], SWV: ["Sawantwadi Road", 15.8664634, 73.785083],
   THVM: ["Thivim", 15.61, 73.84], MAO: ["Madgaon", 15.27, 73.958], KAWR: ["Karwar", 14.81, 74.13],
-  UD: ["Udupi", 13.345, 74.745], MAQ: ["Mangaluru Central", 12.87, 74.845],
+  UD: ["Udupi", 13.345, 74.745], MAQ: ["Mangaluru Central", 12.87, 74.845], MAJN: ["Mangaluru Junction", 12.866628, 74.879231],
   ADI: ["Ahmedabad", 23.027, 72.601], GNC: ["Gandhinagar Capital", 23.242, 72.647], BRC: ["Vadodara", 22.31, 73.181],
   ST: ["Surat", 21.205, 72.841], SUNR: ["Surendranagar", 22.719, 71.654], RJT: ["Rajkot", 22.308, 70.779], JAM: ["Jamnagar", 22.466, 70.064],
   KSR: ["Bengaluru (KSR)", 12.978, 77.568], YPR: ["Yesvantpur", 13.023, 77.553], MYS: ["Mysuru", 12.317, 76.646],
